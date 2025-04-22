@@ -1,0 +1,12 @@
+<!DOCTYPE codename-engine-stage>
+<stage folder="stages/grace/" zoom="1.05">
+	<sprite scrolly="0" updateHitbox="true" y="-300" sprite="sky" zoomfactor="0" scale="1.5" scrollx="0" name="sky"/>
+	<sprite scrolly="0.2" x="24" y="-191" sprite="mountains" scale="2" scrollx="0.2" name="mountains"/>
+	<sprite x="58" y="-179" sprite="smaller_mountains" scale="2" name="smaller_mountains"/>
+	<gf alpha="0.01"/>
+	<sprite x="86" y="-201" sprite="gabriel_hill" scale="2" name="gabriel_hill"/>
+	<dad/>
+	<sprite x="113" y="-227" sprite="noah_hill" scale="2" name="noah_hill"/>
+	<bf x="248" y="-20"/>
+	<combo/>
+</stage>
