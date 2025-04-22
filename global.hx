@@ -1,55 +1,55 @@
-import funkin.backend.utils.NativeAPI;
-import openfl.system.Capabilities;
-import funkin.backend.utils.NdllUtil;
+// libraries
+import funkin.backend.utils.WindowUtils;
 import lime.graphics.Image;
-import funkin.backend.MusicBeatState;
-import funkin.backend.system.MainState;
-import funkin.options.Options;
+import openfl.system.Capabilities;
+import funkin.backend.system.framerate.Framerate;
+import funkin.backend.system.framerate.CodenameBuildField;
+import funkin.backend.system.Main;
+// DEFAULT WINDOW POSITIONS
+static var winX:Int = FlxG.stage.application.window.display.bounds.width / 6;
+static var winY:Int = FlxG.stage.application.window.display.bounds.height / 6;
 
-static var initialized:Bool = false;
+// MONITOR RESOLUTION
+static var fsX:Int = Capabilities.screenResolutionX;
+static var fsY:Int = Capabilities.screenResolutionY;
 
+// WINDOW SIZE CHANGE VAR
+static var resizex:Int = Capabilities.screenResolutionX / 1.5;
+static var resizey:Int = Capabilities.screenResolutionY / 1.5;
 
-function destroy() {
-    FlxG.mouse.useSystemCursor = true;
-    FlxG.mouse.unload();
-}
-
-function new(){
-    FlxG.mouse.useSystemCursor = false;
-    FlxG.mouse.load(Paths.image("cursor"));
-    if (FlxG.save.data.antialiasing == true) {
-        FlxG.save.data.antialiasing = false;
-        Options.antialiasing = false;
-        trace('mods Fuck This Guys Antialiasing Up');
-        }
-
-    window.setIcon(Image.fromBytes(Assets.getBytes(Paths.image('icon16'))));
-    window.title = "Friday Night Funkin': Vs Sammy - WIP As Fuck Codename Port"; //not sure if we doin demo but thats what i heard so ye
-    MainState.betaWarningShown = true;
-
-}
-
+// variables
 static var redirectStates:Map<FlxState, String> = [
-    TitleState => "customStates/menus/Title",
-    FreeplayState => "customStates/menus/Freeplay",
-    MainMenuState => "customStates/menus/MainMenu",
-    StoryMenuState => "customStates/menus/StoryMenu",
-
+	TitleState => 'custom/title',
+	MainMenuState => 'custom/mainMenu',
+	FreeplayState => 'custom/freeplay',
+	StoryMenuState => 'custom/storyMenu'
 ];
-
-function update(elapsed) {
-    if (FlxG.keys.justPressed.F6)
-        NativeAPI.allocConsole();
-    if (FlxG.keys.justPressed.F5)
-        FlxG.resetState();
-    if (FlxG.keys.justPressed.F7)
-        FlxG.switchState(new TitleState());
-    if (FlxG.keys.justPressed.F8)
-        FlxG.switchState(new MainMenuState());
+static var windowTitle:String = "Funkdela Reloaded";
+// functions
+function postStateSwitch(){ //post is more consistent than pre
+	//set commit id to mod name
+	Framerate.codenameBuildField.text = 'Codename Engine '+ Main.releaseCycle +' \nFunkdela Reloaded';
+	// resetTitle
+	WindowUtils.resetTitle();
+	// title
+	window.title = windowTitle;
+	// bgColor
+	FlxG.camera.bgColor = 0xFF000000;
+	//icon window
+	//window.setIcon(Image.fromBytes(Assets.getBytes(Paths.image('iconGame'))));
+}
+function preStateSwitch(){
+	// redirectStates
+	for(i in redirectStates.keys()){
+		if(Std.isOfType(FlxG.game._requestedState, i)){
+			FlxG.game._requestedState = new ModState(redirectStates.get(i));
+		}
+	}     
 }
 
-    function preStateSwitch() {
-        for (redirectState in redirectStates.keys())
-            if (FlxG.game._requestedState is redirectState)
-                FlxG.game._requestedState = new ModState(redirectStates.get(redirectState));
-    }
+function destroy(){
+	FlxG.camera.bgColor = 0xFF000000;
+}
+
+FlxG.save.data.DevMode ??= true;
+FlxG.save.data.DevModeTracing ??= false;

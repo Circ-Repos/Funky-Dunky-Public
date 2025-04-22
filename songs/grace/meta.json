@@ -1,17 +1,17 @@
 {
-	"opponentModeAllowed": true,
+	"beatsPerMeasure": 4,
+	"opponentModeAllowed": false,
+	"coopAllowed": false,
+	"stepsPerBeat": 4,
+	"bpm": 110,
 	"difficulties": [
 		"normal"
 	],
-	"icon": "tankman",
-	"parsedColor": -14268421,
-	"coopAllowed": true,
-	"name": "grace",
-	"color": "#2647FB",
-	"customValues": {},
-	"stepsPerBeat": 4,
-	"displayName": "Grace",
 	"needsVoices": true,
-	"beatsPerMeasure": 4,
-	"bpm": 110
+	"parsedColor": -5835796,
+	"displayName": "Grace",
+	"icon": "gabriel-uk",
+	"name": "grace",
+	"color": "#A6F3EC",
+	"customValues": {}
 }

@@ -1,8 +1,12 @@
 <!DOCTYPE codename-engine-character>
-<character sprite="Gabriel-UK" antialiasing="false" icon="gabriel-uk" color="#FF0000" gameOverChar="da">
-	<anim name="singDOWN" anim="Down0" x="190" y="-60" fps="24" loop="false"/>
-	<anim name="idle" anim="Idle0" x="0" y="0" fps="24" loop="false"/>
-	<anim name="singLEFT" anim="Left0" x="35" y="125" fps="24" loop="false"/>
-	<anim name="singRIGHT" anim="Right0" x="295" y="365" fps="24" loop="false"/>
-	<anim name="singUP" anim="Up0" x="-20" y="125" fps="24" loop="false"/>
+<character gameOverChar="da" antialiasing="false" camx="-310" icon="gabriel-uk" sprite="Gabriel-UK" camy="60" color="#FF0000">
+	<anim loop="false" x="190" fps="24" y="-60" anim="Down0" name="singDOWN"/>
+
+	<anim loop="false" x="0" fps="24" y="0" anim="Idle0" name="idle"/>
+
+	<anim loop="false" x="35" fps="24" y="125" anim="Left0" name="singLEFT"/>
+
+	<anim loop="false" x="295" fps="24" y="365" anim="Right0" name="singRIGHT"/>
+
+	<anim loop="false" x="-20" fps="24" y="125" anim="Up0" name="singUP"/>
 </character>
