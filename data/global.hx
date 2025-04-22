@@ -17,34 +17,17 @@ static var fsY:Int = Capabilities.screenResolutionY;
 static var resizex:Int = Capabilities.screenResolutionX / 1.5;
 static var resizey:Int = Capabilities.screenResolutionY / 1.5;
 
-// variables
-static var redirectStates:Map<FlxState, String> = [
-	TitleState => 'custom/title',
-	MainMenuState => 'custom/mainMenu',
-	FreeplayState => 'custom/freeplay',
-	StoryMenuState => 'custom/storyMenu'
-];
 static var windowTitle:String = "Funkdela Reloaded";
 // functions
 function postStateSwitch(){ //post is more consistent than pre
 	//set commit id to mod name
 	Framerate.codenameBuildField.text = 'Codename Engine '+ Main.releaseCycle +' \nFunkdela Reloaded';
-	// resetTitle
-	WindowUtils.resetTitle();
 	// title
 	window.title = windowTitle;
 	// bgColor
 	FlxG.camera.bgColor = 0xFF000000;
 	//icon window
 	//window.setIcon(Image.fromBytes(Assets.getBytes(Paths.image('iconGame'))));
-}
-function preStateSwitch(){
-	// redirectStates
-	for(i in redirectStates.keys()){
-		if(Std.isOfType(FlxG.game._requestedState, i)){
-			FlxG.game._requestedState = new ModState(redirectStates.get(i));
-		}
-	}     
 }
 
 function destroy(){

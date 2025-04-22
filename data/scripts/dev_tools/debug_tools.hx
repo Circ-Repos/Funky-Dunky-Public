@@ -58,8 +58,11 @@ function onCameraMove(event){
     //trace(event.position);
     if(camFreeMoving) event.cancel();
 }
-
-
+function onNoteHit(event){
+    if(player.cpu && event.character.curCharacter == boyfriend.curCharacter){
+        health += 0.02;
+    }
+}
 function update(elapsed:Float) {
 
     if (startingSong || !canPause || paused || health <= 0) return;
