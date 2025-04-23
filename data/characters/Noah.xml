@@ -1,20 +1,20 @@
 <!DOCTYPE codename-engine-character>
-<character camx="60" icon="Noah-grace" camy="0" flipX="true" isPlayer="true" color="#948DA3" holdTime="2" gameOverChar="da" sprite="Noah_Assets">
-	<anim x="0" loop="false" anim="idle0" y="0" fps="24" name="idle"/>
+<character icon="Noah-grace" camx="-270" camy="0" color="#948DA3" isPlayer="true" flipX="true" holdTime="2" gameOverChar="da" sprite="Noah_Assets">
+	<anim loop="false" x="0" fps="24" y="0" anim="idle0" name="idle"/>
 
-	<anim x="67" loop="false" anim="note down0" y="54" fps="24" name="singDOWN"/>
+	<anim loop="false" x="67" fps="24" y="54" anim="note down0" name="singDOWN"/>
 
-	<anim x="67" loop="false" anim="note miss down0" y="46" fps="24" name="singDOWNmiss"/>
+	<anim loop="false" x="67" fps="24" y="46" anim="note miss down0" name="singDOWNmiss"/>
 
-	<anim x="51" loop="false" anim="note left0" y="35" fps="24" name="singLEFT"/>
+	<anim loop="false" x="51" fps="24" y="35" anim="note left0" name="singLEFT"/>
 
-	<anim x="49" loop="false" anim="note miss left0" y="33" fps="24" name="singLEFTmiss"/>
+	<anim loop="false" x="49" fps="24" y="33" anim="note miss left0" name="singLEFTmiss"/>
 
-	<anim x="7" loop="false" anim="note right0" y="44" fps="24" name="singRIGHT"/>
+	<anim loop="false" x="7" fps="24" y="44" anim="note right0" name="singRIGHT"/>
 
-	<anim x="-2" loop="false" anim="note miss right0" y="37" fps="24" name="singRIGHTmiss"/>
+	<anim loop="false" x="-2" fps="24" y="37" anim="note miss right0" name="singRIGHTmiss"/>
 
-	<anim x="-3" loop="false" anim="note up0" y="36" fps="24" name="singUP"/>
+	<anim loop="false" x="-3" fps="24" y="36" anim="note up0" name="singUP"/>
 
-	<anim x="5" loop="false" anim="note miss up0" y="31" fps="24" name="singUPmiss"/>
+	<anim loop="false" x="5" fps="24" y="31" anim="note miss up0" name="singUPmiss"/>
 </character>

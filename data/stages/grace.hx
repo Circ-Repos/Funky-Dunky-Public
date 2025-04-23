@@ -5,7 +5,7 @@ var dadX:Float = 192;
 var dadY:Float = 273.5;
 var dadZoom:Float = 1;
 
-var bfX:Float = 702;
+var bfX:Float = 602;
 var bfY:Float = 442.5;
 var bfZoom:Float = 0.8;
 
