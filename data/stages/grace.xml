@@ -1,12 +1,12 @@
 <!DOCTYPE codename-engine-stage>
 <stage folder="stages/grace/" zoom="0.65">
-	<sprite scrolly="0" updateHitbox="true" y="-400" sprite="sky" zoomfactor="0" scale="1.5" scrollx="0" name="sky"/>
-	<sprite x="33" scrolly="0.2" sprite="mountains" y="-302" scale="2" name="mountains" scrollx="0.2"/>
-	<sprite scrolly="0.6" x="44" y="-429" sprite="smaller_mountains" scale="2" scrollx="0.6" name="smaller_mountains"/>
+	<sprite scrolly="0" updateHitbox="true" y="-500" sprite="sky" zoomfactor="0" scrollx="0" name="sky"/>
+	<sprite scrolly="0.2" x="-49" y="-306" sprite="mountains" scale="1.7" scrollx="0.2" name="mountains"/>
+	<sprite scrolly="0.3" x="-44" y="-415" sprite="smaller_mountains" scale="1.7" scrollx="0.3" name="smaller_mountains"/>
 	<gf alpha="0.01"/>
-	<sprite scrolly="0.7" x="-54" y="-291" sprite="gabriel_hill" scale="2" scrollx="0.7" name="gabriel_hill"/>
-	<dad scrolly="0.7" x="-123" scrollx="0.7" y="41"/>
-	<sprite scrolly="1.7" x="113" y="-227" sprite="noah_hill" scale="2" scrollx="1.7" name="noah_hill"/>
-	<bf scrolly="1.7" x="248" scrollx="1.7" y="-20"/>
+	<sprite scrolly="0.7" x="-319" y="-283" sprite="gabriel_hill" scale="1.6" scrollx="0.7" name="gabriel_hill"/>
+	<dad scrolly="0.7" x="32" scrollx="0.7" y="31"/>
+	<sprite scrolly="1.7" x="363" y="-219" sprite="noah_hill" scale="1.6" scrollx="1.7" name="noah_hill"/>
+	<bf scrolly="1.7" x="683" scrollx="1.7" y="-2"/>
 	<combo x="78" y="-576"/>
 </stage>
