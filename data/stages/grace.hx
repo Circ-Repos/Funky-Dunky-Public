@@ -3,7 +3,7 @@ import flixel.FlxCameraFollowStyle;
 // Cam Values
 var dadX:Float = 192;
 var dadY:Float = 273.5;
-var dadZoom:Float = 1;
+var dadZoom:Float = 0.8;
 
 var bfX:Float = 602;
 var bfY:Float = 442.5;
