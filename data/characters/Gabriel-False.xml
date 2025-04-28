@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character sprite="false_gabriel" antialiasing="false" camx="10" camy="190" icon="gabriel-grace" color="#4C4959" gameOverChar="da">
+<character sprite="false_gabriel" antialiasing="false" camx="10" camy="190" icon="Gabriel-False-Grace" color="#4C4959" gameOverChar="da">
 	<anim name="idle" anim="idle0" x="2" y="0" fps="24" loop="false"/>
 	<anim name="singDOWN" anim="note down0" x="16" y="7" fps="24" loop="false"/>
 	<anim name="singLEFT" anim="note left0" x="51" y="27" fps="24" loop="false"/>

@@ -1,17 +1,17 @@
 import flixel.FlxCameraFollowStyle;
 //funni revisetdr code
 // Cam Values
-var dadX:Float = 192;
-var dadY:Float = 273.5;
+var dadX:Float = -92;
+var dadY:Float = 203.5;
 var dadZoom:Float = 0.8;
 
 var bfX:Float = 602;
 var bfY:Float = 442.5;
-var bfZoom:Float = 0.8;
+var bfZoom:Float = 0.6;
 
 var gfX:Float = -80;
 var gfY:Float = 22;
-var gfZoom:Float = 0.5;
+var gfZoom:Float = 0.4;
 function postCreate(){
 	defaultCamZoom = dadZoom;
 }
