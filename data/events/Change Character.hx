@@ -40,6 +40,7 @@ public function precacheCharacter(strumIndex:Int, charName:String = 'bf', member
 
 		var newChar:Character = new Character(existingChar.x, existingChar.y, charName, existingChar.isPlayer);
 		charMap[strumIndex][memberIndex].set(newChar.curCharacter, newChar);
+		
 		newChar.active = false;
 		if(FlxG.save.data.DevModeTracing) trace('Precached index "' + memberIndex + '" character "' + newChar.curCharacter + '" on strumLine "' + strumIndex + '".');
 
@@ -63,7 +64,10 @@ public function precacheCharacter(strumIndex:Int, charName:String = 'bf', member
 				newChar.cameraOffset.y += stage?.characterPoses['girlfriend']?.camyoffset;
 		}
 		newChar.setPosition(existingChar.x, existingChar.y);
+		
 		scripts.call('onCharacterCached', [newChar, strumIndex, memberIndex]);
+		//newChar.scroll.x = existingChar.scroll.x;
+		//newChar.scroll.y = existingChar.scroll.y;
 	}
 }
 
@@ -98,9 +102,13 @@ public function changeCharacter(strumIndex:Int, charName:String = 'bf', memberIn
 	group.insert(99, newChar);
 	newChar.active = true;
 	oldChar.active = false;
+
 	group.remove(oldChar);
 
 	// fully apply change
+	if(PlayState.SONG.meta.displayName == 'Grace') 	newChar.scrollFactor.set(0.7, 0.7);
+
+	newChar.zoomFactor = oldChar.zoomFactor;
 	newChar.setPosition(oldChar.x, oldChar.y);
 	newChar.playAnim(oldChar.animation?.name, true, oldChar.lastAnimContext);
 	newChar.animation?.curAnim?.curFrame = oldChar.animation?.curAnim?.curFrame;
