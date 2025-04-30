@@ -1,0 +1,9 @@
+<!DOCTYPE codename-engine-stage>
+<stage folder="stages/scary/" zoom="1.05">
+	<gf/>
+	<sprite x="138" y="17" sprite="wall" type="none" scale="1.76" name="wall"/>
+	<dad scale="0.8" x="102" y="232"/>
+	<combo/>
+	<sprite scrolly="1" x="72" y="52" sprite="Stairs" type="none" scale="1.7" scrollx="1" name="stairs"/>
+	<bf scrolly="1" x="1136" scrollx="1" y="-299"/>
+</stage>
