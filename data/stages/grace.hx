@@ -36,3 +36,9 @@ function onCameraMove(e) {
 function postUpdate(elapsed:Float) {
 	FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.06);
 }
+//onNotehit if dad.curName != Gab-True or someth health -= 0.02 bc .2 is amount added by default
+function onNoteHit(event){
+    if(event.character.curCharacter == 'Gabriel-true' && health > 0.03){
+        health -= 0.02;
+    }
+}

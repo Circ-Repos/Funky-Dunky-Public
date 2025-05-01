@@ -7,7 +7,7 @@ function create(){
 	MBG = new FlxSprite();
     MBG.loadGraphic(Paths.image('stages/think/MarkBG'));
 	MBG.camera = camHUD;
-	insert(0, MBG);
+	insert(2, MBG);
 
 	chatBox = new FlxSprite();
     chatBox.loadGraphic(Paths.image('stages/think/ChatBox'));
@@ -30,15 +30,20 @@ function postCreate(){
 	boyfriend.camera = camHUD;
 	dad.camera = camHUD;
 	remove(boyfriend, true);
-	insert(3, boyfriend);
+	insert(5, boyfriend);
 	remove(dad, true);
 	insert(3, dad);
 
-	insert(7, border);
-	dad.x += 240;
-	dad.y += 90;
+	insert(9, border);
+	remove(chatBox, true);
+	insert(10, chatBox);
+	dad.x += 200;
+	dad.y += 270;
 	camGame.alpha = 0;
 	boyfriend.flipX = true;
+	boyfriend.y += 300;
+	camHUD.scroll.y += 100;
+	boyfriend.x -= 15;
 }
 function postUpdate(){
 	camHUD.zoom = 0.7;
