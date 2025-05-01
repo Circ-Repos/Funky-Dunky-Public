@@ -4,6 +4,8 @@ var MBG:FlxSprite;
 var border:FlxSprite;
 
 function create(){
+	PlayState.instance.introLength = 0.1;
+
 	MBG = new FlxSprite();
     MBG.loadGraphic(Paths.image('stages/think/MarkBG'));
 	MBG.camera = camHUD;
@@ -25,6 +27,7 @@ function create(){
 	PlayState.defaultHudZoom = 0.8;
 
 }
+function onCountdown(event) event.cancel();
 
 function postCreate(){
 	boyfriend.camera = camHUD;
