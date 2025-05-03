@@ -1,4 +1,8 @@
 import flixel.FlxCameraFollowStyle;
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
+import flixel.FlxG;
+import openfl.geom.Rectangle;
 //funni revisetdr code
 // Cam Values
 var dadX:Float = 300;
@@ -14,14 +18,19 @@ var gfY:Float = 22;
 var gfZoom:Float = 0.4;
 
 var camOther = new FlxCamera();
-
-
+//Dreaming Shader
+var itime:Float = 0;
+var heatShader:CustomShader;
+var dreaming:Bool = false;
+var shaderIntensity:Float = 0.5;
+var vig:FlxSprite;
 function postCreate(){
 	defaultCamZoom = dadZoom;
 	camZooming = false;
 	FlxG.cameras.add(camOther, false);
     camOther.bgColor = 0;
     camOther.alpha = 1;
+	heatShader = new CustomShader("heatShader");
 }
 function lookLeft(){
     //FlxTween.tween(FlxG.camera.scroll, {x: 500},0.7, {ease: FlxEase.sineInOut});
@@ -31,13 +40,12 @@ function lookLeft(){
 }
 function create(){
 	PlayState.instance.introLength = 0.1;
-	var vig = new FlxSprite();
+	vig = new FlxSprite();
     vig.loadGraphic(Paths.image('vig'));
 	vig.cameras = [camOther];
     add(vig);
 	remove(vig, true);
 	insert(0, vig);
-
 }
 function onSongStart(){
 	startZoom();
@@ -55,6 +63,15 @@ function startZoom(){
 }
 function showHud(time:Float){
 	FlxTween.tween(camHUD, {alpha: 1},time, {ease: FlxEase.linear});
+}
+function hideHud(time:Float){
+	FlxTween.tween(camHUD, {alpha: 0},time, {ease: FlxEase.linear});
+}
+function update(elapsed:Float){
+	if(dreaming){
+	itime+=elapsed;
+	heatShader.iTime = itime;
+	}
 
 }
 function onCountdown(event) event.cancel();
@@ -82,4 +99,40 @@ function onCameraMove(e) {
 }
 function postUpdate(elapsed:Float) {
 	FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.06);
+}
+function woozyStart(){
+	trace('Woozying');
+	//use the num tween to increase the motha fuckin shader
+	//var then the Desired Num, Followed By- Time.. Doctor Freeman?
+	FlxTween.num(shaderIntensity, 300, 6, {ease: FlxEase.quadInOut, onUpdate: (val:Float) -> wiggleDistance = val.value});
+	dreaming = true;
+	camZooming = false;
+	//FlxTween.tween(FlxG.camera.scroll, {x: 500},0.7, {ease: FlxEase.sineInOut});
+	FlxTween.tween(camFollow, {x: bfX + 150,y: bfY},2.5, {ease: FlxEase.sineInOut});
+	FlxTween.tween(camGame, {zoom: 1.8},5, {ease: FlxEase.sineInOut});
+}
+function woozyEnd(){
+	dreaming = false;
+}
+function dreamStart(){
+	vig.alpha = 0;
+	trace('Dreaming Start');
+	woozyEnd();
+
+	camZooming = true;
+	wall.alpha = 0;
+	wallD.alpha = 1;
+	stairs.alpha = 0;
+	stairsD.alpha = 1;
+}
+function dreamEnd(){
+	trace('Ending Le Dream');
+	vig.alpha = 1;
+	woozyEnd();
+
+	camZooming = true;
+	wall.alpha = 1;
+	wallD.alpha = 0;
+	stairs.alpha = 1;
+	stairsD.alpha = 0;
 }

@@ -1,8 +1,12 @@
 <!DOCTYPE codename-engine-character>
-<character sprite="DreamIntruderScaryNight" antialiasing="false" icon="Intruder" color="#505050" gameOverChar="da">
-	<anim name="idle" anim="Idle0" x="0" y="0" fps="24" loop="false"/>
-	<anim name="singLEFT" anim="Left0" x="0" y="0" fps="24" loop="false"/>
-	<anim name="singDOWN" anim="Down0" x="0" y="0" fps="24" loop="false"/>
-	<anim name="singUP" anim="Up0" x="0" y="0" fps="24" loop="false"/>
-	<anim name="singRIGHT" anim="Right0" x="0" y="0" fps="24" loop="false"/>
+<character x="-922" gameOverChar="da" antialiasing="false" y="0" icon="Intruder" sprite="DreamIntruderScaryNight" color="#505050">
+	<anim loop="false" x="0" fps="24" y="0" anim="Idle0" name="idle"/>
+
+	<anim loop="false" x="0" fps="24" y="0" anim="Left0" name="singLEFT"/>
+
+	<anim loop="false" x="0" fps="24" y="0" anim="Down0" name="singDOWN"/>
+
+	<anim loop="false" x="0" fps="24" y="0" anim="Up0" name="singUP"/>
+
+	<anim loop="false" x="0" fps="24" y="0" anim="Right0" name="singRIGHT"/>
 </character>

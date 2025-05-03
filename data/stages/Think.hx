@@ -33,20 +33,22 @@ function postCreate(){
 	boyfriend.camera = camHUD;
 	dad.camera = camHUD;
 	remove(boyfriend, true);
-	insert(5, boyfriend);
+	insert(1, boyfriend);
 	remove(dad, true);
-	insert(3, dad);
+	insert(6, dad);
 
 	insert(9, border);
 	remove(chatBox, true);
 	insert(10, chatBox);
 	dad.x += 200;
-	dad.y += 270;
+	//dad.y += 270;
 	camGame.alpha = 0;
-	boyfriend.flipX = true;
-	boyfriend.y += 300;
+	boyfriend.flipX = false;
+	//boyfriend.y += 300;
+	boyfriend.y -= 60;
 	camHUD.scroll.y += 100;
-	boyfriend.x -= 15;
+	boyfriend.x -= 50;
+	dad.y += 700;
 }
 function postUpdate(){
 	camHUD.zoom = 0.7;
