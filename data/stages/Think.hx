@@ -141,6 +141,9 @@ function destroy() {
 function flickerCam(){
 	FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
 }
+function flickerCam2(){
+	FlxFlicker.flicker(blackOverlayForFlicker, 0.5, 0.03, false);
+}
 function generateSubs(text1:String, text2:String) { //timer is stupid >:( It No Work
     if(text1 != '') markText.visible = true;
     if(text2 != '') cesarText.visible = true;
