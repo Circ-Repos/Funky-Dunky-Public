@@ -10,12 +10,15 @@ var border:FlxSprite;
 var blackOverlayForFlicker:FlxSprite;
 var itime:Float = 0;
 var vhsShader:CustomShader;
+var shader1:CustomShader;
+var shader2:CustomShader;
+var shader3:CustomShader;
+var shader4:CustomShader;
+var shader5:CustomShader;
 
-var cesarText:FlxText;
-var markText:FlxText;
+var textBlob2:FlxText;
+var textBlob1:FlxText;
 function create(){
-
-
     camThink = new FlxCamera();
     camThink.visible = true;
     camThink.alpha = 1;
@@ -106,37 +109,54 @@ function postCreate(){
 
 	iconP1.y = healthBar.y - 75;
 	iconP2.y = healthBar.y - 75;
-    markText = new FlxText(0,0,300);
-    markText.setFormat(Paths.font("Arial.ttf"), 48, 0x000000,FlxTextBorderStyle.OUTLINE, "center");
-    markText.borderSize = 2;
-    markText.cameras = [camThinkB];
-    markText.screenCenter(FlxAxes.X);
-    markText.y = FlxG.height - markText.height;
-	markText.screenCenter(FlxAxes.X);
-	markText.updateHitbox();
-    add(markText);
+    textBlob1 = new FlxText(0,0,629);
+    textBlob1.setFormat(Paths.font("Arial.ttf"), 24, 0x000000,FlxTextBorderStyle.OUTLINE, "center");
+    textBlob1.borderSize = 2;
+    textBlob1.cameras = [camThink];
+    textBlob1.screenCenter(FlxAxes.X);
+    textBlob1.y = 870;
+	textBlob1.x = 320;
+	textBlob1.updateHitbox();
+	textBlob1.antialiasing = false;
+	textBlob1.text = "[CT]: HEY, IT'S CESAR. I HOPE IT'S NOT TOO LATE.\n\n[MH]: NO, IT'S FINE, DON'T WORRY. WHAT'S UP ARE YOU ALRIGHT?\n\n[CT]: YEAH, IT'S NOT ME IT'S MY MOM";
+    add(textBlob1);
 
-	cesarText = new FlxText(0,0,300);
-    cesarText.setFormat(Paths.font("Arial.ttf"), 48, 0x000000,FlxTextBorderStyle.OUTLINE, "center");
-    cesarText.borderSize = 2;
-    cesarText.cameras = [camThinkB];
-    cesarText.screenCenter(FlxAxes.X);
-    cesarText.y = FlxG.height - 300;
-	cesarText.screenCenter(FlxAxes.X);
-	cesarText.updateHitbox();
-	cesarText.width = FlxG.width - 500; // Adjust this value to ensure there’s padding from the screen edges
-
-    add(cesarText);
+    textBlob2 = new FlxText(0,0,629);
+    textBlob2.setFormat(Paths.font("Arial.ttf"), 24, 0x000000,FlxTextBorderStyle.OUTLINE, "center");
+    textBlob2.borderSize = 2;
+    textBlob2.cameras = [camThink];
+    textBlob2.screenCenter(FlxAxes.X);
+    textBlob2.y = 870;
+	textBlob2.x = 320;
+	textBlob2.updateHitbox();
+	textBlob2.antialiasing = false;
+	textBlob2.text = "[MH]: ALRIGHT, I MEAN IT SHOULDN'T BE TOO BAD. I JUST GONNA SWITCH THEM ON AND GET OUTTA THERE THOUGH. YOU KNOW WHAT I FEEL ABOUT YOUR HOUSE. \n\n[CT]: YEAH, THAT'S FINE. ONE LAST THING, TRY TO GET A GOOD VIEW";
+    add(textBlob2);
 
 	vhsShader = new CustomShader("VHS");
+	shader2 = new CustomShader("lowquality_0_reduce");
+	shader3 = new CustomShader("lowquality_1_sharpen");
+	shader4 = new CustomShader("lowquality_3_main");
+	shader5 = new CustomShader("lowquality_4_amplification");
+	
+    FlxG.game.addShader(shader2);
+	FlxG.game.addShader(shader3);
+	FlxG.game.addShader(shader4);
+	FlxG.game.addShader(shader5);
     FlxG.game.addShader(vhsShader);
 	add(blackOverlayForFlicker);
 	for(i in [camThink, camThinkB, camHUD]){
 		i.scroll.x = -149;
 	}
+	hideArrows = true;
+
 }
 function destroy() {
 	FlxG.game.removeShader(vhsShader);
+	FlxG.game.removeShader(shader2);
+	FlxG.game.removeShader(shader3);
+	FlxG.game.removeShader(shader4);
+	FlxG.game.removeShader(shader5);
 }
 function flickerCam(){
 	FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
@@ -144,20 +164,38 @@ function flickerCam(){
 function flickerCam2(){
 	FlxFlicker.flicker(blackOverlayForFlicker, 0.5, 0.03, false);
 }
-function generateSubs(text1:String, text2:String) { //timer is stupid >:( It No Work
-    if(text1 != '') markText.visible = true;
-    if(text2 != '') cesarText.visible = true;
-	if(text1 == '') markText.visible = false;
-	if(text2 == '') cesarText.visible = false;
-	if(text1 != '') markText.text = text1;
-	if(text2 != '') cesarText.text = text2;
-	markText.updateHitbox();
-	cesarText.updateHitbox();
-    markText.y = FlxG.height - markText.height;
-    cesarText.y = FlxG.height - 300;
-	cesarText.screenCenter(FlxAxes.X);
-	markText.screenCenter(FlxAxes.X);
+/*function generateSubs(text1:String, text2:String) { //timer is stupid >:( It No Work
+    if(text1 != '') textBlob1.visible = true;
+    if(text2 != '') textBlob2.visible = true;
+	if(text1 == '') textBlob1.visible = false;
+	if(text2 == '') textBlob2.visible = false;
+	if(text1 != '') textBlob1.text = text1;
+	if(text2 != '') textBlob2.text = text2;
+	textBlob1.updateHitbox();
+	textBlob2.updateHitbox();
+    textBlob1.y = FlxG.height - textBlob1.height;
+    textBlob2.y = FlxG.height - 300;
+	textBlob2.screenCenter(FlxAxes.X);
+	textBlob1.screenCenter(FlxAxes.X);
 
+}*/
+function tweenText1(){
+	hideArrows = false;
+	FlxTween.tween(textBlob1, {y: -100}, 13, {
+		ease: FlxEase.linear,
+		onComplete: function(tween:FlxTween) {
+			textBlob1.visible = false;
+		}
+	});
+}
+function tweenText2(){
+	if(textBlob1.visible) textBlob1.visible = false;
+	FlxTween.tween(textBlob2, {y: -100}, 14, {
+		ease: FlxEase.linear,
+		onComplete: function(tween:FlxTween) {
+			textBlob2.visible = false;
+		}
+	});
 }
 function arrowOpacity(opac:Float, time:Float){
 	for (i in playerStrums.members) {
@@ -169,12 +207,20 @@ function onSongStart(){
 	if(downscroll) 	comboGroup.y = 300;
 	iconP1.x += 30;
 	iconP2.x -= 30;
+	for (i in playerStrums.members) {
+		i.alpha = 0;
+	}
 }
 var defaultScale = 0.7;
 function beatHit(){
-	iconP2.bump();
+	iconP2.scale.set(0.9,0.9);
 }
 function postUpdate(elapsed:Float){
+	if(hideArrows){
+		for (i in playerStrums.members) {
+			i.alpha = 0;
+		}
+	}
 	if(!downscroll){
 	for (i in playerStrums.members) {
 		i.y = 170;
