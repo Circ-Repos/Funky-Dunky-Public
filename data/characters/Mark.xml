@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character sprite="Mark-Think" icon="face" color="#4C4959" gameOverChar="Mark-Think">
+<character sprite="Mark-Think" icon="mark-normal" color="#F4F4F4" gameOverChar="Mark-Think">
 	<anim name="idle" anim="idle0" x="0" y="0" fps="24" loop="false"/>
 	<anim name="singDOWN" anim="note down0" x="-12" y="-7" fps="24" loop="false"/>
 	<anim name="singLEFT" anim="note left0" x="30" y="5" fps="24" loop="false"/>
