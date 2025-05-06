@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="Cosar.png">
+	<!-- Created with Adobe Animate version 24.0.8.70 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Cosar Down0000" x="20" y="20" width="1258" height="1216"/>
+	<SubTexture name="Cosar Down0001" x="20" y="20" width="1258" height="1216"/>
+	<SubTexture name="Cosar Down0002" x="1298" y="20" width="1247" height="1202" frameX="-1" frameY="-12" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0003" x="1298" y="20" width="1247" height="1202" frameX="-1" frameY="-12" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0004" x="2565" y="20" width="1218" height="1166" frameX="-5" frameY="-42" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0005" x="2565" y="20" width="1218" height="1166" frameX="-5" frameY="-42" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0006" x="3803" y="20" width="1207" height="1153" frameX="-8" frameY="-54" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0007" x="3803" y="20" width="1207" height="1153" frameX="-8" frameY="-54" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0008" x="3803" y="20" width="1207" height="1153" frameX="-8" frameY="-54" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0009" x="3803" y="20" width="1207" height="1153" frameX="-8" frameY="-54" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0010" x="3803" y="20" width="1207" height="1153" frameX="-8" frameY="-54" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0011" x="3803" y="20" width="1207" height="1153" frameX="-8" frameY="-54" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0012" x="3803" y="20" width="1207" height="1153" frameX="-8" frameY="-54" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0013" x="5030" y="20" width="1174" height="1111" frameX="-10" frameY="-96" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Down0014" x="5030" y="20" width="1174" height="1111" frameX="-10" frameY="-96" frameWidth="1258" frameHeight="1216"/>
+	<SubTexture name="Cosar Idle0000" x="6224" y="20" width="1063" height="1065" frameX="-41" frameY="-34" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0001" x="6224" y="20" width="1063" height="1065" frameX="-41" frameY="-34" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0002" x="20" y="1256" width="1127" height="1133"/>
+	<SubTexture name="Cosar Idle0003" x="20" y="1256" width="1127" height="1133"/>
+	<SubTexture name="Cosar Idle0004" x="1167" y="1256" width="1120" height="1127" frameX="-6" frameY="-3" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0005" x="1167" y="1256" width="1120" height="1127" frameX="-6" frameY="-3" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0006" x="2307" y="1256" width="1074" height="1085" frameX="-37" frameY="-24" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0007" x="2307" y="1256" width="1074" height="1085" frameX="-37" frameY="-24" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0008" x="3401" y="1256" width="1009" height="1011" frameX="-75" frameY="-61" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0009" x="3401" y="1256" width="1009" height="1011" frameX="-75" frameY="-61" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0010" x="4430" y="1256" width="997" height="997" frameX="-82" frameY="-68" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0011" x="4430" y="1256" width="997" height="997" frameX="-82" frameY="-68" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0012" x="5447" y="1256" width="995" height="995" frameX="-83" frameY="-69" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0013" x="5447" y="1256" width="995" height="995" frameX="-83" frameY="-69" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Idle0014" x="5447" y="1256" width="995" height="995" frameX="-83" frameY="-69" frameWidth="1127" frameHeight="1133"/>
+	<SubTexture name="Cosar Left0000" x="6462" y="1256" width="1193" height="1140"/>
+	<SubTexture name="Cosar Left0001" x="6462" y="1256" width="1193" height="1140"/>
+	<SubTexture name="Cosar Left0002" x="20" y="2416" width="1176" height="1127" frameX="-10" frameY="-7" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0003" x="20" y="2416" width="1176" height="1127" frameX="-10" frameY="-7" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0004" x="1216" y="2416" width="1133" height="1097" frameX="-35" frameY="-24" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0005" x="1216" y="2416" width="1133" height="1097" frameX="-35" frameY="-24" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0006" x="2369" y="2416" width="1116" height="1084" frameX="-45" frameY="-31" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0007" x="2369" y="2416" width="1116" height="1084" frameX="-45" frameY="-31" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0008" x="2369" y="2416" width="1116" height="1084" frameX="-45" frameY="-31" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0009" x="2369" y="2416" width="1116" height="1084" frameX="-45" frameY="-31" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0010" x="2369" y="2416" width="1116" height="1084" frameX="-45" frameY="-31" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0011" x="2369" y="2416" width="1116" height="1084" frameX="-45" frameY="-31" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0012" x="2369" y="2416" width="1116" height="1084" frameX="-45" frameY="-31" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0013" x="3505" y="2416" width="1076" height="1047" frameX="-60" frameY="-57" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Left0014" x="3505" y="2416" width="1076" height="1047" frameX="-60" frameY="-57" frameWidth="1193" frameHeight="1140"/>
+	<SubTexture name="Cosar Right0000" x="4601" y="2416" width="1274" height="1252"/>
+	<SubTexture name="Cosar Right0001" x="4601" y="2416" width="1274" height="1252"/>
+	<SubTexture name="Cosar Right0002" x="5895" y="2416" width="1264" height="1233" frameX="-5" frameY="-8" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0003" x="5895" y="2416" width="1264" height="1233" frameX="-5" frameY="-8" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0004" x="20" y="3688" width="1237" height="1196" frameX="-19" frameY="-18" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0005" x="20" y="3688" width="1237" height="1196" frameX="-19" frameY="-18" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0006" x="1277" y="3688" width="1225" height="1183" frameX="-25" frameY="-20" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0007" x="1277" y="3688" width="1225" height="1183" frameX="-25" frameY="-20" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0008" x="1277" y="3688" width="1225" height="1183" frameX="-25" frameY="-20" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0009" x="1277" y="3688" width="1225" height="1183" frameX="-25" frameY="-20" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0010" x="1277" y="3688" width="1225" height="1183" frameX="-25" frameY="-20" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0011" x="1277" y="3688" width="1225" height="1183" frameX="-25" frameY="-20" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0012" x="1277" y="3688" width="1225" height="1183" frameX="-25" frameY="-20" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0013" x="2522" y="3688" width="1145" height="1100" frameX="-70" frameY="-33" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Right0014" x="2522" y="3688" width="1145" height="1100" frameX="-70" frameY="-33" frameWidth="1274" frameHeight="1252"/>
+	<SubTexture name="Cosar Up0000" x="3687" y="3688" width="1252" height="1268"/>
+	<SubTexture name="Cosar Up0001" x="3687" y="3688" width="1252" height="1268"/>
+	<SubTexture name="Cosar Up0002" x="4959" y="3688" width="1230" height="1249" frameX="-18" frameY="-2" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0003" x="4959" y="3688" width="1230" height="1249" frameX="-18" frameY="-2" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0004" x="6209" y="3688" width="1174" height="1206" frameX="-65" frameY="-10" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0005" x="6209" y="3688" width="1174" height="1206" frameX="-65" frameY="-10" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0006" x="20" y="4976" width="1155" height="1193" frameX="-84" frameY="-14" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0007" x="20" y="4976" width="1155" height="1193" frameX="-84" frameY="-14" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0008" x="20" y="4976" width="1155" height="1193" frameX="-84" frameY="-14" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0009" x="20" y="4976" width="1155" height="1193" frameX="-84" frameY="-14" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0010" x="20" y="4976" width="1155" height="1193" frameX="-84" frameY="-14" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0011" x="20" y="4976" width="1155" height="1193" frameX="-84" frameY="-14" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0012" x="20" y="4976" width="1155" height="1193" frameX="-84" frameY="-14" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0013" x="1195" y="4976" width="1125" height="1164" frameX="-114" frameY="-21" frameWidth="1252" frameHeight="1268"/>
+	<SubTexture name="Cosar Up0014" x="1195" y="4976" width="1125" height="1164" frameX="-114" frameY="-21" frameWidth="1252" frameHeight="1268"/>
+</TextureAtlas>
