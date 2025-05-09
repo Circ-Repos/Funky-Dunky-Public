@@ -1,8 +1,12 @@
 <!DOCTYPE codename-engine-character>
-<character sprite="Cosar" icon="Cosar" color="#FF3968" gameOverChar="da">
-	<anim name="singDOWN" anim="Cosar Down0" x="0" y="0" fps="24" loop="false"/>
-	<anim name="idle" anim="Cosar Idle0" x="-28" y="-80" fps="24" loop="false"/>
-	<anim name="singLEFT" anim="Cosar Left0" x="-6" y="-60" fps="24" loop="false"/>
-	<anim name="singRIGHT" anim="Cosar Right0" x="22" y="-93" fps="24" loop="false"/>
-	<anim name="singUP" anim="Cosar Up0" x="48" y="-40" fps="24" loop="false"/>
+<character gameOverChar="da" icon="Cosar" sprite="Cosar" flipX="true" color="#FF3968">
+	<anim loop="false" x="75" fps="24" y="0" anim="Cosar Down0" name="singDOWN"/>
+
+	<anim loop="false" x="-28" fps="24" y="-80" anim="Cosar Idle0" name="idle"/>
+
+	<anim loop="false" x="16" fps="24" y="-60" anim="Cosar Left0" name="singRIGHT"/>
+
+	<anim loop="false" x="69" fps="24" y="-93" anim="Cosar Right0" name="singLEFT"/>
+
+	<anim loop="false" x="21" fps="24" y="-40" anim="Cosar Up0" name="singUP"/>
 </character>
