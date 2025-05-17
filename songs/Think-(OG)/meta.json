@@ -1,0 +1,17 @@
+{
+	"beatsPerMeasure": 4,
+	"opponentModeAllowed": false,
+	"coopAllowed": false,
+	"stepsPerBeat": 4,
+	"bpm": 162,
+	"difficulties": [
+		"NORMAL"
+	],
+	"needsVoices": true,
+	"parsedColor": -5131853,
+	"displayName": "Think-(OG)",
+	"icon": "mark-og",
+	"name": "Think-(OG)",
+	"color": "#B1B1B3",
+	"customValues": {}
+}

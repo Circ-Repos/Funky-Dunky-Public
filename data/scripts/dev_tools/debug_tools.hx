@@ -18,7 +18,7 @@ var camFreeMoving:Bool = false;
 //camera dedicated for any debug info
 var camOther = new FlxCamera();
 public var botplayTxt:FlxText;
-function create(){
+function postCreate(){
     FlxG.cameras.add(camOther, false);
     camOther.bgColor = 0;
     camOther.alpha = 1;

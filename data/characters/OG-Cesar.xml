@@ -1,0 +1,15 @@
+<!DOCTYPE codename-engine-character>
+<character sprite="cesar-OG" holdTime="6.1" camx="240" camy="50" scale="1" color="#141414" flipX="true">
+	<anim x="6" y="1" anim="LEFT" name="singLEFT"/>
+	<anim x="-18" y="15" anim="UP" name="singUP"/>
+	<anim x="2" y="-10" anim="DOWN" name="singDOWN"/>
+	<anim x="-13" y="-5" anim="RIGHT" name="singRIGHT"/>
+	<anim x="-14" y="-5" anim="MISS RIGHT" name="singRIGHTmiss"/>
+	<anim x="7" y="-2" anim="MISS LEFT" name="singLEFTmiss"/>
+	<anim x="-13" y="4" anim="MISS UP" name="singUPmiss"/>
+	<anim x="-4" y="-11" anim="MISS DOWN" name="singDOWNmiss"/>
+	<anim x="-5" y="1" anim="IDLE" name="idle"/>
+	<anim loop="true" anim="MISS UP" name="firstDeath"/>
+	<anim loop="true" anim="MISS UP" name="deathLoop"/>
+	<anim loop="true" anim="MISS UP" name="deathConfirm"/>
+</character>

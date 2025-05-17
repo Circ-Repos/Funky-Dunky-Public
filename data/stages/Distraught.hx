@@ -3,7 +3,6 @@ import openfl.text.TextFormat;
 import flixel.text.FlxTextBorderStyle;
 import flixel.effects.FlxFlicker;
 
-public var ratingScaleDiff:Float = 0.1;
 var tV:FlxSprite;
 var tvwhite:FlxSprite;
 
@@ -62,20 +61,10 @@ function onCameraMove(e) {
 function onSongStart(){
 	FlxTween.tween(camTV, {zoom: 0.5}, 6.35, {ease: FlxEase.sineInOut});
 	FlxTween.tween(camTV, {y: 0}, 6.35, {ease: FlxEase.sineInOut});
-	comboGroup.x -= 300;
+	comboGroup.x -= 450;
 	comboGroup.camera = camTV;
-
-	comboGroup.scale.set(0.5, 0.5);
 }
 
 function dadAlpha(alp:Float, tim:Float){
 	FlxTween.tween(dad, {alpha: alp}, tim, {ease: FlxEase.sineInOut});
-}
-function postUpdate(){
-	comboGroup.forEachAlive(function(spr) if (spr.camera != camTV) spr.camera = camTV);
-
-}
-function onNoteHit(event) {
-    event.numScale -= ratingScaleDiff;
-    event.ratingScale -= ratingScaleDiff;
 }

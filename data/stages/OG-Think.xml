@@ -1,0 +1,11 @@
+<!DOCTYPE codename-engine-stage>
+<stage folder="stages/Retro-Think/" zoom="0.9">
+	<gf/>
+	<combo/>
+	<sprite x="-300" sprite="gray" y="-300" scale="1.7" name="gray" alpha="0.4"/>
+	<sprite x="-540" sprite="bg" y="-725" scale="1.7" name="bg"/>
+	<sprite x="-540" sprite="layer" y="-725" scale="1.7" name="layer"/>
+
+	<dad x="90" y="80"/>
+	<bf x="770" y="80"/>
+</stage>

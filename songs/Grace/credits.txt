@@ -1,0 +1,23 @@
+MUSIC
+mortal
+
+ART
+mortal
+
+ANIMATION
+Factures
+
+CHART
+Rexquisite
+
+CODE
+Circuitella
+
+OTHER
+Neruv1c (Made Gabriel designs)
+Facdela (Made Gabriel chromatics)
+
+TIME
+2.69
+SIZE
+20

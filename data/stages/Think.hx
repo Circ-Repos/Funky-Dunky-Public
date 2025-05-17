@@ -134,15 +134,6 @@ function postCreate(){
     add(textBlob2);
 
 	vhsShader = new CustomShader("VHS");
-	shader2 = new CustomShader("lowquality_0_reduce");
-	shader3 = new CustomShader("lowquality_1_sharpen");
-	shader4 = new CustomShader("lowquality_3_main");
-	shader5 = new CustomShader("lowquality_4_amplification");
-	
-    FlxG.game.addShader(shader2);
-	FlxG.game.addShader(shader3);
-	FlxG.game.addShader(shader4);
-	FlxG.game.addShader(shader5);
     FlxG.game.addShader(vhsShader);
 	add(blackOverlayForFlicker);
 	for(i in [camThink, camThinkB, camHUD]){
@@ -153,10 +144,6 @@ function postCreate(){
 }
 function destroy() {
 	FlxG.game.removeShader(vhsShader);
-	FlxG.game.removeShader(shader2);
-	FlxG.game.removeShader(shader3);
-	FlxG.game.removeShader(shader4);
-	FlxG.game.removeShader(shader5);
 }
 function flickerCam(){
 	FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
