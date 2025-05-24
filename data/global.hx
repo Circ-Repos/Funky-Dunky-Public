@@ -27,6 +27,20 @@ var shader2:CustomShader;
 var shader3:CustomShader;
 var shader4:CustomShader;
 var shader5:CustomShader;
+
+static var redirectStates:Map<FlxState, String> = [
+    TitleState => 'custom/title',
+];
+
+function preStateSwitch(){
+    // redirectStates
+    for(i in redirectStates.keys()){
+        if(Std.isOfType(FlxG.game._requestedState, i)){
+            FlxG.game._requestedState = new ModState(redirectStates.get(i));
+        }
+    }     
+}
+
 // functions
 function postStateSwitch(){ //post is more consistent than pre
 	//set commit id to mod name
