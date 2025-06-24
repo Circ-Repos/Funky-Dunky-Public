@@ -5,6 +5,7 @@ import openfl.system.Capabilities;
 import funkin.backend.system.framerate.Framerate;
 import funkin.backend.system.framerate.CodenameBuildField;
 import funkin.backend.system.Main;
+
 // DEFAULT WINDOW POSITIONS
 static var winX:Int = FlxG.stage.application.window.display.bounds.width / 6;
 static var winY:Int = FlxG.stage.application.window.display.bounds.height / 6;
@@ -29,20 +30,28 @@ var shader4:CustomShader;
 var shader5:CustomShader;
 
 static var redirectStates:Map<FlxState, String> = [
-    TitleState => 'custom/title',
+    //BetaWarningState => 'custom/warning',
+	TitleState => 'custom/title',
+	//MainMenuState => 'custom/main',
+	//StoryMenuState => 'custom/story',
+	//FreeplayState => 'custom/freeplay',
+    //OptionsMenu => 'custom/options/Options',
+	//CreditsMain => 'custom/credits'
 ];
 
-function preStateSwitch(){
-    // redirectStates
-    for(i in redirectStates.keys()){
-        if(Std.isOfType(FlxG.game._requestedState, i)){
-            FlxG.game._requestedState = new ModState(redirectStates.get(i));
-        }
-    }     
+function preStateSwitch()
+{
+	// redirectStates
+	for(i in redirectStates.keys())
+	{
+		if(Std.isOfType(FlxG.game._requestedState, i)) 
+			FlxG.game._requestedState = new ModState(redirectStates.get(i));
+	}
 }
 
 // functions
-function postStateSwitch(){ //post is more consistent than pre
+function postStateSwitch() //post is more consistent than pre
+{
 	//set commit id to mod name
 	Framerate.codenameBuildField.text = 'Codename Engine '+ Main.releaseCycle +' \nFunkdela Reloaded';
 	// title
@@ -50,13 +59,15 @@ function postStateSwitch(){ //post is more consistent than pre
 	// bgColor
 	FlxG.camera.bgColor = 0xFF000000;
 
+	// im not really sure where else to place this...
+	PauseSubState.script = 'data/scripts/pause';
+
 	//icon window
 	//window.setIcon(Image.fromBytes(Assets.getBytes(Paths.image('iconGame'))));
 }
-function new(){
 
-}
-function destroy(){
+function destroy()
+{
 	FlxG.camera.bgColor = 0xFF000000;
 }
 

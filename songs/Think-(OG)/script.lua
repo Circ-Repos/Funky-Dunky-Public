@@ -1,3 +1,5 @@
+-- i'm guessing this is a leftover, right?
+
 local tic = 1
 local letter = 1
 local bruh = true
