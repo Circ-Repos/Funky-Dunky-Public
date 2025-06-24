@@ -38,6 +38,10 @@ function create(){
     }
 
     if(FlxG.sound.music == null) CoolUtil.playMusic(Paths.music("titlescreen-ambience"), 1);
+    else{
+        FlxG.sound.music.stop();
+        CoolUtil.playMusic(Paths.music("titlescreen-ambience"), 1);
+    }
 }
 
 var accepted:Bool = false;
@@ -45,20 +49,18 @@ function update(){
     if(controls.ACCEPT){
         if(!accepted){
             for(e in [pressTheButtonOk, theMysteriousDot, funkleDunkle]){
+                FlxG.sound.music.fadeOut(1, 0);
                 FlxTween.cancelTweensOf(e);
                 e.alpha = 1;
                 FlxTween.tween(e, {alpha: 0}, 1.4, {ease: FlxEase.sineInOut});
-                FlxTween.tween(e.scale, {x: 0.1, y: 0.1}, 1.4, {ease: FlxEase.sineInOut, onComplete: uhhh ->{
-                    for(a in [clouds]){
-                        FlxTween.tween(a, {alpha: 0}, 1.4, {ease: FlxEase.sineInOut, onComplete: uhhh2 ->{
-                            FlxG.switchState(new MainMenuState());
-                        }
-                        });
-                        FlxTween.tween(FlxG.camera, {zoom: 2.4}, 1.4, {ease: FlxEase.sineInOut});
+                FlxTween.tween(e.scale, {x: 0.001, y: 0.001}, 1.4, {ease: FlxEase.sineInOut});
+                for(a in [clouds]){
+                    FlxTween.tween(a, {alpha: 0}, 1.4, {ease: FlxEase.sineInOut, onComplete: uhhh2 ->{
+                        FlxG.switchState(new MainMenuState());
                     }
-                } 
-                });
-
+                    });
+                    FlxTween.tween(FlxG.camera, {zoom: 2.4}, 1.4, {ease: FlxEase.sineInOut});
+                }
             }
             accepted = true;
         }

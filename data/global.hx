@@ -55,22 +55,9 @@ function postStateSwitch(){ //post is more consistent than pre
 }
 function new(){
 
-	shader2 = new CustomShader("lowquality_0_reduce");
-	shader3 = new CustomShader("lowquality_1_sharpen");
-	shader4 = new CustomShader("lowquality_3_main");
-	shader5 = new CustomShader("lowquality_4_amplification");
-	
-    FlxG.game.addShader(shader2);
-	FlxG.game.addShader(shader3);
-	FlxG.game.addShader(shader4);
-	FlxG.game.addShader(shader5);
 }
 function destroy(){
 	FlxG.camera.bgColor = 0xFF000000;
-	FlxG.game.removeShader(shader2);
-	FlxG.game.removeShader(shader3);
-	FlxG.game.removeShader(shader4);
-	FlxG.game.removeShader(shader5);
 }
 
 FlxG.save.data.DevMode ??= false;
