@@ -41,19 +41,53 @@ function create(){
     settingsPage.setFormat(Paths.font('vcr.ttf'), 60, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     insert(105, settingsPage);
 
+    resetWindow = new FlxSprite(0, 0).makeGraphic(1280, 720, 0xFF000000);
+    resetWindow.alpha = 0;
+    insert(200, resetWindow);
+
+    resetTxtA = new FlxText(0, 180, FlxG.width, 'ARE YOU SURE?', 20);
+    resetTxtA.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'center', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    resetTxtA.alpha = 0;
+    insert(201, resetTxtA);
+
+    resetTxtB = new FlxText(0, 500, FlxG.width, '(PRESS ENTER TO CONFIRM)\n(PRESS BACK TO DENY)', 20);
+    resetTxtB.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'center', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    resetTxtB.alpha = 0;
+    insert(202, resetTxtB);
+
     changeItem(0);
+
+    //
 }
 
-function update(elapsed){
-    if(controls.UP_P || controls.DOWN_P) changeItem((controls.UP_P ? -1 : 0) + (controls.DOWN_P ? 1 : 0));
-    if(controls.ACCEPT) selectOption();
+var allowControl:Bool = true;
+var allowSecondControl:Bool = false;
 
+function update(elapsed){
+    if(allowControl){
+        if(controls.UP_P || controls.DOWN_P) changeItem((controls.UP_P ? -1 : 0) + (controls.DOWN_P ? 1 : 0));
+        if(controls.ACCEPT) selectOption();
+        if(controls.BACK){
+            Options.save();
+            FlxG.switchState(new MainMenuState());
+        }
+    } else {
+        if(allowSecondControl){
+            if(controls.ACCEPT){
+                trace('lemme get back to you');
+                allowSecondControl = false;
+                resetWindow.alpha = resetTxtA.alpha = resetTxtB.alpha = 0;
+                allowControl = true;
+            } else if(controls.BACK){
+                allowSecondControl = false;
+                resetWindow.alpha = resetTxtA.alpha = resetTxtB.alpha = 0;
+                allowControl = true;
+            }
+
+        }
+    }
 
     time.text = DateTools.format(Date.now(), "%r");
-    if(controls.BACK){
-        Options.save();
-        FlxG.switchState(new MainMenuState());
-    }
 }
 
 function changeItem(bleh){
@@ -64,8 +98,15 @@ function changeItem(bleh){
 }
 
 function selectOption(){
-    if(optionNum != 5){
+    if(optionNum != 4){
         persistentUpdate = persistentDraw = false;
         openSubState(new ModSubState('custom/options/' + subMenu[optionNum]));
+    } else {
+        allowControl = false;
+        FlxTween.tween(resetWindow, {alpha: 0.75}, 1);
+        FlxTween.tween(resetTxtA, {alpha: 1}, 1, {startDelay: 1});
+        FlxTween.tween(resetTxtB, {alpha: 1}, 1, {startDelay: 2, onComplete: function(){
+            allowSecondControl = true;
+        }});
     }
 }
