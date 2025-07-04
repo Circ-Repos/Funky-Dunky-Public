@@ -7,6 +7,8 @@ var noteOptions:Array = [];
 
 var p1ControlsNotes:Array = [];
 var p2ControlsNotes:Array = [];
+var p1ArrowIcons:Array<FlxSprite> = [];
+var p2ArrowIcons:Array<FlxSprite> = [];
 var page:Int = 0;
 
 var optionNum:Int = 0;
@@ -26,6 +28,16 @@ var shitsB:Array<String> = [
 ];
 
 var helper:Array = ['←', '⌄', '^', '→'];
+
+function getKeyImage(key:String):String {
+    return switch(key.toUpperCase()) {
+        case 'LEFT': 'arrowLeft';
+        case 'DOWN': 'arrowDown';
+        case 'UP': 'arrowUp';
+        case 'RIGHT': 'arrowRight';
+        default: null;
+    }
+}
 
 function create() {
     bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF6617B5);
@@ -57,21 +69,64 @@ function create() {
 
     for (a in 0...shitsA.length) {
         var yPos = 207 + (67 * a);
+        var labelText = shitsB[a];
+        var labelSprite:FlxSprite = null;
 
-        noteOptions.push(new FlxText(50, yPos, FlxG.width, shitsB[a], 75));
-        noteOptions[a].setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        insert(103 + a, noteOptions[a]);
+        switch (labelText) {
+            case 'NOTE LEFT': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowLeft'));
+            case 'NOTE DOWN': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowDown'));
+            case 'NOTE UP': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowUp'));
+            case 'NOTE RIGHT': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowRight'));
+        }
 
-        var controlArrayP1:Array<FlxKey> = CoolUtil.keyToString(Reflect.field(Options, 'P1_' + shitsA[a])[0]);
-        p1ControlsNotes.push(new FlxText(550, yPos, FlxG.width, controlArrayP1, 75));
-        p1ControlsNotes[a].setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        insert(50 + a, p1ControlsNotes[a]);
+        if (labelSprite != null) {
+            labelSprite.setGraphicSize(60, 60);
+            labelSprite.updateHitbox();
+            noteOptions.push(labelSprite);
+            insert(103 + a, labelSprite);
+        } else {
+            var text = new FlxText(50, yPos, FlxG.width, labelText, 75);
+            text.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            noteOptions.push(text);
+            insert(103 + a, text);
+        }
 
-        var controlArrayP2:Array<FlxKey> = CoolUtil.keyToString(Reflect.field(Options, 'P2_' + shitsA[a])[0]);
-        p2ControlsNotes.push(new FlxText(850, yPos, FlxG.width, controlArrayP2, 75));
-        p2ControlsNotes[a].setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        p2ControlsNotes[a].alpha = 0.5;
-        insert(50 + a, p2ControlsNotes[a]);
+        var keyP1:String = CoolUtil.keyToString(Reflect.field(Options, 'P1_' + shitsA[a])[0]);
+        var iconP1:String = getKeyImage(keyP1);
+
+        if (iconP1 != null) {
+            var arrow = new FlxSprite(550, yPos).loadGraphic(Paths.image('menus/onionMenu/' + iconP1));
+            arrow.setGraphicSize(48, 48);
+            arrow.updateHitbox();
+            p1ControlsNotes.push(arrow);
+            insert(150 + a, arrow);
+        } else {
+            var p1 = new FlxText(550, yPos, FlxG.width, keyP1, 75);
+            p1.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            insert(150 + a, p1);
+            p1ControlsNotes.push(p1);
+        }
+
+        var keyP2:String = CoolUtil.keyToString(Reflect.field(Options, 'P2_' + shitsA[a])[0]);
+        var iconP2:String = getKeyImage(keyP2);
+
+        if (iconP2 != null) {
+            var arrow = new FlxSprite(850, yPos).loadGraphic(Paths.image('menus/onionMenu/' + iconP2));
+            arrow.setGraphicSize(48, 48);
+            arrow.updateHitbox();
+            arrow.alpha = 0.5;
+            p2ControlsNotes.push(arrow);
+            insert(160 + a, arrow);
+        } else {
+            var p2 = new FlxText(850, yPos, FlxG.width, keyP2, 75);
+            p2.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            p2.alpha = 0.5;
+            insert(160 + a, p2);
+            p2ControlsNotes.push(p2);
+        }
+
+        p1ArrowIcons.push(null);
+        p2ArrowIcons.push(null);
     }
 
     helperArrowA = new FlxSprite(249 + 70, 57 / 3).loadGraphic(Paths.image('menus/onionMenu/arrowSmall'));
@@ -97,14 +152,10 @@ function create() {
     changeItem(0);
 }
 
-function postCreate() {
-    controls.ACCEPT = false;
-}
 
-var onP2:Bool = false;
+function postCreate() controls.ACCEPT = false;
 var allowControl:Bool = true;
 var inputRequired:Bool = false;
-
 function postUpdate() {
     time.text = DateTools.format(Date.now(), "%r");
 
@@ -138,12 +189,32 @@ function postUpdate() {
     if (inputRequired && FlxG.keys.justPressed.ANY) {
         var newKey = FlxG.keys.firstJustPressed();
         var strKey = CoolUtil.keyToString(newKey);
+        var frame = getArrowFrameFor(strKey);
+
+        clearArrowIcons(optionNum);
 
         if (!onP2) {
-            p1ControlsNotes[optionNum].text = strKey;
+            if (frame != -1) {
+                var icon = makeArrowSprite(p1ControlsNotes[optionNum].x, p1ControlsNotes[optionNum].y, frame);
+                add(icon);
+                p1ArrowIcons[optionNum] = icon;
+                p1ControlsNotes[optionNum].visible = false;
+            } else {
+                p1ControlsNotes[optionNum].text = strKey;
+                p1ControlsNotes[optionNum].visible = true;
+            }
             Reflect.setField(Options, 'P1_' + shitsA[optionNum], [newKey]);
         } else {
-            p2ControlsNotes[optionNum].text = strKey;
+            if (frame != -1) {
+                var icon = makeArrowSprite(p2ControlsNotes[optionNum].x, p2ControlsNotes[optionNum].y, frame);
+                icon.alpha = 0.5;
+                add(icon);
+                p2ArrowIcons[optionNum] = icon;
+                p2ControlsNotes[optionNum].visible = false;
+            } else {
+                p2ControlsNotes[optionNum].text = strKey;
+                p2ControlsNotes[optionNum].visible = true;
+            }
             Reflect.setField(Options, 'P2_' + shitsA[optionNum], [newKey]);
         }
 
@@ -159,34 +230,61 @@ function changeItem(bleh:Int) {
     if (optionNum < 0) optionNum = shitsA.length - 1;
     if (optionNum >= shitsA.length) optionNum = 0;
 
-    // scrollOffset is the topmost visible item index
     if (optionNum < scrollOffset) scrollOffset = optionNum;
     if (optionNum >= scrollOffset + visibleRows) scrollOffset = optionNum - visibleRows + 1;
 
-    // update visible positions
     for (i in 0...shitsA.length) {
         var visibleIndex = i - scrollOffset;
         var baseY = 210 + (visibleIndex * 66);
-
         var onScreen = visibleIndex >= 0 && visibleIndex < visibleRows;
 
         noteOptions[i].visible = onScreen;
         p1ControlsNotes[i].visible = onScreen;
         p2ControlsNotes[i].visible = onScreen;
 
+        if (p1ArrowIcons[i] != null) p1ArrowIcons[i].visible = onScreen;
+        if (p2ArrowIcons[i] != null) p2ArrowIcons[i].visible = onScreen;
+
         if (onScreen) {
             noteOptions[i].y = baseY - 3;
             p1ControlsNotes[i].y = baseY;
             p2ControlsNotes[i].y = baseY;
+            if (p1ArrowIcons[i] != null) p1ArrowIcons[i].y = baseY;
+            if (p2ArrowIcons[i] != null) p2ArrowIcons[i].y = baseY;
         }
     }
 
-    // selectedOption position remains within 5 slots
     selectedOption.y = 210 + ((optionNum - scrollOffset) * 66);
 
-    if(optionNum == 9) arrowDown.alpha = 0;
-    if(optionNum == 4) arrowDown.alpha = 1;
-    if(optionNum == 0) arrowUp.alpha = 0;
-    if(optionNum == 5)
-        arrowUp.alpha = 1;
+    arrowDown.alpha = optionNum < shitsA.length - 1 ? 1 : 0;
+    arrowUp.alpha = optionNum > 0 ? 1 : 0;
+}
+
+function getArrowFrameFor(k:String):Int {
+    return switch(k.toUpperCase()) {
+        case 'LEFT': 0;
+        case 'DOWN': 1;
+        case 'UP': 2;
+        case 'RIGHT': 3;
+        default: -1;
+    }
+}
+
+function makeArrowSprite(x:Float, y:Float, frame:Int):FlxSprite {
+    var sprite = new FlxSprite(x, y + 10).loadGraphic(Paths.image('menus/onionMenu/arrows'), true, 48, 48);
+    sprite.animation.add('arrow', [frame], 0, false);
+    sprite.animation.play('arrow');
+    sprite.antialiasing = false;
+    return sprite;
+}
+
+function clearArrowIcons(index:Int) {
+    if (p1ArrowIcons[index] != null) {
+        remove(p1ArrowIcons[index]);
+        p1ArrowIcons[index] = null;
+    }
+    if (p2ArrowIcons[index] != null) {
+        remove(p2ArrowIcons[index]);
+        p2ArrowIcons[index] = null;
+    }
 }
