@@ -11,7 +11,7 @@ var page:Int = 0;
 
 var optionNum:Int = 0;
 var scrollOffset:Int = 0;
-var visibleRows:Int = 6;
+var visibleRows:Int = 5;
 
 var shitsA:Array<String> = [
     'NOTE_LEFT', 'NOTE_DOWN', 'NOTE_UP', 'NOTE_RIGHT',
@@ -37,6 +37,23 @@ function create() {
 
     selectedOption = new FlxSprite(40, 210).makeGraphic(1086, 75, 0xFF470C60);
     insert(1, selectedOption);
+
+    arrowUp = new FlxText();
+    arrowUp.text = '^';
+    arrowUp.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    arrowUp.antialiasing = false;
+    arrowUp.screenCenter(FlxAxes.X);
+    arrowUp.y += 140;
+    add(arrowUp);
+
+    arrowDown = new FlxText();
+    arrowDown.text = '^';
+    arrowDown.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    arrowDown.antialiasing = false;
+    arrowDown.screenCenter(FlxAxes.X);
+    arrowDown.y = FlxG.height - 180;
+    arrowDown.angle = 180;
+    add(arrowDown);
 
     for (a in 0...shitsA.length) {
         var yPos = 207 + (67 * a);
@@ -166,4 +183,10 @@ function changeItem(bleh:Int) {
 
     // selectedOption position remains within 5 slots
     selectedOption.y = 210 + ((optionNum - scrollOffset) * 66);
+
+    if(optionNum == 9) arrowDown.alpha = 0;
+    if(optionNum == 4) arrowDown.alpha = 1;
+    if(optionNum == 0) arrowUp.alpha = 0;
+    if(optionNum == 5)
+        arrowUp.alpha = 1;
 }

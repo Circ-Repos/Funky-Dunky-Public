@@ -100,5 +100,4 @@ function changeItem(bleh){
     else optionNum += bleh;
     selectedOption.y = 210 + (optionNum * 66);
 
-    trace(optionNum);
 }

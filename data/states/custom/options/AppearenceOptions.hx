@@ -148,7 +148,7 @@ function changeItem(bleh:Int) {
     else
         arrowDown.alpha = 1;
     if(optionNum == 0) arrowUp.alpha = 0;
-    else
+    if(optionNum == 5)
         arrowUp.alpha = 1;
     selectedOption.y = 210 + ((optionNum - scrollOffset) * 67);
 }
