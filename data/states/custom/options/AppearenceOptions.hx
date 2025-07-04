@@ -2,44 +2,67 @@ import flixel.text.FlxTextBorderStyle;
 import Date;
 import DateTools;
 
-var options:Array = [];
-var curOption:Array = [];
+var options:Array<FlxText> = [];
+var curOption:Array<Dynamic> = [];
 
 var optionNum:Int = 0;
-var optionItemFix:Int = 0;
+var scrollOffset:Int = 0;
+var visibleRows:Int = 5;
 
 var gameFPS:Int = Options.framerate;
 var shits:Array<String> = ['framerate', 'antialiasing', 'gameplayShaders', 'flashingMenu', 'lowMemoryMode', 'gpuOnlyBitmaps', 'autoPause'];
+var labels:Array<String> = ["FRAMERATE", "ANTIALIASING", "SHADERS", "FLASHING LIGHTS", "LOW MEMORY MODE", "VRAM SPRITES", "AUTO PAUSE"];
 
-function create(){
+function create() {
     bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF6617B5);
     insert(0, bg);
+
+    arrowUp = new FlxText();
+    arrowUp.text = '^';
+    arrowUp.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    arrowUp.antialiasing = false;
+    arrowUp.screenCenter(FlxAxes.X);
+    arrowUp.y += 140;
+    add(arrowUp);
+
+    arrowDown = new FlxText();
+    arrowDown.text = '^';
+    arrowDown.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+    arrowDown.antialiasing = false;
+    arrowDown.screenCenter(FlxAxes.X);
+    arrowDown.y = FlxG.height - 180;
+    arrowDown.angle = 180;
+    add(arrowDown);
 
     topLayer = new FlxSprite(0, 0).makeGraphic(1280, 130, 0xFF000000);
     topLayer.alpha = 0.5;
     insert(100, topLayer);
 
-    selectedOption =  new FlxSprite(40, 210).makeGraphic(1086, 75, 0xFF470C60);
+    selectedOption = new FlxSprite(40, 210).makeGraphic(1086, 75, 0xFF470C60);
     insert(1, selectedOption);
 
-    for(a in 0...7){
-        options.push(new FlxText(50, 207 + (67 * a), FlxG.width, ["FRAMERATE", 'ANTIALIASING', "SHADERS", "FLASHING LIGHTS", "LOW MEMORY MODE", "VRAM SPRITES", 'AUTO PAUSE'][a], 75));
+    for (a in 0...shits.length) {
+        options.push(new FlxText(50, 207 + (67 * a), FlxG.width, labels[a], 75));
         options[a].setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-        insert(2 + a, options[a]).antialiasing = false;
+        options[a].antialiasing = false;
+        insert(2 + a, options[a]);
 
-        curOption.push(a == 0 ? new FlxText(900, options[0].y, 0, gameFPS, 75) : new FlxSprite(940, 220 + (67 * a)).loadGraphic(Paths.image('menus/onionMenu/checkedBox'), true, 35, 35));
-        insert(options.length + 1 + a, curOption[a]).antialiasing = false;
-
-        curOption[0].x = FlxG.width - 290 - curOption[0].width;
-
-        if(a == 0){
-            curOption[a].setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+        if (a == 0) {
+            var fpsText = new FlxText(900, options[a].y, 0, gameFPS + "", 75);
+            fpsText.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+            fpsText.antialiasing = false;
+            curOption.push(fpsText);
+            insert(100 + a, fpsText);
         } else {
-            curOption[a].setGraphicSize(50, 50);
-            curOption[a].updateHitbox();
-            curOption[a].animation.add('false', [1], 1, false);
-            curOption[a].animation.add('true', [0], 1, false);
-            curOption[a].animation.play(Reflect.field(Options, shits[a]));
+            var check = new FlxSprite(940, 220 + (67 * a)).loadGraphic(Paths.image('menus/onionMenu/checkedBox'), true, 35, 35);
+            check.setGraphicSize(50, 50);
+            check.updateHitbox();
+            check.antialiasing = false;
+            check.animation.add('false', [1], 1, false);
+            check.animation.add('true', [0], 1, false);
+            check.animation.play(Reflect.field(Options, shits[a]));
+            curOption.push(check);
+            insert(100 + a, check);
         }
     }
 
@@ -54,7 +77,7 @@ function create(){
     time.setFormat(Paths.font('vcr.ttf'), 60, 0xFFffcaec, 'right', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     insert(104, time);
 
-    settingsPage = new FlxText(50, 10, 0, 'OPTIONS  APPEARENCE', 20);
+    settingsPage = new FlxText(50, 10, 0, 'OPTIONS  APPEARANCE', 20);
     settingsPage.setFormat(Paths.font('vcr.ttf'), 60, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     insert(105, settingsPage);
 
@@ -66,79 +89,66 @@ function create(){
 
 function postCreate() controls.ACCEPT = false;
 
-function postUpdate(){
+function postUpdate() {
     time.text = DateTools.format(Date.now(), "%r");
-    if(controls.BACK) close();
 
-    if(controls.UP_P || controls.DOWN_P) changeItem((controls.UP_P ? -1 : 0) + (controls.DOWN_P ? 1 : 0));
+    if (controls.BACK) close();
 
-    switch(optionNum){
+    if (controls.UP_P || controls.DOWN_P)
+        changeItem((controls.UP_P ? -1 : 1));
+
+    switch (optionNum) {
         case 0:
-            if((controls.LEFT_P || controls.RIGHT_P)){
+            if (controls.LEFT_P || controls.RIGHT_P) {
                 gameFPS = FlxMath.bound(gameFPS + (controls.LEFT_P ? -1 : 1) * (FlxG.keys.pressed.SHIFT ? 10 : 1), 30, 240);
-                if(FlxG.updateFramerate < gameFPS) FlxG.drawFramerate = FlxG.updateFramerate = gameFPS;
+                if (FlxG.updateFramerate < gameFPS) FlxG.drawFramerate = FlxG.updateFramerate = gameFPS;
                 else FlxG.updateFramerate = FlxG.drawFramerate = gameFPS;
 
-                curOption[0].text = gameFPS;
+                curOption[0].text = gameFPS + "";
                 curOption[0].x = FlxG.width - 290 - curOption[0].width;
             }
         default:
-            if(controls.ACCEPT){
-                Reflect.setField(Options, shits[optionNum], !Reflect.field(Options, shits[optionNum]));
-                curOption[optionNum].animation.play(Reflect.field(Options, shits[optionNum]) ? "true" : "false");
+            if (controls.ACCEPT) {
+                var key:String = shits[optionNum];
+                var value:Bool = !Reflect.field(Options, key);
+                Reflect.setField(Options, key, value);
+                curOption[optionNum].animation.play(value ? "true" : "false");
                 Options.applySettings();
             }
     }
-
-
 }
 
-function changeItem(bleh){
-    if(optionNum > (options.length - 2) && controls.DOWN_P){
-        optionNum = 0;
-        optionItemFix = -1;
-        for(a in 0...7){
-            options[a].y = 207 + (67 * a);
-            if(curOption != 0){
-                curOption[a].y = 220 + (67 * a);
-            }
+function changeItem(bleh:Int) {
+    optionNum += bleh;
+    if (optionNum < 0) optionNum = shits.length - 1;
+    if (optionNum >= shits.length) optionNum = 0;
 
-        }
-    } else if(optionNum < 1 && controls.UP_P){
-        optionItemFix = 6;
-        optionNum = (options.length - 1); 
-        for(a in 0...7){
-            options[a].y -= 67 * (options.length - 6);
-            if(curOption != 0){
-                curOption[a].y -= 67 * (options.length - 6);
-            }
-        }
-    } else optionNum += bleh;
-    
-    if(controls.DOWN_P){
-        if(optionItemFix > 4){
-            for(a in 0...7){
-                curOption[a].y -= 67;
-                options[a].y -= 67;
-            } 
-        } else {
-            optionItemFix += 1;
+    // Update scroll offset
+    if (optionNum < scrollOffset) scrollOffset = optionNum;
+    if (optionNum >= scrollOffset + visibleRows) scrollOffset = optionNum - visibleRows + 1;
+
+    for (i in 0...shits.length) {
+        var visibleIndex = i - scrollOffset;
+        var yPos = 207 + (visibleIndex * 67);
+
+        var onScreen = visibleIndex >= 0 && visibleIndex < visibleRows;
+
+        options[i].visible = onScreen;
+        curOption[i].visible = onScreen;
+
+        if (onScreen) {
+            options[i].y = yPos;
+            if (i == 0)
+                curOption[i].y = yPos;
+            else
+                curOption[i].y = yPos + 13;
         }
     }
-
-    if(controls.UP_P){
-        if(optionItemFix < 1 && optionNum < (options.length - 3)){
-            for(a in 0...7){
-                options[a].y += 67;
-                curOption[a].y += 67;
-            }
-        } else {
-            optionItemFix -= 1;
-        }
-    }
-
-    selectedOption.y = 210 + (optionItemFix * 67);
-    curOption[0].y = options[0].y;
-
-    trace(optionNum);
+    if(optionNum == 6) arrowDown.alpha = 0;
+    else
+        arrowDown.alpha = 1;
+    if(optionNum == 0) arrowUp.alpha = 0;
+    if(optionNum == 5)
+        arrowUp.alpha = 1;
+    selectedOption.y = 210 + ((optionNum - scrollOffset) * 67);
 }

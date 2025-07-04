@@ -52,7 +52,7 @@ function create(){
     time.setFormat(Paths.font('vcr.ttf'), 60, 0xFFffcaec, 'right', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     insert(104, time);
 
-    settingsPage = new FlxText(50, 10, 0, 'OPTIONS  APPEARENCE', 20);
+    settingsPage = new FlxText(50, 10, 0, 'OPTIONS  GAMEPLAY', 20);
     settingsPage.setFormat(Paths.font('vcr.ttf'), 60, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     insert(105, settingsPage);
 
@@ -100,5 +100,4 @@ function changeItem(bleh){
     else optionNum += bleh;
     selectedOption.y = 210 + (optionNum * 66);
 
-    trace(optionNum);
 }
