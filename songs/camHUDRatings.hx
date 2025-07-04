@@ -13,7 +13,7 @@ function postCreate()
 function postUpdate()
 {
 	comboGroup.forEachAlive(function(spr) {
-		if(spr.camera != camHUD) spr.camera = camHUD
+		if(spr.camera != camHUD) spr.camera = camHUD;
 	});
 }
 

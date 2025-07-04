@@ -6,6 +6,14 @@ import funkin.backend.system.framerate.Framerate;
 import funkin.backend.system.framerate.CodenameBuildField;
 import funkin.backend.system.Main;
 
+import funkin.menus.BetaWarningState;
+import funkin.menus.TitleState;
+import funkin.menus.MainMenuState;
+import funkin.menus.StoryMenuState;
+import funkin.menus.FreeplayState;
+import funkin.options.OptionsMenu;
+import funkin.menus.credits.CreditsMain;
+
 // DEFAULT WINDOW POSITIONS
 static var winX:Int = FlxG.stage.application.window.display.bounds.width / 6;
 static var winY:Int = FlxG.stage.application.window.display.bounds.height / 6;
@@ -30,12 +38,12 @@ var shader4:CustomShader;
 var shader5:CustomShader;
 
 static var redirectStates:Map<FlxState, String> = [
-    //BetaWarningState => 'custom/warning',
+	//BetaWarningState => 'custom/warning',
 	TitleState => 'custom/title',
-	//MainMenuState => 'custom/main',
+	MainMenuState => 'custom/main',
 	//StoryMenuState => 'custom/story',
 	//FreeplayState => 'custom/freeplay',
-    //OptionsMenu => 'custom/options/Options',
+	OptionsMenu => 'custom/options/Options',
 	//CreditsMain => 'custom/credits'
 ];
 

@@ -2,11 +2,7 @@ import funkin.editors.charter.Charter;
 import funkin.game.PlayState;
 import flixel.text.FlxTextAlign;
 import flixel.text.FlxTextBorderStyle;
-import flixel.math.FlxBasePoint;
 import funkin.backend.system.framerate.SystemInfo;
-
-static var curBotplay:Bool = false;
-public var botplayTxt:FlxText;
 
 var theSysBool:Bool = false;
 var systemInfoText:FlxText;
@@ -24,13 +20,6 @@ function postCreate()
 	camOther = new FlxCamera();
 	camOther.bgColor = 0x00000000;
 	FlxG.cameras.add(camOther, false);
-
-	botplayTxt = new FlxText(0, 0, null, 'BOTPLAY', 32);
-	botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-	botplayTxt.visible = false;
-	botplayTxt.borderSize = 1.25;
-	botplayTxt.camera = camHUD;
-	add(botplayTxt);
 
 	var instructTxt:String = "Buttons to Press\n\n  4: Enable Botplay\n  5: Charting Menu\n  I: Debug Info\n  |: Enable/Disable camGame Camera Movement\n  Arrow Keys: Move camGame Camera\n(Will be adding more as time goes on)";
 	instructions = new FlxText(20, 80, FlxG.width, instructTxt, 32);
@@ -74,7 +63,6 @@ function update(elapsed:Float)
 
 	// Botplay
 	if(FlxG.keys.justPressed.FOUR) curBotplay = !curBotplay;
-	updateBotplay(elapsed);
 
 	// Charter
 	if(FlxG.keys.justPressed.FIVE) FlxG.switchState(new Charter(PlayState.SONG.meta.name, PlayState.difficulty, true));
@@ -114,43 +102,4 @@ function popupInfo()
 		FlxTween.tween(camCoords, {alpha: 0}, 0.4);
 	}
 	theSysBool = !theSysBool;
-}
-
-var leAlpha:Float = 0;
-public var botplaySine:Float = 0;
-function updateBotplay(elapsed:Float)
-{
-	for(strumLine in strumLines)
-	{
-		if(!strumLine.opponentSide)
-		{
-			strumLine.cpu = FlxG.keys.pressed.FIVE || curBotplay;
-			botplayTxt.visible = curBotplay;
-		}
-	}
-
-	// stole from cne source lmao
-	var scale = new FlxBasePoint();
-	var r:Float = 0;
-	if(r > 0)
-	{
-		scale.x /= r;
-		scale.y /= r;
-		botplayTxt.scale.set(scale.x * 1.43, scale.y * 1.43);
-	}
-	scale.put();
-
-	if(curBotplay)
-	{
-		botplaySine += 180 * elapsed;
-		leAlpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
-		botplayTxt.alpha = leAlpha;
-	}
-	else
-	{
-		leAlpha = 0;
-		botplayTxt.alpha = 0;
-	}
-	botplayTxt.screenCenter();
-	botplayTxt.y = healthBar.y - 90;
 }

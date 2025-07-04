@@ -1,17 +1,20 @@
 import flixel.addons.display.FlxBackdrop; // i'll be so fr, idk how imports work in CNE, lmao
 import flixel.addons.display.FlxGridOverlay;
+import flixel.text.FlxTextAlign;
 
 var grpMenuItems:Array<FlxText> = [];
-var menuItems:Array<String> = ['resume', 'restart song', 'change controls', 'change options', 'exit to menu'];
+var menuItems:Array<String> = ['resume', 'restart song', 'change controls', 'change options', 'botplay', 'exit to menu'];
 var camPause:FlxCamera;
 
 var allowInputs:Bool = false;
 
 var bg:FlxBackdrop;
-var alternate:FlxSprite;
+var songArt:FlxSprite;
 var overlay:FlxSprite;
 var arrow:FlxSprite;
 var pauseText:FlxText;
+var songText:FlxText;
+var deathsText:FlxText;
 
 function create(event)
 {
@@ -30,10 +33,10 @@ function create(event)
 	bg.alpha = 0.1;
 	add(bg);
 
-	alternate = new FlxSprite(784, 214).loadGraphic(Paths.image('game/pause/alternate'));
-	alternate.antialiasing = Options.antialiasing;
-	alternate.cameras = [camPause];
-	add(alternate);
+	/*songArt = new FlxSprite(784, 214).loadGraphic(Paths.image('game/pause/alternate'));
+	songArt.antialiasing = Options.antialiasing;
+	songArt.cameras = [camPause];
+	add(songArt);*/
 
 	overlay = new FlxSprite().loadGraphic(Paths.image('game/pause/overlay'));
 	overlay.antialiasing = false;
@@ -49,12 +52,13 @@ function create(event)
 
 	for(num => option in menuItems)
 	{
-		var text:FlxText = new FlxText(80, 182 + (96 * num), 0, option.toUpperCase(), 48);
+		var text:FlxText = new FlxText(80, 182 + (80 * num), 0, option.toUpperCase(), 48);
 		text.setFormat(Paths.font("vcr.ttf"), 48);
 		text.antialiasing = false;
 		text.cameras = [camPause];
 		add(text);
 		grpMenuItems.push(text);
+		updateBotplayText(num);
 	}
 
 	arrow = new FlxSprite(200, 182).loadGraphic(Paths.image('game/pause/arrow'));
@@ -63,6 +67,18 @@ function create(event)
 	arrow.scale.set(4, 4);
 	arrow.updateHitbox();
 	add(arrow);
+
+	songText = new FlxText(1070, 80, 0, PlayState.SONG.meta.displayName.toUpperCase(), 40);
+	songText.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.RIGHT);
+	songText.antialiasing = false;
+	songText.cameras = [camPause];
+	add(songText);
+
+	deathsText = new FlxText(725, 125, 0, 'EYES OPENED: ' + PlayState.deathCounter + ' TIMES', 40);
+	deathsText.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.RIGHT);
+	deathsText.antialiasing = false;
+	deathsText.cameras = [camPause];
+	add(deathsText);
 
 	changeSelection(0);
 
@@ -103,6 +119,7 @@ function changeSelection(change:Int)
 			arrow.setPosition(item.width + 120, item.y + 2);
 		}
 		else FlxTween.tween(item, {x: 80}, 0.1, {ease: FlxEase.sineInOut});
+		updateBotplayText(num);
 	}
 }
 
@@ -116,6 +133,11 @@ function confirmSelection(playSound:Bool)
 		case 'change controls':
 			allowInputs = true;
 			selectOption();
+		case 'botplay':
+			allowInputs = true;
+			curBotplay = !curBotplay;
+			updateBotplayText(curSelected);
+			changeSelection(0);
 		default:
 			for(num => item in grpMenuItems) FlxTween.cancelTweensOf(item);
 			new FlxTimer().start(0.4, function(_) {
@@ -124,6 +146,16 @@ function confirmSelection(playSound:Bool)
 					onComplete: (_) -> selectOption()
 				});
 			});
+	}
+}
+
+function updateBotplayText(num)
+{
+	if(menuItems[num] == 'botplay')
+	{
+		var botCondition:String = 'FALSE';
+		if(curBotplay) botCondition = 'TRUE';
+		grpMenuItems[num].text = 'BOTPLAY: ' + botCondition;
 	}
 }
 
