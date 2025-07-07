@@ -1,11 +1,12 @@
 import flixel.addons.display.FlxBackdrop;
 
 import funkin.editors.EditorPicker;
+import funkin.options.TreeMenu;
 import funkin.options.OptionsMenu;
 import funkin.menus.ModSwitchMenu;
 import funkin.menus.credits.CreditsMain;
 
-var grpMenuItems:Array<FlxSprite> = [];
+var grpMenuItems:FlxTypedGroup<FlxSprite>;
 var menuItems:Array<String> = ['story mode', 'freeplay', 'options', 'credits'];
 var curSelected:Int = 0;
 
@@ -47,6 +48,9 @@ function create()
 	box.screenCenter();
 	add(box);
 
+	grpMenuItems = new FlxTypedGroup();
+	add(grpMenuItems);
+
 	for(num => option in menuItems)
 	{
 		var item:FlxSprite = new FlxSprite(0, 220 + (120 * num));
@@ -57,8 +61,8 @@ function create()
 		item.updateHitbox();
 		item.antialiasing = Options.antialiasing;
 		item.screenCenter(FlxAxes.X);
-		add(item);
-		grpMenuItems.push(item);
+		item.ID = num;
+		grpMenuItems.add(item);
 	}
 
 	changeSelection(0, false);
@@ -68,17 +72,18 @@ function update(elapsed)
 {
 	if(!allowInputs) return;
 
-	for(num => item in grpMenuItems)
+	grpMenuItems.forEach(function(spr:FlxSprite)
 	{
-		if(!FlxG.mouse.overlaps(item)) continue;
-
-		if(curSelected != num)
+		if(FlxG.mouse.overlaps(spr))
 		{
-			curSelected = num;
-			changeSelection(0, true);
+			if(curSelected != spr.ID)
+			{
+				curSelected = spr.ID;
+				changeSelection(0, true);
+			}
+			if(FlxG.mouse.justPressed) confirmSelection(true);
 		}
-		if(FlxG.mouse.justPressed) confirmSelection(true);
-	}
+	});
 
 	if(controls.SWITCHMOD)
 	{
@@ -109,11 +114,11 @@ function changeSelection(change:Int, playSound:Bool)
 	if(playSound) CoolUtil.playMenuSFX(0, 0.7);
 	curSelected = FlxMath.wrap(curSelected + change, 0, menuItems.length - 1);
 
-	for(num => item in grpMenuItems)
+	grpMenuItems.forEach(function(spr:FlxSprite)
 	{
-		item.animation.play('idle', true);
-		if(num == curSelected) item.animation.play('selected', true);
-	}
+		spr.animation.play('idle', true);
+		if(spr.ID == curSelected) spr.animation.play('selected', true);
+	});
 }
 
 function confirmSelection(playSound:Bool)
@@ -121,6 +126,7 @@ function confirmSelection(playSound:Bool)
 	allowInputs = false;
 	if(playSound) CoolUtil.playMenuSFX(1, 0.7);
 
+	TreeMenu.lastState = MainMenuState;
 	new FlxTimer().start(1, (_) -> switch(menuItems[curSelected])
 	{
 		case 'story mode': FlxG.switchState(new StoryMenuState());

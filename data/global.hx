@@ -69,6 +69,7 @@ function postStateSwitch() //post is more consistent than pre
 
 	// im not really sure where else to place this...
 	PauseSubState.script = 'data/scripts/pause';
+	// GameOverSubstate.script = 'data/scripts/death';
 
 	//icon window
 	//window.setIcon(Image.fromBytes(Assets.getBytes(Paths.image('iconGame'))));

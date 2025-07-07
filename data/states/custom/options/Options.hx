@@ -1,5 +1,6 @@
 import funkin.options.TreeMenu;
 import flixel.text.FlxTextBorderStyle;
+import Type;
 import Date;
 import DateTools;
 
@@ -72,8 +73,8 @@ function update(elapsed){
             Options.save();
             if(TreeMenu.lastState != null)
             {
+                FlxG.switchState(Type.createInstance(TreeMenu.lastState, []));
                 TreeMenu.lastState = null;
-                FlxG.switchState(new PlayState());
             }
             else FlxG.switchState(new MainMenuState());
         }
