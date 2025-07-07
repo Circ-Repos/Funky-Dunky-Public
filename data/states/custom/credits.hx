@@ -1,3 +1,4 @@
+import flixel.FlxObject;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import haxe.xml.Access;
@@ -20,8 +21,6 @@ var special:FlxSprite;
 
 function create()
 {
-	var xml:Access = new Access(Xml.parse(Paths.assetsTree.getSpecificAsset(Paths.xml('config/credits'), "TEXT")));
-
 	camFollow = new FlxObject(0, 0, 1, 1);
 	//camFollow.screenCenter();
 	add(camFollow);
@@ -48,6 +47,7 @@ function create()
 	add(grpMenuItems);
 
 	var num:Int = 0;
+	var xml:Access = new Access(Xml.parse(Paths.xml('config/credits')));
 	for(node in xml.elements)
 	{
 		if(node.name != "credit") continue;

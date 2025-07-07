@@ -44,7 +44,7 @@ static var redirectStates:Map<FlxState, String> = [
 	//StoryMenuState => 'custom/story',
 	//FreeplayState => 'custom/freeplay',
 	OptionsMenu => 'custom/options/Options',
-	//CreditsMain => 'custom/credits'
+	CreditsMain => 'custom/credits'
 ];
 
 function preStateSwitch()
