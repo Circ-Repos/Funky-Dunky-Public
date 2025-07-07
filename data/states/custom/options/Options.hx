@@ -1,3 +1,4 @@
+import funkin.options.TreeMenu;
 import flixel.text.FlxTextBorderStyle;
 import Date;
 import DateTools;
@@ -69,7 +70,12 @@ function update(elapsed){
         if(controls.ACCEPT) selectOption();
         if(controls.BACK){
             Options.save();
-            FlxG.switchState(new MainMenuState());
+            if(TreeMenu.lastState != null)
+            {
+                TreeMenu.lastState = null;
+                FlxG.switchState(new PlayState());
+            }
+            else FlxG.switchState(new MainMenuState());
         }
     } else {
         if(allowSecondControl){

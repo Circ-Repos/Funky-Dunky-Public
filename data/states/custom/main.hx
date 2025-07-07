@@ -1,5 +1,6 @@
 import flixel.addons.display.FlxBackdrop;
 
+import funkin.editors.EditorPicker;
 import funkin.options.OptionsMenu;
 import funkin.menus.ModSwitchMenu;
 import funkin.menus.credits.CreditsMain;
@@ -84,6 +85,12 @@ function update(elapsed)
 		persistentDraw = true;
 		persistentUpdate = false;
 		openSubState(new ModSwitchMenu());
+	}
+	if(FlxG.save.data.DevMode && FlxG.keys.justPressed.SEVEN)
+	{
+		persistentDraw = true;
+		persistentUpdate = false;
+		openSubState(new EditorPicker());
 	}
 
 	if(controls.DOWN_P || FlxG.mouse.wheel < 0) changeSelection(1, true);

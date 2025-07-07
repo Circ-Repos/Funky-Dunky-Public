@@ -1,6 +1,7 @@
 import flixel.addons.display.FlxBackdrop; // i'll be so fr, idk how imports work in CNE, lmao
 import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxTextAlign;
+import StringTools; // <- The reason I don't like CNE
 
 var grpMenuItems:Array<FlxText> = [];
 var menuItems:Array<String> = ['resume', 'restart song', 'change controls', 'change options', 'botplay', 'exit to menu'];
@@ -33,10 +34,13 @@ function create(event)
 	bg.alpha = 0.1;
 	add(bg);
 
-	/*songArt = new FlxSprite(784, 214).loadGraphic(Paths.image('game/pause/alternate'));
+	/*songArt = new FlxSprite(0, 0).loadGraphic(Paths.image('game/pause/alternate'));
 	songArt.antialiasing = Options.antialiasing;
 	songArt.cameras = [camPause];
-	add(songArt);*/
+	songArt.updateHitbox();
+	add(songArt);
+	songArt.offset.set(songArt.width, songArt.height);
+	songArt.setPosition(500, 500);*/
 
 	overlay = new FlxSprite().loadGraphic(Paths.image('game/pause/overlay'));
 	overlay.antialiasing = false;
@@ -68,13 +72,24 @@ function create(event)
 	arrow.updateHitbox();
 	add(arrow);
 
-	songText = new FlxText(1070, 80, 0, PlayState.SONG.meta.displayName.toUpperCase(), 40);
+	var charName:String = PlayState.instance.cpuStrums.characters[0].curCharacter.toLowerCase();
+	switch(charName) // is there a better way to do this???
+	{
+		case 'ceaser-gift' | 'ceaser' | 'og-cesar': charName = 'cesar';
+		case 'gabriel-false' | 'gabriel-true': charName = 'gabriel';
+		case 'alternate-gift': charName = 'alternate';
+		case 'intruder-dream': charName = 'intruder';
+		case 'lil-mark-dream': charName = 'lil mark';
+		case 'og-mark': charName = 'mark';
+		default: charName = StringTools.replace(charName, '-', ' ');
+	}
+	songText = new FlxText(0, 80, FlxG.width - 90, PlayState.SONG.meta.displayName.toUpperCase() + ' - ' + charName.toUpperCase(), 40);
 	songText.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.RIGHT);
 	songText.antialiasing = false;
 	songText.cameras = [camPause];
 	add(songText);
 
-	deathsText = new FlxText(725, 125, 0, 'EYES OPENED: ' + PlayState.deathCounter + ' TIMES', 40);
+	deathsText = new FlxText(0, 125, FlxG.width - 90, 'EYES OPENED: ' + PlayState.deathCounter + ' TIMES', 40);
 	deathsText.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.RIGHT);
 	deathsText.antialiasing = false;
 	deathsText.cameras = [camPause];
@@ -139,6 +154,7 @@ function confirmSelection(playSound:Bool)
 			updateBotplayText(curSelected);
 			changeSelection(0);
 		default:
+			if(menuItems[curSelected] == 'exit to menu') curSelected -= 1;
 			for(num => item in grpMenuItems) FlxTween.cancelTweensOf(item);
 			new FlxTimer().start(0.4, function(_) {
 				FlxTween.tween(camPause, {alpha: 0}, 0.2, {
