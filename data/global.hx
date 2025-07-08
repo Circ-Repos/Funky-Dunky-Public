@@ -68,6 +68,7 @@ function postStateSwitch() //post is more consistent than pre
 	FlxG.camera.bgColor = 0xFF000000;
 
 	// im not really sure where else to place this...
+	//maybe in PlayState you fucking donkey -Circ
 	PauseSubState.script = 'data/scripts/pause';
 	// GameOverSubstate.script = 'data/scripts/death';
 

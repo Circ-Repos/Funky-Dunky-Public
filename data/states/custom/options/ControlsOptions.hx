@@ -5,10 +5,10 @@ import DateTools;
 var options:Array = [];
 var noteOptions:Array = [];
 
-var p1ControlsNotes:Array = [];
-var p2ControlsNotes:Array = [];
-var p1ArrowIcons:Array<FlxSprite> = [];
-var p2ArrowIcons:Array<FlxSprite> = [];
+var p1ControlsNotes:Array<Dynamic> = [];
+var p2ControlsNotes:Array<Dynamic> = [];
+var p1FuckAssArrowIcons:Array<FlxSprite> = [];
+var p2FuckAssArrowIcons:Array<FlxSprite> = [];
 var page:Int = 0;
 
 var optionNum:Int = 0;
@@ -27,14 +27,12 @@ var shitsB:Array<String> = [
     'ACCEPT', 'BACK'
 ];
 
-var helper:Array = ['←', '⌄', '^', '→'];
-
-function getKeyImage(key:String):String {
-    return switch(key.toUpperCase()) {
-        case 'LEFT': 'arrowLeft';
-        case 'DOWN': 'arrowDown';
-        case 'UP': 'arrowUp';
-        case 'RIGHT': 'arrowRight';
+function getKeyImage(k:String):String {
+    return switch(k.toUpperCase()) {
+        case 'LEFT', '←': 'arrowLeft';
+        case 'DOWN', '↓': 'arrowDown';
+        case 'UP', '↑', '^': 'arrowUp';
+        case 'RIGHT', '→': 'arrowRight';
         default: null;
     }
 }
@@ -72,12 +70,6 @@ function create() {
         var labelText = shitsB[a];
         var labelSprite:FlxSprite = null;
 
-        switch (labelText) {
-            case 'NOTE LEFT': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowLeft'));
-            case 'NOTE DOWN': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowDown'));
-            case 'NOTE UP': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowUp'));
-            case 'NOTE RIGHT': labelSprite = new FlxSprite(50, yPos).loadGraphic(Paths.image('menus/onionMenu/arrowRight'));
-        }
 
         if (labelSprite != null) {
             labelSprite.setGraphicSize(60, 60);
@@ -124,9 +116,6 @@ function create() {
             insert(160 + a, p2);
             p2ControlsNotes.push(p2);
         }
-
-        p1ArrowIcons.push(null);
-        p2ArrowIcons.push(null);
     }
 
     helperArrowA = new FlxSprite(249 + 70, 57 / 3).loadGraphic(Paths.image('menus/onionMenu/arrowSmall'));
@@ -151,7 +140,6 @@ function create() {
 
     changeItem(0);
 }
-
 
 function postCreate() controls.ACCEPT = false;
 var allowControl:Bool = true;
@@ -197,7 +185,7 @@ function postUpdate() {
             if (frame != -1) {
                 var icon = makeArrowSprite(p1ControlsNotes[optionNum].x, p1ControlsNotes[optionNum].y, frame);
                 add(icon);
-                p1ArrowIcons[optionNum] = icon;
+                p1FuckAssArrowIcons[optionNum] = icon;
                 p1ControlsNotes[optionNum].visible = false;
             } else {
                 p1ControlsNotes[optionNum].text = strKey;
@@ -209,7 +197,7 @@ function postUpdate() {
                 var icon = makeArrowSprite(p2ControlsNotes[optionNum].x, p2ControlsNotes[optionNum].y, frame);
                 icon.alpha = 0.5;
                 add(icon);
-                p2ArrowIcons[optionNum] = icon;
+                p2FuckAssArrowIcons[optionNum] = icon;
                 p2ControlsNotes[optionNum].visible = false;
             } else {
                 p2ControlsNotes[optionNum].text = strKey;
@@ -242,15 +230,15 @@ function changeItem(bleh:Int) {
         p1ControlsNotes[i].visible = onScreen;
         p2ControlsNotes[i].visible = onScreen;
 
-        if (p1ArrowIcons[i] != null) p1ArrowIcons[i].visible = onScreen;
-        if (p2ArrowIcons[i] != null) p2ArrowIcons[i].visible = onScreen;
+        if (p1FuckAssArrowIcons[i] != null) p1FuckAssArrowIcons[i].visible = onScreen;
+        if (p2FuckAssArrowIcons[i] != null) p2FuckAssArrowIcons[i].visible = onScreen;
 
         if (onScreen) {
             noteOptions[i].y = baseY - 3;
             p1ControlsNotes[i].y = baseY;
             p2ControlsNotes[i].y = baseY;
-            if (p1ArrowIcons[i] != null) p1ArrowIcons[i].y = baseY;
-            if (p2ArrowIcons[i] != null) p2ArrowIcons[i].y = baseY;
+            if (p1FuckAssArrowIcons[i] != null) p1FuckAssArrowIcons[i].y = baseY;
+            if (p2FuckAssArrowIcons[i] != null) p2FuckAssArrowIcons[i].y = baseY;
         }
     }
 
@@ -279,12 +267,12 @@ function makeArrowSprite(x:Float, y:Float, frame:Int):FlxSprite {
 }
 
 function clearArrowIcons(index:Int) {
-    if (p1ArrowIcons[index] != null) {
-        remove(p1ArrowIcons[index]);
-        p1ArrowIcons[index] = null;
+    if (p1FuckAssArrowIcons[index] != null) {
+        remove(p1FuckAssArrowIcons[index]);
+        p1FuckAssArrowIcons[index] = null;
     }
-    if (p2ArrowIcons[index] != null) {
-        remove(p2ArrowIcons[index]);
-        p2ArrowIcons[index] = null;
+    if (p2FuckAssArrowIcons[index] != null) {
+        remove(p2FuckAssArrowIcons[index]);
+        p2FuckAssArrowIcons[index] = null;
     }
 }

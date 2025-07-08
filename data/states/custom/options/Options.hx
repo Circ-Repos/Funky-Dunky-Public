@@ -12,8 +12,10 @@ var subMenu = [
     'AppearenceOptions',
     'DevOptions'
 ];
+var optionsMaxNum:Int = 3;
 
 function create(){
+    if(FlxG.save.data.DevMode) optionsMaxNum = 4;
     bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF6617B5);
     insert(0, bg);
 
@@ -25,6 +27,7 @@ function create(){
     insert(1, selectedOption);
 
     settingsOptions = new FlxText(50, 210, FlxG.width, 'CONTROLS\nGAMEPLAY\nAPPEARANCE\nDEV STUFF\nRESET DATA', 20);
+    if(!FlxG.save.data.DevMode) settingsOptions.text = 'CONTROLS\nGAMEPLAY\nAPPEARANCE\nRESET DATA';
     settingsOptions.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     insert(2, settingsOptions);
 
@@ -52,7 +55,7 @@ function create(){
     resetTxtA.alpha = 0;
     insert(201, resetTxtA);
 
-    resetTxtB = new FlxText(0, 500, FlxG.width, '(PRESS ENTER TO CONFIRM)\n(PRESS BACK TO DENY)', 20);
+    resetTxtB = new FlxText(0, 500, FlxG.width, '(PRESS ENTER IF PRETTY SURE)\n(PRESS BACK TO DENY)', 20);
     resetTxtB.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'center', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     resetTxtB.alpha = 0;
     insert(202, resetTxtB);
@@ -96,16 +99,17 @@ function update(elapsed){
 
     time.text = DateTools.format(Date.now(), "%r");
 }
-
+var the2ndToLastOption:Int = 2;
 function changeItem(bleh){
-    if(optionNum > 3 && controls.DOWN_P) optionNum = 0;
-    else if(optionNum < 1 && controls.UP_P) optionNum = 4; 
+    if(FlxG.save.data.DevMode) the2ndToLastOption = 3;
+    if(optionNum > the2ndToLastOption && controls.DOWN_P) optionNum = 0;
+    else if(optionNum < 1 && controls.UP_P) optionNum = optionsMaxNum; 
     else optionNum += bleh;
     selectedOption.y = 210 + (optionNum * 66);
 }
 
 function selectOption(){
-    if(optionNum != 4){
+    if(optionNum != optionsMaxNum){
         persistentUpdate = persistentDraw = false;
         openSubState(new ModSubState('custom/options/' + subMenu[optionNum]));
     } else {
