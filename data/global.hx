@@ -48,9 +48,6 @@ function postStateSwitch() //post is more consistent than pre
 	// bgColor
 	FlxG.camera.bgColor = 0xFF000000;
 
-	// im not really sure where else to place this...
-	// GameOverSubstate.script = 'data/scripts/death';
-
 	//icon window
 	//window.setIcon(Image.fromBytes(Assets.getBytes(Paths.image('iconGame'))));
 }
@@ -62,7 +59,7 @@ function destroy()
 
 FlxG.save.data.DevMode ??= false;
 FlxG.save.data.DevModeTracing ??= false;
-FlxG.save.data.beatenGrace ??= false;
+FlxG.save.data.beatenGrace ??= false; // why not use an array? lmao
 FlxG.save.data.beatenDistraught ??= false;
 FlxG.save.data.beatenScaryNight ??= false;
 FlxG.save.data.beatenThink ??= false;
