@@ -99,8 +99,6 @@ function create() {
         }
         add(songText);
 
-        var iconText:String = song.icon;
-
         var nameText = new FunkinText(0, 0, FlxG.width, toTitleCase(song.displayName), 32);
         nameText.alignment = 'center';
         nameText.font = Paths.font(globalFont);
@@ -138,25 +136,29 @@ function create() {
         }
         nameTexts.push(nameText);
         add(nameText);
-        var iconbg = new FlxSprite();
-        iconbg.frames = Paths.getSparrowAtlas('menus/freeplay/freeplay white icon square');
-        iconbg.animation.addByPrefix('idle','white icon square instância 1');
-        iconbg.animation.play('idle');
-        iconbg.scrollFactor.set();
-        iconbgArray.push(iconbg);
-        add(iconbgArray);
         songTexts.push(songText);
         var iconToPush:String = song.icon;
         if(songText.text == '"???"'){
             iconToPush = 'locked';
         }
+
+        var iconbg = new FlxSprite();
+        if(song.displayName == 'Thonk') iconbg.color = 0xFF4DF8;
+        
+        iconbg.frames = Paths.getSparrowAtlas('menus/freeplay/freeplay white icon square');
+        iconbg.animation.addByPrefix('idle','white icon square instância');
+        iconbg.animation.play('idle');
+        iconbg.scrollFactor.set();
+        iconbgArray.push(iconbg);
+        add(iconbg);
+
         var icon = new HealthIcon(iconToPush);
         icon.scrollFactor.set();
+        if(song.displayName == 'Thonk') icon.color = 0xFF4DF8;
+
         icon.antialiasing = false;
         iconArray.push(icon);
         add(icon);
-        iconbg.x = icon.x;
-        iconbg.y = icon.y;
     }
 
     frame = new FlxSprite();
@@ -295,6 +297,8 @@ function repositionItems() {
 		var iconScale = scale - .2;
 		var fontSize = Std.int(36 * scale);
 
+
+
 		// TEXTBG
 		FlxTween.tween(bg, {
 			x: baseX,
@@ -343,39 +347,27 @@ function repositionItems() {
 			y: iconTargetY,
 			alpha: isCenter ? 1 : 0.4
 		}, 0.2, { ease: FlxEase.quadOut });
+		FlxTween.tween(icon.scale, {x: iconScale, y: iconScale}, 0.2, { ease: FlxEase.quadOut });
 
-		FlxTween.tween(icon.scale, { x: iconScale, y: iconScale }, 0.2, { ease: FlxEase.quadOut });
-	}
+		FlxTween.tween(iconbg, {
+			x: iconTargetX + 15,
+			y: iconTargetY + 15,
+			alpha: isCenter ? 1 : 0.6
+		}, 0.2, { ease: FlxEase.quadOut });
+		FlxTween.tween(iconbg.scale, {x: iconScale * 1.1, y: iconScale * 1.1}, 0.2, { ease: FlxEase.quadOut });
+
+    }
 }
-/**
- * How much time a song stays selected until it autoplays.
- */
+
 public var timeUntilAutoplay:Float = 1;
-/**
- * Whenever the song autoplays when hovered over.
- */
 public var disableAutoPlay:Bool = false;
-/**
- * Whenever the autoplayed song gets async loaded.
- */
-/**
- * Time elapsed since last autoplay. If this time exceeds `timeUntilAutoplay`, the currently selected song will play.
- */
 public var autoplayElapsed:Float = 0;
-/**
- * Whenever the currently selected song instrumental is playing.
- */
 public var songInstPlaying:Bool = true;
-/**
- * Path to the currently playing song instrumental.
- */
 public var curPlayingInst:String = null;
-/**
- * If it should play the song automatically.
- */
 public var autoplayShouldPlay:Bool = true;
 var backOut:FlxTimer;
 var backOutScale:FlxTween;
+
 function popupPreview(songName:String) {
     if(backOut != null) {
         backOut.cancel();
