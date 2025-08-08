@@ -1,6 +1,6 @@
 {
 	"opponentModeAllowed": true,
-	"icon": "dad",
+	"icon": "Ceaser-Gift",
 	"difficulties": [
 		"normal"
 	],
@@ -13,5 +13,6 @@
 	"displayName": "Gift",
 	"beatsPerMeasure": 4,
 	"needsVoices": true,
+	"quote": "I have a SUPRISE for you!",
 	"bpm": 165
 }

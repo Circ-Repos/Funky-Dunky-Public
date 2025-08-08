@@ -87,11 +87,9 @@ public function changeCharacter(strumIndex:Int, charName:String = 'bf', memberIn
 	// icon change + healthBar color update
 	if (memberIndex == 0 && updateBar) {
 		if (strumIndex == 0) { // opponent side
-			iconP2.setIcon(newChar.getIcon());
 			if (Options.colorHealthBar) healthBar.createColoredEmptyBar(newChar.iconColor ?? (PlayState.opponentMode ? 0xFF66FF33 : 0xFFFF0000));
 			healthBar.updateBar();
 		} else if (strumIndex == 1) { // player side
-			iconP1.setIcon(newChar.getIcon());
 			if (Options.colorHealthBar) healthBar.createColoredFilledBar(newChar.iconColor ?? (PlayState.opponentMode ? 0xFFFF0000 : 0xFF66FF33));
 			healthBar.updateBar();
 		}

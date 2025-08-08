@@ -19,6 +19,7 @@ var overlay:FlxSprite;
 
 function create(event)
 {
+
 	event.cancel();
 
 	camPause = new FlxCamera();
@@ -71,7 +72,7 @@ function create(event)
 
 	var charName:String = PlayState.instance.cpuStrums.characters[0].curCharacter.toLowerCase();
 	switch(charName) // is there a better way to do this???
-	{
+	{ //i dont think theres a better way to do it
 		case 'ceaser-gift' | 'ceaser' | 'og-cesar': charName = 'cesar';
 		case 'gabriel-false' | 'gabriel-true': charName = 'gabriel';
 		case 'alternate-gift': charName = 'alternate';

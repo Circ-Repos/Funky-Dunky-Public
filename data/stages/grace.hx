@@ -1,8 +1,8 @@
 import flixel.FlxCameraFollowStyle;
 //funni revisetdr code
 // Cam Values
-var dadX:Float = -92;
-var dadY:Float = 203.5;
+var dadX:Float = 555;
+var dadY:Float = 655.5;
 var dadZoom:Float = 0.8;
 
 var bfX:Float = 602;
@@ -33,7 +33,15 @@ function onCameraMove(e) {
 			e.position.set(gfX, gfY);
 		}
 }
+function fixIcon(){
+	trace(PlayState.instance.cpuStrums.characters[0].curCharacter);
+    iconP2.setIcon('Gabriel-true');
+}
+var iconissecond:Bool = false;
+var curCharr:String = '';
 function postUpdate(elapsed:Float) {
+	if(curCharr != PlayState.instance.cpuStrums.characters[0].curCharacter) fixIcon();
+	curCharr = PlayState.instance.cpuStrums.characters[0].curCharacter;
 	FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.06);
 }
 //onNotehit if dad.curName != Gab-True or someth health -= 0.02 bc .2 is amount added by default

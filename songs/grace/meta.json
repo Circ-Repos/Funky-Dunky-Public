@@ -1,17 +1,17 @@
 {
-	"beatsPerMeasure": 4,
 	"opponentModeAllowed": false,
-	"coopAllowed": false,
-	"stepsPerBeat": 4,
-	"bpm": 110,
+	"icon": "gabriel-true",
 	"difficulties": [
 		"normal"
 	],
-	"needsVoices": true,
-	"parsedColor": -10526881,
-	"displayName": "Grace",
-	"icon": "gabriel-grace",
-	"name": "grace",
+	"customValues": {},
 	"color": "#5F5F5F",
-	"customValues": {}
+	"name": "grace",
+	"coopAllowed": false,
+	"stepsPerBeat": 4,
+	"displayName": "Grace",
+	"beatsPerMeasure": 4,
+	"needsVoices": false,
+	"quote": "Don't be afraid!",
+	"bpm": 110
 }

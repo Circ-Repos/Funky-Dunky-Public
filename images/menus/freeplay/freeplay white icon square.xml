@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="freeplay white icon square.png">
+	<!-- Created with Adobe Animate version 22.0.0.93 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="white icon square instância 10000" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10001" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10002" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10003" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10004" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10005" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10006" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10007" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10008" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10009" x="0" y="0" width="134" height="124" frameX="0" frameY="-1" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10010" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10011" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10012" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10013" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10014" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10015" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10016" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10017" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10018" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+	<SubTexture name="white icon square instância 10019" x="0" y="124" width="129" height="121" frameX="-4" frameY="0" frameWidth="134" frameHeight="125"/>
+</TextureAtlas>

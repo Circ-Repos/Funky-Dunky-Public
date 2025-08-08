@@ -1,12 +1,11 @@
 <!DOCTYPE codename-engine-stage>
-<stage folder="stages/grace/" zoom="0.65">
-	<sprite scrolly="0" sprite="sky" y="-500" updateHitbox="true" zoomfactor="0" name="sky" scrollx="0"/>
-	<sprite x="-49" scrolly="0.2" sprite="mountains" y="-306" scale="1.7" name="mountains" scrollx="0.2"/>
-	<sprite x="-44" scrolly="0.3" sprite="smaller_mountains" y="-415" scale="1.7" name="smaller_mountains" scrollx="0.3"/>
+<stage folder="stages/grace/" name="grace" zoom="0.8">
+	<sprite x="6.40820871922188e-08" updateHitbox="true" y="-499.999999990413" zoomfactor="0" name="sky" sprite="sky" scroll="0" scalex="1999.99999993592" skewy="-3.83483129327418e-10"/>
+	<sprite x="-49" scroll="0.2" sprite="mountains" y="-306" scale="1.7" name="mountains"/>
+	<sprite x="-44" scroll="0.3" sprite="smaller_mountains" y="-415" scale="1.7" name="smaller_mountains"/>
 	<gf alpha="0.01"/>
-	<sprite x="-319" scrolly="0.7" sprite="gabriel_hill" y="-283" scale="1.6" name="gabriel_hill" scrollx="0.7"/>
-	<dad x="-314" scrolly="0.7" y="-143" scrollx="0.7"/>
-	<sprite x="363" scrolly="1.7" sprite="noah_hill" y="-219" scale="1.6" name="noah_hill" scrollx="1.7"/>
-	<bf x="683" scrolly="1.7" y="-2" scrollx="1.7"/>
-	<combo x="78" y="-576"/>
+	<sprite x="-319" scroll="0.7" sprite="gabriel_hill" y="-283" scale="1.6" name="gabriel_hill"/>
+	<dad x="156.905337768318" scroll="0.7" y="134.500684039921"/>
+	<sprite x="363" scroll="1.7" sprite="noah_hill" y="-219" scale="1.6" name="noah_hill"/>
+	<bf x="2738.99173529533" scroll="1.7" y="380.60786894044"/>
 </stage>

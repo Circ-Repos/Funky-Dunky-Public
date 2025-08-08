@@ -8,13 +8,6 @@ var CBG:FlxSprite;
 var MBG:FlxSprite;
 var border:FlxSprite;
 var blackOverlayForFlicker:FlxSprite;
-var itime:Float = 0;
-var vhsShader:CustomShader;
-var shader1:CustomShader;
-var shader2:CustomShader;
-var shader3:CustomShader;
-var shader4:CustomShader;
-var shader5:CustomShader;
 
 var textBlob2:FlxText;
 var textBlob1:FlxText;
@@ -63,7 +56,13 @@ function create(){
 	blackOverlayForFlicker.visible = false;
 }
 function onCountdown(event) event.cancel();
+function destroy() {
+	if (FlxG.cameras.list.contains(camThink))
+		FlxG.cameras.remove(camThink);
+	if (FlxG.cameras.list.contains(camThinkB))
+		FlxG.cameras.remove(camThinkB);
 
+}
 function postCreate(){
 	for (i in playerStrums.members) {
 		i.alpha = 0;
@@ -107,8 +106,8 @@ function postCreate(){
 	accuracyTxt.x += 150;
 	missesTxt.x += 150;
 
-	iconP1.y = healthBar.y - 75;
-	iconP2.y = healthBar.y - 75;
+	iconP1.y = healthBar.y - 65;
+	iconP2.y = healthBar.y - 50;
     textBlob1 = new FlxText(0,0,629);
     textBlob1.setFormat(Paths.font("Arial.ttf"), 24, 0x000000,FlxTextBorderStyle.OUTLINE, "center");
     textBlob1.borderSize = 2;
@@ -132,18 +131,12 @@ function postCreate(){
 	textBlob2.antialiasing = false;
 	textBlob2.text = "[MH]: ALRIGHT, I MEAN IT SHOULDN'T BE TOO BAD. I JUST GONNA SWITCH THEM ON AND GET OUTTA THERE THOUGH. YOU KNOW WHAT I FEEL ABOUT YOUR HOUSE. \n\n[CT]: YEAH, THAT'S FINE. ONE LAST THING, TRY TO GET A GOOD VIEW";
     add(textBlob2);
-
-	vhsShader = new CustomShader("VHS");
-    FlxG.game.addShader(vhsShader);
 	add(blackOverlayForFlicker);
 	for(i in [camThink, camThinkB, camHUD]){
 		i.scroll.x = -149;
 	}
 	hideArrows = true;
 
-}
-function destroy() {
-	FlxG.game.removeShader(vhsShader);
 }
 function flickerCam(){
 	FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
@@ -221,7 +214,6 @@ function postUpdate(elapsed:Float){
 		}
 	}
 	var floater = elapsed;
-	vhsShader.iTime = floater;
 	var iconLerp = 0.33;
 	iconP1.scale.x = iconP2.scale.x;
 	iconP1.scale.y = iconP2.scale.y; 

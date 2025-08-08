@@ -12,6 +12,7 @@
 	"stepsPerBeat": 4,
 	"displayName": "Think",
 	"needsVoices": true,
+	"quote": "Hey, it's Cesar. Can you do me a favor?",
 	"beatsPerMeasure": 4,
 	"bpm": 81
 }

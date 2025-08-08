@@ -5,7 +5,7 @@ import openfl.system.Capabilities;
 import funkin.backend.system.framerate.Framerate;
 import funkin.backend.system.framerate.CodenameBuildField;
 import funkin.backend.system.Main;
-
+import funkin.backend.MusicBeatTransition;
 import funkin.menus.BetaWarningState;
 import funkin.menus.TitleState;
 import funkin.menus.MainMenuState;
@@ -37,39 +37,18 @@ var shader3:CustomShader;
 var shader4:CustomShader;
 var shader5:CustomShader;
 
-static var redirectStates:Map<FlxState, String> = [
-	//BetaWarningState => 'custom/warning',
-	TitleState => 'custom/title',
-	MainMenuState => 'custom/main',
-	//StoryMenuState => 'custom/story',
-	//FreeplayState => 'custom/freeplay',
-	OptionsMenu => 'custom/options/Options',
-	CreditsMain => 'custom/credits'
-];
-
-function preStateSwitch()
-{
-	// redirectStates
-	for(i in redirectStates.keys())
-	{
-		if(Std.isOfType(FlxG.game._requestedState, i)) 
-			FlxG.game._requestedState = new ModState(redirectStates.get(i));
-	}
-}
 
 // functions
 function postStateSwitch() //post is more consistent than pre
 {
 	//set commit id to mod name
-	Framerate.codenameBuildField.text = 'Codename Engine '+ Main.releaseCycle +' \nFunkdela Reloaded';
+	Framerate.codenameBuildField.text = 'Codename Engine '+ Application.current.meta.get('version') +' \nFunkdela Reloaded';
 	// title
 	window.title = windowTitle;
 	// bgColor
 	FlxG.camera.bgColor = 0xFF000000;
 
 	// im not really sure where else to place this...
-	//maybe in PlayState you fucking donkey -Circ
-	PauseSubState.script = 'data/scripts/pause';
 	// GameOverSubstate.script = 'data/scripts/death';
 
 	//icon window
@@ -83,3 +62,11 @@ function destroy()
 
 FlxG.save.data.DevMode ??= false;
 FlxG.save.data.DevModeTracing ??= false;
+FlxG.save.data.beatenGrace ??= false;
+FlxG.save.data.beatenDistraught ??= false;
+FlxG.save.data.beatenScaryNight ??= false;
+FlxG.save.data.beatenThink ??= false;
+FlxG.save.data.beatenGift ??= false;
+FlxG.save.data.beatenThonk ??= false;
+FlxG.save.data.beatenAll ??= false;
+

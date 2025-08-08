@@ -1,6 +1,6 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="Mark-Think.png">
-	<!-- Created with Adobe Animate version 19.2.1.408 -->
+	<!-- Created with Adobe Animate version 24.0.8.70 -->
 	<!-- http://www.adobe.com/products/animate.html -->
 	<SubTexture name="idle0000" x="20" y="20" width="583" height="507" frameX="0" frameY="-6" frameWidth="583" frameHeight="513"/>
 	<SubTexture name="idle0001" x="20" y="20" width="583" height="507" frameX="0" frameY="-6" frameWidth="583" frameHeight="513"/>

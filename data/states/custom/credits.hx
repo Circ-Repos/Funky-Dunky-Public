@@ -30,7 +30,7 @@ function create()
 	bg.scrollFactor.set(0, 0);
 	bg.screenCenter();
 	add(bg);
-
+	FlxG.camera.zoom = 0.2;
 	bgOverlay = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFFBBBBBB, 0xFF000000));
 	bgOverlay.scrollFactor.set(0.5, 0.5);
 	bgOverlay.antialiasing = false;
@@ -48,19 +48,28 @@ function create()
 
 	var num:Int = 0;
 	var xml:Access = new Access(Xml.parse(Paths.xml('config/credits')));
-	for(node in xml.elements)
-	{
-		if(node.name != "credit") continue;
-
-		var portrait:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/creds/' + node.att.icon));
-		portrait.antialiasing = Options.antialiasing;
-		portrait.screenCenter();
-		portrait.ID = num;
-		grpMenuItems.add(portrait);
-		menuItems.push([node.att.name, node.att.desc, node.att.quote, node.att.url]);
-		num = num + 1;
+	var xmlString = Paths.xml('config/credits');
+	if (xmlString == null) {
+		trace("ERROR: Could not load config/credits.xml!");
+	} else {
+		var rawXml = Xml.parse(xmlString);
+		var root = rawXml.firstElement(); // This is <menu>
+		if (root == null) {
+			trace("ERROR: Root node is null!");
+		} else {
+			for (credit in root.elementsNamed("credit")) {
+        		var node = new Access(credit);
+				var portrait:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/creds/' + node.att.icon));
+				portrait.antialiasing = Options.antialiasing;
+				portrait.screenCenter();
+				portrait.ID = num;
+				grpMenuItems.add(portrait);
+				menuItems.push([node.att.name, node.att.desc, node.att.quote, node.att.url]);
+				num = num + 1;
+			}
+		}
 	}
-
+	trace("Loaded XML: " + xmlString);
 	grpArrows = new FlxTypedGroup();
 	add(grpArrows);
 
@@ -96,21 +105,21 @@ function update(elapsed)
 {
 	if(!allowInputs) return;
 
-	grpArrows.forEach(function(spr:FlxSprite)
-	{
-		if(FlxG.mouse.overlaps(spr))
-		{
-			var change:Int = 0;
-			if(spr.ID == 1 || spr.ID == 3) change = 1;
-			else change = -1;
+	// grpArrows.forEach(function(spr:FlxSprite)
+	// {
+	// 	if(FlxG.mouse.overlaps(spr))
+	// 	{
+	// 		var change:Int = 0;
+	// 		if(spr.ID == 1 || spr.ID == 3) change = 1;
+	// 		else change = -1;
 
-			if(FlxG.mouse.justPressed)
-			{
-				if(spr.ID == 2 || spr.ID == 3) changeRow(change, true);
-				else changeSelection(change, true);
-			}
-		}
-	});
+	// 		if(FlxG.mouse.justPressed)
+	// 		{
+	// 			if(spr.ID == 2 || spr.ID == 3) changeRow(change, true);
+	// 			else changeSelection(change, true);
+	// 		}
+	// 	}
+	// });
 
 	if(curRow != 1)
 	{

@@ -71,7 +71,7 @@ function create()
 function update(elapsed)
 {
 	if(!allowInputs) return;
-
+	if(FlxG.keys.justPressed.D) FlxG.save.data.DevMode = !FlxG.save.data.DevMode;
 	grpMenuItems.forEach(function(spr:FlxSprite)
 	{
 		if(FlxG.mouse.overlaps(spr))
