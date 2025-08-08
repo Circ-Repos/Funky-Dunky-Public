@@ -9,7 +9,8 @@ var camPause:FlxCamera;
 
 var allowInputs:Bool = false;
 
-var bg:FlxBackdrop;
+var bg:FlxSprite;
+var bgOverlay:FlxBackdrop;
 var songArt:FlxSprite;
 var arrow:FlxSprite;
 var pauseText:FlxText;
@@ -19,7 +20,6 @@ var overlay:FlxSprite;
 
 function create(event)
 {
-
 	event.cancel();
 
 	camPause = new FlxCamera();
@@ -28,20 +28,43 @@ function create(event)
 	camPause.alpha = 0;
 	cameras = [camPause];
 
-	bg = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFFBBBBBB, 0xFF000000));
-	bg.cameras = [camPause];
+	bg = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 	bg.antialiasing = false;
-	bg.velocity.set(0, 40);
-	bg.alpha = 0.1;
+	bg.alpha = 0.2;
+	bg.scrollFactor.set(0, 0);
+	bg.scale.set(FlxG.width, FlxG.height);
+	bg.updateHitbox();
+	bg.screenCenter();
 	add(bg);
 
-	/*songArt = new FlxSprite(0, 0).loadGraphic(Paths.image('game/pause/alternate'));
+	bgOverlay = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFFBBBBBB, 0xFF000000));
+	bgOverlay.cameras = [camPause];
+	bgOverlay.antialiasing = false;
+	bgOverlay.velocity.set(0, 40);
+	bgOverlay.alpha = 0.1;
+	add(bgOverlay);
+
+	// these pause arts are pissing me
+	// off...
+	// im the original      starwalker
+	// TO-DO: finish this
+	var songName:String = PlayState.SONG.meta.name.toLowerCase();
+	switch(songName)
+	{
+		case 'think-(og)': songName = 'think';
+	}
+	songArt = new FlxSprite(0, 0).loadGraphic(Paths.image('game/pause/' + songName));
 	songArt.antialiasing = Options.antialiasing;
 	songArt.cameras = [camPause];
+	songArt.scale.set(0.3, 0.3);
 	songArt.updateHitbox();
 	add(songArt);
-	songArt.offset.set(songArt.width, songArt.height);
-	songArt.setPosition(500, 500);*/
+	// this is the transformation point, right???
+	// the idea is to set that to the bottom right and then place the art on a specific spot,
+	// so we don't have to manually adjust the pos on every image
+	songArt.origin.set(songArt.width, songArt.height);
+	// the corner of the overlay is on x: 1216 | y: 658
+	songArt.setPosition(1216, 658);
 
 	pauseText = new FlxText(80, 86, 0, 'PAUSED', 80);
 	pauseText.setFormat(Paths.font("vcr.ttf"), 80);

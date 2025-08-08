@@ -5,7 +5,7 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.text.FlxTextBorderStyle;
 import flixel.tweens.FlxEase;
 import funkin.savedata.FunkinSave;
-import flixel.addons.display.FlxBackdrop; // i'll be so fr, idk how imports work in CNE, lmao
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 
 var curWeek:Int = 0;

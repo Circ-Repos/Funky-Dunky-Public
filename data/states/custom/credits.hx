@@ -1,15 +1,18 @@
 import flixel.FlxObject;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
-import haxe.xml.Access;
-import Xml;
+import flixel.text.FlxTextAlign;
+import flixel.text.FlxTextBorderStyle;
+//import haxe.xml.Access;
+//import Xml;
 
 var grpMenuItems:FlxTypedGroup<FlxSprite>;
+// TO-DO: add everyone to the credits
 // Name[0] - Role[1] - Quote[2] - URL[3] - Portrait[4]
 var menuItems:Array<Array<String>> = [ // (Portrait at the end in case we get XML working so we can remove it)
 	["Mortal", "Lead Director", "You should probably subscribe to me on Youtube.", "https://youtu.be/", "mortal"],
-	["Mortal", "Lead Director", "You should probably subscribe to me on Youtube.", "https://youtu.be/", "mortal"],
-	["Mortal", "Lead Director", "You should probably subscribe to me on Youtube.", "https://youtu.be/", "mortal"]
+	["Mortal 2", "Another One", "There's 2 of them!?!?!?! AAAAAAAHHH-", "https://youtu.be/", "mortal"],
+	["Mortal 3", "Whuh Oh!", "Duplication...", "https://youtu.be/", "mortal"]
 ];
 var grpArrows:FlxTypedGroup<FlxSprite>;
 
@@ -23,6 +26,10 @@ var bg:FlxSprite;
 var bgOverlay:FlxBackdrop;
 var boxDesc:FlxSprite;
 var special:FlxSprite;
+// would've made another FlxTypedGroup, but this might be easier to deal with
+var txtName:FlxText;
+var txtRole:FlxText;
+var txtDesc:FlxText;
 
 function create()
 {
@@ -55,6 +62,39 @@ function create()
 	boxDesc.screenCenter(FlxAxes.X);
 	add(boxDesc);
 
+	// TO-DO: get the correct font? or modify this one? idk...
+    txtName = new FlxText(0, boxDesc.y, boxDesc.width - 10, "", 56);
+    txtName.setFormat(Paths.font('Times New Roman Italic.ttf'), 56, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+	txtName.bold = true;
+	txtName.borderSize = 0;
+	txtName.underline = true;
+	txtName.letterSpacing = 0.8;
+	txtName.updateHitbox();
+	txtName.screenCenter(FlxAxes.X);
+	txtName.antialiasing = Options.antialiasing;
+    add(txtName);
+
+    txtRole = new FlxText(0, boxDesc.y + 60, boxDesc.width - 10, "", 36);
+    txtRole.setFormat(Paths.font('Times New Roman Italic.ttf'), 36, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+	txtRole.bold = true;
+	txtRole.borderSize = 0;
+	txtRole.letterSpacing = 0.8;
+	txtRole.updateHitbox();
+	txtRole.screenCenter(FlxAxes.X);
+	txtRole.antialiasing = Options.antialiasing;
+    add(txtRole);
+
+	// TO-DO: scale text down depending on length
+    txtDesc = new FlxText(0, boxDesc.y + 120, boxDesc.width - 10, "", 30);
+    txtDesc.setFormat(Paths.font('Times New Roman Italic.ttf'), 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+	txtDesc.bold = true;
+	txtDesc.borderSize = 0;
+	txtDesc.letterSpacing = 0.6;
+	txtDesc.updateHitbox();
+	txtDesc.screenCenter(FlxAxes.X);
+	txtDesc.antialiasing = Options.antialiasing;
+    add(txtDesc);
+
 	special = new FlxSprite().loadGraphic(Paths.image('menus/creds/special-thanks'));
 	special.antialiasing = Options.antialiasing;
 	special.scale.set(0.5, 0.5);
@@ -65,7 +105,6 @@ function create()
 
 	var num:Int = 0;
 	for (credit in menuItems) {
-    	var node = new Access(credit);
 		var portrait:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/creds/' + credit[4]));
 		portrait.antialiasing = Options.antialiasing;
 		portrait.scale.set(0.7, 0.7);
@@ -187,12 +226,17 @@ function changeSelection(change:Int, playSound:Bool)
 {
 	var lastSelected:Int = curSelected;
 	curSelected = FlxMath.bound(curSelected + change, 0, menuItems.length - 1);
+
 	grpArrows.members[0].alpha = curSelected == 0 ? 0.5 : 1;
 	grpArrows.members[1].alpha = curSelected == menuItems.length - 1 ? 0.5 : 1;
+
+	txtName.text = menuItems[curSelected][0].toUpperCase();
+	txtRole.text = menuItems[curSelected][1].toUpperCase();
+	txtDesc.text = '"' + menuItems[curSelected][2] + '"';
+
 	if(lastSelected == curSelected) return;
 
 	allowInputs = false;
-
 	if(playSound) CoolUtil.playMenuSFX(0, 0.7);
 
 	grpMenuItems.forEach(function(spr:FlxSprite)
@@ -209,13 +253,15 @@ function changeRow(change:Int, playSound:Bool)
 {
 	var lastRow:Int = curRow;
 	curRow = FlxMath.bound(curRow + change, 0, 1);
+
 	grpArrows.members[2].alpha = curRow == 0 ? 0.5 : 1;
 	grpArrows.members[3].alpha = curRow == 0 ? 1 : 0.5;
+
 	if(lastRow == curRow) return;
 
 	allowInputs = false;
-
 	if(playSound) CoolUtil.playMenuSFX(0, 0.7);
+
 	camFollow.y = camFollow.y + (FlxG.height * change);
 	new FlxTimer().start(0.4, (_) -> allowInputs = true);
 }
