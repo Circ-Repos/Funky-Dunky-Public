@@ -12,6 +12,9 @@ var curSelected:Int = 0;
 
 var allowInputs:Bool = true;
 
+var usingMouse:Bool = false;
+var mouseNotMovedTime:Float = 0;
+
 var bg:FlxSprite;
 var textRight:FlxBackdrop;
 var textLeft:FlxBackdrop;
@@ -19,11 +22,10 @@ var box:FlxSprite;
 
 function create()
 {
-	if(FlxG.sound.music != null) FlxG.sound.music.stop();
-	CoolUtil.playMenuSong(false);
+	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
 
 	FlxG.mouse.useSystemCursor = true;
-	FlxG.mouse.visible = true;
+	FlxG.mouse.visible = false;
 
 	bg = new FlxSprite().loadGraphic(Paths.image('menus/main/bg'));
 	bg.antialiasing = Options.antialiasing;
@@ -71,19 +73,34 @@ function create()
 function update(elapsed)
 {
 	if(!allowInputs) return;
+
 	if(FlxG.keys.justPressed.D) FlxG.save.data.DevMode = !FlxG.save.data.DevMode;
-	grpMenuItems.forEach(function(spr:FlxSprite)
+
+	if(usingMouse)
 	{
-		if(FlxG.mouse.overlaps(spr))
+		grpMenuItems.forEach(function(spr:FlxSprite)
 		{
-			if(curSelected != spr.ID)
+			if(FlxG.mouse.overlaps(spr))
 			{
-				curSelected = spr.ID;
-				changeSelection(0, true);
+				if(curSelected != spr.ID)
+				{
+					curSelected = spr.ID;
+					changeSelection(0, true);
+				}
+				if(FlxG.mouse.justPressed) confirmSelection(true);
 			}
-			if(FlxG.mouse.justPressed) confirmSelection(true);
+		});
+
+		mouseNotMovedTime += elapsed;
+		if(mouseNotMovedTime > 1.6)
+		{
+			usingMouse = false;
+			FlxG.mouse.visible = false;
 		}
-	});
+
+		if(usedMouse()) mouseNotMovedTime = 0;
+	}
+	else if(usedMouse()) usingMouse = true;
 
 	if(controls.SWITCHMOD)
 	{
@@ -100,10 +117,14 @@ function update(elapsed)
 
 	if(controls.DOWN_P || FlxG.mouse.wheel < 0) changeSelection(1, true);
 	if(controls.UP_P || FlxG.mouse.wheel > 0) changeSelection(-1, true);
+
 	if(controls.ACCEPT) confirmSelection(true);
 	if(controls.BACK)
 	{
 		allowInputs = false;
+		FlxG.sound.music.fadeOut(0.6, 0, function(_) {
+			FlxG.sound.music.stop();
+		});
 		CoolUtil.playMenuSFX(2, 0.7);
 		new FlxTimer().start(0.6, (_) -> FlxG.switchState(new TitleState()));
 	}
@@ -134,6 +155,17 @@ function confirmSelection(playSound:Bool)
 		case 'options': FlxG.switchState(new OptionsMenu());
 		case 'credits': FlxG.switchState(new CreditsMain());
 	});
+}
+
+function usedMouse():Bool
+{
+	if((FlxG.mouse.deltaScreenX != 0 && FlxG.mouse.deltaScreenY != 0) || FlxG.mouse.justPressed)
+	{
+		FlxG.mouse.visible = true;
+		mouseNotMovedTime = 0;
+		return true;
+	}
+	return false;
 }
 
 function destroy()

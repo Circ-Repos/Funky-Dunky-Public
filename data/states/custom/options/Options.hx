@@ -15,6 +15,9 @@ var subMenu = [
 var optionsMaxNum:Int = 3;
 
 function create(){
+	FlxG.mouse.visible = false;
+	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
+
     FlxG.save.data.DevMode = true; //just for now
     if(FlxG.save.data.DevMode) optionsMaxNum = 4;
     bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF6617B5);

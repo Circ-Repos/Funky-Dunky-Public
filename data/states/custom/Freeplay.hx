@@ -41,12 +41,12 @@ var bgWeek1:FlxSprite;
 
 function destroy() Framerate.offset.y = 0; //sadly tweens cant happen
 function create() {
+	FlxG.mouse.visible = false;
 
     songList = Json.parse(Assets.getText(Paths.json('../data/songs')));
 
     FlxTween.tween(Framerate.offset, {y: 70}, 0.74, {ease: FlxEase.quadInOut});
-    FlxG.sound.music.stop();
-    CoolUtil.playMenuSong(false);
+	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
     var bgWeek1 = new FlxSprite();
     bgWeek1.loadGraphic(Paths.image('menus/freeplay/freeplay bg'));
     bgWeek1.scrollFactor.set();

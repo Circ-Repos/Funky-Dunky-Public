@@ -33,6 +33,9 @@ var txtDesc:FlxText;
 
 function create()
 {
+	// FlxG.mouse.visible = true;
+	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
+
 	camFollow = new FlxObject(0, 0, 1, 1);
 	camFollow.screenCenter();
 	add(camFollow);
