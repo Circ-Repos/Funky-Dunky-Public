@@ -1,14 +1,12 @@
 import flixel.addons.display.FlxBackdrop;
 
 import funkin.editors.EditorPicker;
-import funkin.options.TreeMenu;
 import funkin.options.OptionsMenu;
 import funkin.menus.ModSwitchMenu;
 import funkin.menus.credits.CreditsMain;
 
 var grpMenuItems:FlxTypedGroup<FlxSprite>;
 var menuItems:Array<String> = ['story mode', 'freeplay', 'options', 'credits'];
-var curSelected:Int = 0;
 
 var allowInputs:Bool = true;
 
@@ -82,9 +80,9 @@ function update(elapsed)
 		{
 			if(FlxG.mouse.overlaps(spr))
 			{
-				if(curSelected != spr.ID)
+				if(curSelectedMain != spr.ID)
 				{
-					curSelected = spr.ID;
+					curSelectedMain = spr.ID;
 					changeSelection(0, true);
 				}
 				if(FlxG.mouse.justPressed) confirmSelection(true);
@@ -133,12 +131,12 @@ function update(elapsed)
 function changeSelection(change:Int, playSound:Bool)
 {
 	if(playSound) CoolUtil.playMenuSFX(0, 0.7);
-	curSelected = FlxMath.wrap(curSelected + change, 0, menuItems.length - 1);
+	curSelectedMain = FlxMath.wrap(curSelectedMain + change, 0, menuItems.length - 1);
 
 	grpMenuItems.forEach(function(spr:FlxSprite)
 	{
 		spr.animation.play('idle', true);
-		if(spr.ID == curSelected) spr.animation.play('selected', true);
+		if(spr.ID == curSelectedMain) spr.animation.play('selected', true);
 	});
 }
 
@@ -147,8 +145,8 @@ function confirmSelection(playSound:Bool)
 	allowInputs = false;
 	if(playSound) CoolUtil.playMenuSFX(1, 0.7);
 
-	TreeMenu.lastState = MainMenuState;
-	new FlxTimer().start(1, (_) -> switch(menuItems[curSelected])
+	lastState = MainMenuState;
+	new FlxTimer().start(1, (_) -> switch(menuItems[curSelectedMain])
 	{
 		case 'story mode': FlxG.switchState(new StoryMenuState());
 		case 'freeplay': FlxG.switchState(new FreeplayState());

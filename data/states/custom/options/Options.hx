@@ -1,4 +1,3 @@
-import funkin.options.TreeMenu;
 import flixel.text.FlxTextBorderStyle;
 import Type;
 import Date;
@@ -16,7 +15,11 @@ var optionsMaxNum:Int = 3;
 
 function create(){
 	FlxG.mouse.visible = false;
-	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
+	if(FlxG.sound.music == null)
+    {
+        if(lastState == PlayState) CoolUtil.playMusic(Paths.music("untitled"), false, 1, true);
+        else CoolUtil.playMenuSong(false);
+    }
 
     FlxG.save.data.DevMode = true; //just for now
     if(FlxG.save.data.DevMode) optionsMaxNum = 4;
@@ -78,10 +81,10 @@ function update(elapsed){
         if(controls.ACCEPT) selectOption();
         if(controls.BACK){
             Options.save();
-            if(TreeMenu.lastState != null)
+            if(lastState != null)
             {
-                FlxG.switchState(Type.createInstance(TreeMenu.lastState, []));
-                TreeMenu.lastState = null;
+                FlxG.switchState(Type.createInstance(lastState, []));
+                lastState = null;
             }
             else FlxG.switchState(new MainMenuState());
         }

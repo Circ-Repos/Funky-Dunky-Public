@@ -8,6 +8,7 @@ function create()
 	clouds = new FlxSprite().loadGraphic(Paths.image("menus/theFUCKINGtitle/sky"));
 	clouds.screenCenter();
 	clouds.scale.set(0.55, 0.55);
+	clouds.antialiasing = Options.antialiasing;
 	add(clouds);
 
 	clouds2 = new FlxSprite().loadGraphic(Paths.image("menus/theFUCKINGtitle/sky"));
@@ -15,25 +16,30 @@ function create()
 	clouds2.alpha = 0.4;
 	clouds2.scale.set(0.55, 0.55);
 	clouds2.color = 0x000000;
+	clouds2.antialiasing = Options.antialiasing;
 	add(clouds2);
 
 	trees = new FlxSprite().loadGraphic(Paths.image("menus/theFUCKINGtitle/Trees"));
 	trees.screenCenter();
 	trees.scale.set(0.55, 0.55);
+	trees.antialiasing = Options.antialiasing;
 	add(trees);
 
 	funkleDunkle = new FlxSprite(0, -450).loadGraphic(Paths.image("menus/theFUCKINGtitle/fcr"));
 	funkleDunkle.screenCenter(FlxAxes.X);
 	funkleDunkle.scale.set(0.65, 0.65);
+	funkleDunkle.antialiasing = Options.antialiasing;
 	add(funkleDunkle);
 
 	pressTheButtonOk = new FlxSprite(0, -425).loadGraphic(Paths.image("menus/theFUCKINGtitle/press_enter"));
 	pressTheButtonOk.screenCenter(FlxAxes.X);
 	pressTheButtonOk.scale.set(0.65, 0.65);
+	pressTheButtonOk.antialiasing = Options.antialiasing;
 	add(pressTheButtonOk);
 
 	theMysteriousDot = new FlxSprite(-630, -475).loadGraphic(Paths.image("menus/theFUCKINGtitle/dot"));
 	theMysteriousDot.scale.set(0.65, 0.65);
+	theMysteriousDot.antialiasing = Options.antialiasing;
 	add(theMysteriousDot);
 
 	for(e in [pressTheButtonOk, theMysteriousDot])

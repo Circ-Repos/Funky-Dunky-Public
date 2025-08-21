@@ -66,8 +66,8 @@ function create()
 	add(boxDesc);
 
 	// TO-DO: get the correct font? or modify this one? idk...
-    txtName = new FlxText(0, boxDesc.y, boxDesc.width - 10, "", 56);
-    txtName.setFormat(Paths.font('Times New Roman Italic.ttf'), 56, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+	txtName = new FlxText(0, boxDesc.y, boxDesc.width - 10, "", 56);
+	txtName.setFormat(Paths.font('Times New Roman Italic.ttf'), 56, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	txtName.bold = true;
 	txtName.borderSize = 0;
 	txtName.underline = true;
@@ -75,28 +75,28 @@ function create()
 	txtName.updateHitbox();
 	txtName.screenCenter(FlxAxes.X);
 	txtName.antialiasing = Options.antialiasing;
-    add(txtName);
+	add(txtName);
 
-    txtRole = new FlxText(0, boxDesc.y + 60, boxDesc.width - 10, "", 36);
-    txtRole.setFormat(Paths.font('Times New Roman Italic.ttf'), 36, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+	txtRole = new FlxText(0, boxDesc.y + 60, boxDesc.width - 10, "", 36);
+	txtRole.setFormat(Paths.font('Times New Roman Italic.ttf'), 36, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	txtRole.bold = true;
 	txtRole.borderSize = 0;
 	txtRole.letterSpacing = 0.8;
 	txtRole.updateHitbox();
 	txtRole.screenCenter(FlxAxes.X);
 	txtRole.antialiasing = Options.antialiasing;
-    add(txtRole);
+	add(txtRole);
 
 	// TO-DO: scale text down depending on length
-    txtDesc = new FlxText(0, boxDesc.y + 120, boxDesc.width - 10, "", 30);
-    txtDesc.setFormat(Paths.font('Times New Roman Italic.ttf'), 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+	txtDesc = new FlxText(0, boxDesc.y + 120, boxDesc.width - 10, "", 30);
+	txtDesc.setFormat(Paths.font('Times New Roman Italic.ttf'), 30, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	txtDesc.bold = true;
 	txtDesc.borderSize = 0;
 	txtDesc.letterSpacing = 0.6;
 	txtDesc.updateHitbox();
 	txtDesc.screenCenter(FlxAxes.X);
 	txtDesc.antialiasing = Options.antialiasing;
-    add(txtDesc);
+	add(txtDesc);
 
 	special = new FlxSprite().loadGraphic(Paths.image('menus/creds/special-thanks'));
 	special.antialiasing = Options.antialiasing;
@@ -132,7 +132,7 @@ function create()
 //			trace("ERROR: Root node is null!");
 //		} else {
 //			for (credit in root.elementsNamed("credit")) {
-//        		var node = new Access(credit);
+//				var node = new Access(credit);
 //				var portrait:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/creds/' + node.att.icon));
 //				portrait.antialiasing = Options.antialiasing;
 //				portrait.screenCenter();

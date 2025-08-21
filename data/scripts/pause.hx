@@ -170,6 +170,7 @@ function confirmSelection(playSound:Bool)
 	allowInputs = false;
 	if(playSound) CoolUtil.playMenuSFX(1, 0.7);
 
+	lastState = PlayState;
 	switch(menuItems[curSelected])
 	{
 		case 'change controls':
