@@ -1,251 +1,177 @@
-import funkin.backend.scripting.events.StateEvent;
-import openfl.text.TextFormat;
-import flixel.text.FlxTextBorderStyle;
-import flixel.effects.FlxFlicker;
+import flixel.FlxCameraFollowStyle;
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
+import flixel.FlxG;
+import openfl.geom.Rectangle;
 
-var chatBox:FlxSprite;
-var CBG:FlxSprite;
-var MBG:FlxSprite;
-var border:FlxSprite;
-var blackOverlayForFlicker:FlxSprite;
-var itime:Float = 0;
-var vhsShader:CustomShader;
-var shader1:CustomShader;
-var shader2:CustomShader;
-var shader3:CustomShader;
-var shader4:CustomShader;
-var shader5:CustomShader;
+//funni revisetdr code
+// Cam Values
+var dadX:Float = 1900;
+var dadY:Float = 603.5;
 
-var textBlob2:FlxText;
-var textBlob1:FlxText;
-function create(){
-    camThink = new FlxCamera();
-    camThink.visible = true;
-    camThink.alpha = 1;
-	camThink.bgColor = 0;
+var bfX:Float = 800;
+var bfY:Float = 900;
 
-	camThinkB = new FlxCamera();
-    camThinkB.visible = true;
-    camThinkB.alpha = 1;
-	camThinkB.bgColor = 0;
-	FlxG.cameras.remove(camHUD, false);
+var gfX:Float = 1500;
+var gfY:Float = 750;
 
-    FlxG.cameras.remove(camThink, false);
-	FlxG.cameras.remove(camThinkB, false);
-    FlxG.cameras.add(camThink, false);
-	FlxG.cameras.add(camHUD, false);
-	FlxG.cameras.add(camThinkB, false);
-
-	MBG = new FlxSprite();
-    MBG.loadGraphic(Paths.image('stages/think/MarkBG'));
-	MBG.camera = camThink;
-	insert(2, MBG);
-
-	chatBox = new FlxSprite();
-    chatBox.loadGraphic(Paths.image('stages/think/ChatBox'));
-	chatBox.camera = camThink;
-	insert(0, chatBox);
-
-	CBG = new FlxSprite();
-    CBG.loadGraphic(Paths.image('stages/think/CeaserBG'));
-	CBG.camera = camThink;
-	insert(0, CBG);
-
-	border = new FlxSprite();
-    border.loadGraphic(Paths.image('stages/think/Black_Border'));
-	border.camera = camThinkB;
-	PlayState.defaultHudZoom = 0.8;
-	camHUD.scroll.y += 100;
-
-	blackOverlayForFlicker = new FlxSprite();
-    blackOverlayForFlicker.loadGraphic(Paths.image('stages/think/BlackOverlay'));
-	blackOverlayForFlicker.camera = camThinkB;
-	blackOverlayForFlicker.visible = false;
+var camOther = new FlxCamera();
+var vig:FlxSprite;
+var iconP3:HealthIcon;
+var treetime:Bool = false;
+function dgv(alp1:Float = 1, alp2:Float = 1){
+	strumLines.members[0].characters[0].alpha = iconP2.alpha = alp1;
+	strumLines.members[0].characters[1].alpha = iconP3.alpha = alp2;
 }
-function onCountdown(event) event.cancel();
+function cutsceneAlpha(camAlph, camHUDAlph){
+	camGame.alpha = camAlph;
+	camHUD.alpha = camHUDAlph;
+}
+function stepHit(e){
+	switch(e){
+		case 512:
+			healthBar.alpha = 1;
+			healthBarBG.alpha = 1;
+			iconP1.alpha = 1;
+			iconP2.alpha = 1;
+			iconP3.alpha = 1;
+			dgv(0,1);
+			doorclosed.alpha = 0;
+			cutsceneAlpha(1,1);
+		case 2080:
+			iconP1.alpha = 0;
+			iconP2.alpha = 0;
+			iconP3.alpha = 0;
+			treetime = true;
+			scoreTxt.text = 'Score: 333333';
+			missesTxt.text = 'Misses: 3333';
+			accuracyTxt.text = "Accuracy: 333.333%";
+			scoreTxt.color = missesTxt.color = accuracyTxt.color = FlxColor.RED;
+		
+			healthBar.alpha = 0;
+			healthBarBG.alpha = 0;
+			healthBarBG.alpha = 0;
+		case 2111:
+			FlxTween.tween(camHUD, {alpha: 0},10, {ease: FlxEase.linear});
 
+	}
+}
 function postCreate(){
-	for (i in playerStrums.members) {
-		i.alpha = 0;
-	}
-	doIconBop = false;
+	iconArray.push(iconP3 = new HealthIcon(strumLines.members[0].characters[1] != null ? strumLines.members[0].characters[1].getIcon() : Flags.DEFAULT_HEALTH_ICON, true));
+	iconP3.camera = camHUD;
+	iconP3.y = healthBar.y - (iconP3.height / 2);
+	iconP3.alpha = 0;
+	add(iconP3);
+	remove(iconP3, true);
+	insert(members.indexOf(iconP2) - 1, iconP3);
 
-	healthBar.scale.set(1.1, 1.0);
-	healthBar.y = 0;
-	healthBar.x += 150;
-	healthBar.camera = camThinkB;
-	remove(healthBarBG, true);
-	boyfriend.camera = camThink;
-	dad.camera = camThink;
-	remove(boyfriend, true);
-	insert(1, boyfriend);
-	remove(dad, true);
-	insert(6, dad);
+	healthBar.alpha = 0;
+	healthBarBG.alpha = 0;
+	iconP2.alpha = iconP1.alpha = iconP3.alpha = 0;
+	PlayState.instance.introLength = 0.1;
 
-	insert(9, border);
-	remove(chatBox, true);
-	insert(10, chatBox);
-	dad.x += 200;
-	//dad.y += 270;
-	camGame.alpha = 0;
-	boyfriend.flipX = false;
-	//boyfriend.y += 300;
-	boyfriend.y -= 60;
-	camThink.scroll.y += 100;
-	boyfriend.x -= 50;
-	dad.y += 700;
-	iconP1.camera = camThinkB;
-	iconP2.camera = camThinkB;
-	scoreTxt.camera = camThinkB;
-	missesTxt.camera = camThinkB;
-	accuracyTxt.camera = camThinkB;
+	healthBar.angle = 180;
 
-	scoreTxt.y = 50;
-	missesTxt.y = 50;
-	accuracyTxt.y = 50;
-	scoreTxt.x += 150;
-	accuracyTxt.x += 150;
-	missesTxt.x += 150;
 
-	iconP1.y = healthBar.y - 75;
-	iconP2.y = healthBar.y - 75;
-    textBlob1 = new FlxText(0,0,629);
-    textBlob1.setFormat(Paths.font("Arial.ttf"), 24, 0x000000,FlxTextBorderStyle.OUTLINE, "center");
-    textBlob1.borderSize = 2;
-    textBlob1.cameras = [camThink];
-    textBlob1.screenCenter(FlxAxes.X);
-    textBlob1.y = 870;
-	textBlob1.x = 320;
-	textBlob1.updateHitbox();
-	textBlob1.antialiasing = false;
-	textBlob1.text = "[CT]: HEY, IT'S CESAR. I HOPE IT'S NOT TOO LATE.\n\n[MH]: NO, IT'S FINE, DON'T WORRY. WHAT'S UP ARE YOU ALRIGHT?\n\n[CT]: YEAH, IT'S NOT ME IT'S MY MOM";
-    add(textBlob1);
-
-    textBlob2 = new FlxText(0,0,629);
-    textBlob2.setFormat(Paths.font("Arial.ttf"), 24, 0x000000,FlxTextBorderStyle.OUTLINE, "center");
-    textBlob2.borderSize = 2;
-    textBlob2.cameras = [camThink];
-    textBlob2.screenCenter(FlxAxes.X);
-    textBlob2.y = 870;
-	textBlob2.x = 320;
-	textBlob2.updateHitbox();
-	textBlob2.antialiasing = false;
-	textBlob2.text = "[MH]: ALRIGHT, I MEAN IT SHOULDN'T BE TOO BAD. I JUST GONNA SWITCH THEM ON AND GET OUTTA THERE THOUGH. YOU KNOW WHAT I FEEL ABOUT YOUR HOUSE. \n\n[CT]: YEAH, THAT'S FINE. ONE LAST THING, TRY TO GET A GOOD VIEW";
-    add(textBlob2);
-
-	vhsShader = new CustomShader("VHS");
-    FlxG.game.addShader(vhsShader);
-	add(blackOverlayForFlicker);
-	for(i in [camThink, camThinkB, camHUD]){
-		i.scroll.x = -149;
-	}
-	hideArrows = true;
-
-}
-function destroy() {
-	FlxG.game.removeShader(vhsShader);
-}
-function flickerCam(){
-	FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
-}
-function flickerCam2(){
-	FlxFlicker.flicker(blackOverlayForFlicker, 0.5, 0.03, false);
-}
-/*function generateSubs(text1:String, text2:String) { //timer is stupid >:( It No Work
-    if(text1 != '') textBlob1.visible = true;
-    if(text2 != '') textBlob2.visible = true;
-	if(text1 == '') textBlob1.visible = false;
-	if(text2 == '') textBlob2.visible = false;
-	if(text1 != '') textBlob1.text = text1;
-	if(text2 != '') textBlob2.text = text2;
-	textBlob1.updateHitbox();
-	textBlob2.updateHitbox();
-    textBlob1.y = FlxG.height - textBlob1.height;
-    textBlob2.y = FlxG.height - 300;
-	textBlob2.screenCenter(FlxAxes.X);
-	textBlob1.screenCenter(FlxAxes.X);
-
-}*/
-function tweenText1(){
-	hideArrows = false;
-	FlxTween.tween(textBlob1, {y: -100}, 13, {
-		ease: FlxEase.linear,
-		onComplete: function(tween:FlxTween) {
-			textBlob1.visible = false;
-		}
-	});
-}
-function tweenText2(){
-	if(textBlob1.visible) textBlob1.visible = false;
-	FlxTween.tween(textBlob2, {y: -100}, 14, {
-		ease: FlxEase.linear,
-		onComplete: function(tween:FlxTween) {
-			textBlob2.visible = false;
-		}
-	});
-}
-function arrowOpacity(opac:Float, time:Float){
-	for (i in playerStrums.members) {
-		FlxTween.tween(i, {alpha: opac},time, {ease: FlxEase.sineInOut});
-	}
-}
-function onSongStart(){
-	if(!downscroll) 	comboGroup.y += 300;
-	if(downscroll) 	comboGroup.y = 300;
-	iconP1.x += 30;
-	iconP2.x -= 30;
-	for (i in playerStrums.members) {
-		i.alpha = 0;
-	}
-}
-var defaultScale = 0.7;
-function beatHit(){
-	iconP2.scale.set(0.9,0.9);
-}
-function postUpdate(elapsed:Float){
-	if(hideArrows){
-		for (i in playerStrums.members) {
-			i.alpha = 0;
-		}
-	}
-	if(!downscroll){
-	for (i in playerStrums.members) {
-		i.y = 170;
-
-	}
-	}
-	if(downscroll){
-		for (i in playerStrums.members) {
-			i.y = 0;
+	camFollow.setPosition(1700, dadY);
+	strumLines.members[0].characters[0].alpha = 0;
+	strumLines.members[0].characters[1].alpha = 0;
 	
-		}
-	}
-	var floater = elapsed;
-	vhsShader.iTime = floater;
-	var iconLerp = 0.33;
-	iconP1.scale.x = iconP2.scale.x;
-	iconP1.scale.y = iconP2.scale.y; 
-	iconP2.scale.set(CoolUtil.fpsLerp(iconP2.scale.x, defaultScale, iconLerp), CoolUtil.fpsLerp(iconP2.scale.y, defaultScale, iconLerp));
-	iconP2.updateHitbox();
-	iconP1.updateHitbox();
+	strumLines.members[0].characters[1].x -= 60;
+	strumLines.members[0].characters[1].y += 100;
 
-	camHUD.zoom = 0.8;
-	camThink.zoom = 0.8;
-	camThinkB.zoom = 0.8;
-	camThinkB.scroll.x = camThink.scroll.x;
-	camThinkB.scroll.y = camThink.scroll.y;
-	camThink.scroll.x = camHUD.scroll.x;
-	camThink.scroll.y = camHUD.scroll.y;
-	var iconOffset:Int = 1;
-	var healthBarPercent = healthBar.percent;
 
-	var center:Float = healthBar.x + healthBar.width * FlxMath.remapToRange(healthBarPercent, 0, 100, 1, 0);
+	camHUD.alpha = 0;
+	camGame.zoom = 2.25;
+	camGame.alpha = 0;
 
-	iconP1.x = center - iconOffset;
-	iconP2.x = center - (iconP2.width - iconOffset);
+	defaultCamZoom = 1;
+	FlxG.cameras.add(camOther, false);
+    camOther.bgColor = 0;
+    camOther.alpha = 1;
 
-	health = FlxMath.bound(health, 0, maxHealth);
+
+	PlayState.instance.introLength = 0.1;
+	vig = new FlxSprite();
+    vig.loadGraphic(Paths.image('vig'));
+	vig.cameras = [camOther];
+    add(vig);
+	remove(vig, true);
+	insert(0, vig);
+
+	iconP1.flipX = true;
+	iconP2.flipX = true;
+}
+function hideStuff(){
+	camGame.alpha = 0;
+	camHUD.alpha = 0;
+	
+}
+function onCountdown(e) e.cancel();
+function onSongStart(){
+	//PlayState.instance.dad.alpha = 0.001;
+	camFollow.setPosition(1700, dadY);
+	//char debug modes prevent the idle from playing
+    camZooming = false; //usually off, but just incase i guess
+
+	FlxTween.tween(camGame, {alpha: 1},2.35, {ease: FlxEase.linear});
+
+}
+function startZoom(){
+	boyfriend.debugMode = true;
+	dad.debugMode = true;
+    camZooming = false; //usually off, but just incase i guess
+    camGame.zoom = 1.25;
+    camHUD.alpha = 0;
+    camGame.alpha = 0;
+
+	camFollow.setPosition(bfX + 450,bfY);
+}
+function showHUD(time:Float){
+	FlxTween.tween(camHUD, {alpha: 1},time, {ease: FlxEase.linear});
+}
+function hideHUD(time:Float){
+	FlxTween.tween(camHUD, {alpha: 0},time, {ease: FlxEase.linear});
+}
+function oppupdateIconPositions() {
+	var iconOffset = 26;
+	var healthBarPercent = healthBar.percent*-1;
+
+	var center:Float = healthBar.x + healthBar.width * FlxMath.remapToRange(healthBarPercent, -100, 0, 1, 0);
+
+	iconP2.x = center - iconOffset;
+	iconP3.x = center - iconOffset;
+
+	iconP1.x = center - (iconP2.width - iconOffset);
+
 
 	iconP1.health = healthBarPercent / 100;
 	iconP2.health = 1 - (healthBarPercent / 100);
+}
+function update(){
+	if(treetime){
+		scoreTxt.text = 'Score: 333333';
+		missesTxt.text = 'Misses: 3333';
+		accuracyTxt.text = "Accuracy: 333.333%";
+		scoreTxt.color = missesTxt.color = accuracyTxt.color = FlxColor.RED;
+	}
+}
+function postUpdate(){
+
+	oppupdateIconPositions();
+}
+function onCountdown(event) event.cancel();
+function idleEnable() boyfriend.debugMode = dad.debugMode = false;
+function onCameraMove(e) {
+	if(camZooming){
+	switch (curCameraTarget){
+		case 0:
+			e.position.set(dadX, dadY);
+		case 1: 
+			e.position.set(bfX, bfY);
+		default: 
+			e.position.set(gfX, gfY);
+		}
+	}
+	if(!camZooming) e.cancel();
 }

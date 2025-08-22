@@ -18,6 +18,8 @@ var songText:FlxText;
 var deathsText:FlxText;
 var overlay:FlxSprite;
 
+
+
 function create(event)
 {
 	event.cancel();
@@ -65,7 +67,6 @@ function create(event)
 	songArt.origin.set(songArt.width, songArt.height);
 	// the corner of the overlay is on x: 1216 | y: 658
 	songArt.setPosition(1216, 658);
-
 	pauseText = new FlxText(80, 86, 0, 'PAUSED', 80);
 	pauseText.setFormat(Paths.font("vcr.ttf"), 80);
 	pauseText.antialiasing = false;

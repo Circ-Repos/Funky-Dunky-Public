@@ -1,7 +1,14 @@
 <!DOCTYPE codename-engine-stage>
-<stage folder="stages/think/" zoom="0.5">
-	<gf/>
-	<combo/>
-	<dad x="-269" y="-236"/>
-	<bf x="-40" y="140"/>
+<stage folder="stages/gift/" name="gift" zoom="1.2">
+	<gf x="1212" y="286" alpha="0"/>
+
+	<sprite type="none" sprite="GIFTBG_DoorOpened" name="dooropen"/>
+
+	<sprite type="none" sprite="GIFTBG_DoorClosed" name="doorclosed"/>
+	<dad x="1901" y="171"/>
+
+	<sprite type="none" sprite="bow" name="bow"/>
+	<bf x="851" y="671.777777777778"/>
+	<sprite type="none" sprite="TV Light" name="TV Light"/>
+	<sprite type="none" sprite="TV" name="TV"/>
 </stage>

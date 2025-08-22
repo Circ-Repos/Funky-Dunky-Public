@@ -27,7 +27,14 @@ var frame:FlxSprite;
 var albumSprite:FlxSprite;
 
 // doing it like this frees ram from caching Inst's
-var songLengths:Array<String> = ['04:30', '03:15', '04:42', '02:35', '02:40'];
+var songLengths:Array<String> = [
+	'04:30', //Grace
+	'03:15', //Distraught
+	'04:40', //Scary Night
+	'02:35', //Think
+	'03:15', //Gift
+	'02:40'  //Thonk
+];
 
 var songPreviewText:FunkinText;
 var volumeText:FunkinText;
@@ -36,12 +43,12 @@ var scrollBar:FlxSprite;
 
 function create()
 {
-	FlxG.mouse.visible = false;
+	FlxG.mouse.visible = false; //no mouse controls, no mouse
 
-	songList = Json.parse(Assets.getText(Paths.json('../data/songs')));
+	songList = Json.parse(Assets.getText(Paths.json('../data/songs'))); //why did i make it like this
 
 	FlxTween.tween(Framerate.offset, {y: 70}, 0.74, {ease: FlxEase.quadInOut});
-	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
+	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false); //no music? Not a problem
 
 	var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/freeplay/bg'));
 	bg.scrollFactor.set();
@@ -49,7 +56,7 @@ function create()
 	add(bg);
 
 	var bgOverlay:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFFBBBBBB, 0xFF000000));
-	bgOverlay.antialiasing = false;
+	bgOverlay.antialiasing = false; //antialiasing on here would be dumb
 	bgOverlay.velocity.set(0, 200);
 	bgOverlay.alpha = 0.1;
 	add(bgOverlay);
@@ -62,7 +69,7 @@ function create()
 
 		if(!FlxG.save.data.beatenAll)
 		{
-			switch(song.displayName)
+			switch(song.displayName) //Im Sorry this is the only way i could i think
 			{
 				case 'Grace': beatenShit = FlxG.save.data.beatenGrace;
 				case 'Scary Night': beatenShit = FlxG.save.data.beatenScaryNight;
@@ -131,7 +138,7 @@ function create()
 		if(beatenShit || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
 			iconName = song.icon;
 
-		var icon:HealthIcon = new HealthIcon(iconName);
+		var icon:HealthIcon = new HealthIcon(iconName != null ? song.icon : Flags.DEFAULT_HEALTH_ICON, true);
 		icon.scrollFactor.set();
 		if(song.displayName == 'Thonk') icon.color = 0xFF4DF8;
 		icon.antialiasing = Options.antialiasing;
@@ -184,7 +191,7 @@ function create()
 	divider.antialiasing = false;
 	add(divider);
 
-	var clock:FlxSprite = new FlxSprite(730, 0);
+	clock = new FlxSprite(730, 0);
 	clock.loadGraphic(Paths.image('menus/freeplay/clock'));
 	clock.antialiasing = Options.antialiasing;
 	add(clock);

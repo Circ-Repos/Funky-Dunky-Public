@@ -1,4 +1,8 @@
 <!DOCTYPE codename-engine-character>
-<character sprite="da" antialiasing="true" camx="0" camy="0" icon="face" color="#4C4959" gameOverChar="da">
-
+<character x="-370" y="-260" sprite="Alternate_Reloaded" scale="0.7" color="#000000">
+	<anim name="idle" anim="idle" indices="0..13"/>
+	<anim name="singDOWN" anim="note down" x="5" y="-35"/>
+	<anim name="singRIGHT" anim="note right" x="-10" y="35"/>
+	<anim name="singLEFT" anim="note left" x="65" y="-5"/>
+	<anim name="singUP" anim="note up" x="-30" y="40"/>
 </character>

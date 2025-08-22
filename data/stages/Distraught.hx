@@ -19,8 +19,6 @@ function postCreate(){
     FlxG.cameras.add(camTV, false);
 	FlxG.cameras.add(camHUD, false);
 	camTV.zoom = 0.001;
-	remove(boyfriend, true);
-	remove(gf, true);
 	remove(dad, true);
 
 	tvwhite = new FlxSprite();
@@ -38,15 +36,19 @@ function postCreate(){
 	insert(3, tV);
 	dad.alpha = 0;
 	camTV.y = 720;
-
 	hideArrows = false;
 	insert(2, dad);
 	dad.camera = camTV;
 	dad.screenCenter();
 	iconP1.setIcon('LYNN_ICONS');
 	healthBar.createFilledBar(0xFF241A39, 0xFFF6D9FF);
+	healthBar.percent = 49; //forces a update
+	healthBar.percent = 50;
 }
-
+function update(elapsed:Float) {
+	if(dad.alpha == 0) dad.alpha = 0.001;
+	if(boyfriend.alpha = 0) boyfriend.alpha = 0.001;
+}
 function arrowOpacity(opac:Float, time:Float){
 	for (i in playerStrums.members) {
 		FlxTween.tween(i, {alpha: opac},time, {ease: FlxEase.sineInOut});

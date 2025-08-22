@@ -1,18 +1,16 @@
 {
-	"beatsPerMeasure": 4,
+	"customValues": {},
+	"color": "#2C2150",
 	"opponentModeAllowed": false,
-	"coopAllowed": false,
-	"stepsPerBeat": 4,
-	"bpm": 166,
 	"difficulties": [
 		"normal"
 	],
-	"needsVoices": false,
-	"parsedColor": -13885104,
-	"displayName": "Distraught",
 	"icon": "SIX_DT_Icons",
-	"name": "Distraught",
-	"color": "#2C2150",
+	"coopAllowed": false,
 	"quote": "I took him away.",
-	"customValues": {}
+	"stepsPerBeat": 4,
+	"displayName": "Distraught",
+	"beatsPerMeasure": 4,
+	"needsVoices": false,
+	"bpm": 166
 }

@@ -1,0 +1,8 @@
+<!DOCTYPE codename-engine-character>
+<character x="-1000" sprite="Mork" color="#F7F7FB">
+	<anim name="idle" anim="Idle"/>
+	<anim name="singDOWN" anim="Down"/>
+	<anim name="singRIGHT" anim="Right"/>
+	<anim name="singLEFT" anim="Left"/>
+	<anim name="singUP" anim="Up"/>
+</character>

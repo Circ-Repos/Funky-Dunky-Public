@@ -1,0 +1,16 @@
+{
+	"color": "#2647FB",
+	"customValues": {},
+	"opponentModeAllowed": true,
+	"icon": "Ceaser-Gift",
+	"difficulties": [
+		"normal"
+	],
+	"coopAllowed": true,
+	"quote": "I have a SUPRISE for you!",
+	"stepsPerBeat": 4,
+	"displayName": "Gift",
+	"needsVoices": true,
+	"beatsPerMeasure": 4,
+	"bpm": 165
+}

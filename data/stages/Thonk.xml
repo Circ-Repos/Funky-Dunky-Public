@@ -1,7 +1,7 @@
 <!DOCTYPE codename-engine-stage>
-<stage folder="stages/think/" zoom="0.5">
+<stage folder="stages/thonk/" zoom="0.5">
 	<gf/>
 	<combo/>
-	<dad x="-269" y="-236"/>
-	<bf x="-40" y="140"/>
+	<dad x="0" y="0"/>
+	<bf x="0" y="0"/>
 </stage>

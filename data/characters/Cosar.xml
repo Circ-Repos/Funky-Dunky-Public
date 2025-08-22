@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character gameOverChar="da" icon="Cosar" sprite="Cosar" flipX="true" color="#FF3968">
+<character icon="Cosar" sprite="Cosar" flipX="true" color="#FF3968" scale="1.3">
 	<anim loop="false" x="75" fps="24" y="0" anim="Cosar Down0" name="singDOWN"/>
 
 	<anim loop="false" x="-28" fps="24" y="-80" anim="Cosar Idle0" name="idle"/>

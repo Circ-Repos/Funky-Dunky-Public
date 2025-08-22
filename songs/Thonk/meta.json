@@ -1,16 +1,15 @@
 {
+	"color": "#9271FD",
 	"opponentModeAllowed": false,
 	"difficulties": [
 		"NORMAL"
 	],
 	"icon": "MORK",
-	"parsedColor": -7179779,
 	"coopAllowed": false,
 	"stepsPerBeat": 4,
+	"quote": "come over, my mom just died",
 	"displayName": "Thonk",
 	"needsVoices": true,
 	"beatsPerMeasure": 4,
-	"bpm": 162,
-	"quote": "come over, my mom just died",
-	"name": "Thonk"
+	"bpm": 162
 }

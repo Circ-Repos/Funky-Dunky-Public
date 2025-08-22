@@ -1,29 +1,20 @@
 public var lerpScore:Int = 0;
 public var intendedScore:Int = 0;
 var displayedAccuracy:Float = 0;
-var upscaleAmt = 4;
+public var treetime:Bool = false;
+var songName:String = PlayState.SONG.meta.name.toLowerCase();
 
-function postCreate()
-{
-	for (i in [scoreTxt, missesTxt, accuracyTxt])
-	{
-		i.size *= upscaleAmt;
-		i.scale.x /= upscaleAmt;
-		i.scale.y /= upscaleAmt;
-		i.antialiasing = true;
-		i.y -= 21;
-		i.borderSize *= upscaleAmt;
-		i.fieldWidth += 1000;
-		i.x -= 1000/2;
-		i.borderQuality = 100;
+function stepHit(curStep:Int) {
+	if(songName == 'gift'){
+		switch(curStep){
+			case 2080:
+				treetime = true;
+		}
 	}
-
-	scoreTxt.x += 65;
-	accuracyTxt.x -= 80;
 }
-
 function postUpdate(elapsed)
 {
+	if(!treetime){
 	intendedScore = songScore;
 	lerpScore = Math.floor(FlxMath.lerp(intendedScore, lerpScore, Math.exp(-elapsed * 24)));
 	scoreTxt.text = 'Score: ' + lerpScore;
@@ -36,4 +27,11 @@ function postUpdate(elapsed)
 	var roundedAcc:Float = Math.round(displayedAccuracy * 100) / 1;
 	if(accuracy == 0) accuracyTxt.text = 'Accuracy:0 -% - ' + curRating.rating;
 	else accuracyTxt.text = 'Accuracy:' + roundedAcc + '% - ' + curRating.rating;
+	}
+	else{
+		scoreTxt.text = 'Score: 333333';
+		missesTxt.text = 'Misses: 3333';
+		accuracyTxt.text = 'Accuracy: 33.33%';
+	}
+
 }
