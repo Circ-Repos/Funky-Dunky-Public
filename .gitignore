@@ -13,6 +13,7 @@ export/*
 .vscode/*
 .haxelib/
 .github/
+Ignore Me I dont exist/
 PROJECT.xml
 *.code-workspace
 vs_Community.exe

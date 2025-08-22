@@ -326,7 +326,7 @@ function changeItem(change:Int = 0)
 	else
 		quoteText.text = '"' + "I'll Make you feel M@GICAL" + '"';
 
-	var saveData:SongHighscore = FunkinSave.getSongHighscore(songs[curSelectedFreeplay].name, 'normal', 0);
+	var saveData:SongHighscore = FunkinSave.getSongHighscore(songs[curSelectedFreeplay].name, 'normal');
 
 	var score = (saveData != null) ? saveData.score : 0;
 	var acc = (saveData != null) ? Std.int(saveData.accuracy * 10000) / 100 : 0;

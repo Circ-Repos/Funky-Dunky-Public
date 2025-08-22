@@ -1,6 +1,5 @@
 import flixel.FlxCameraFollowStyle;
 import funkin.backend.system.Flags;
-import openfl.display.BlendMode;
 
 //funni revisetdr code
 // Cam Values
@@ -35,7 +34,6 @@ function postCreate(){
 	remove(iconP3, true);
 	insert(members.indexOf(iconP2), iconP3);
 	dgv(1,0);
-	tvlight.blend = BlendMode.ADD;
 }
 function create(){
 	PlayState.instance.introLength = 0;
@@ -45,15 +43,11 @@ function update() oppupdateIconPositions();
 function oppupdateIconPositions() {
 	var iconOffset = Flags.ICON_OFFSET;
 	var healthBarPercent = healthBar.percent;
-
 	var center:Float = healthBar.x + healthBar.width * FlxMath.remapToRange(healthBarPercent, 0, 100, 1, 0);
+	
+	iconP3.x = iconP2.x = center - (iconP2.width - iconOffset);
 
-	iconP1.x = center - iconOffset;
-	iconP2.x = center - (iconP2.width - iconOffset);
-	iconP3.x = center - (iconP2.width - iconOffset);
-
-	iconP1.health = healthBarPercent / 100;
-	iconP2.health = 1 - (healthBarPercent / 100);
+	iconP3.health = iconP2.health = 1 - (healthBarPercent / 100);
 }
 
 function onCameraMove(e) {

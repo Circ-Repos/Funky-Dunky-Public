@@ -30,13 +30,23 @@ function onEvent(event)
 
 	var value1 = event.event.params[0];
     var value2 = event.event.params[1];
-
+	if(value2 != 'mid' && lyrics.y != 600){
+		lyrics.x = 0;
+		lyrics.y = 600;
+		lyrics.setFormat(Paths.font("VCR.ttf"), 36, FlxColor.WHITE, FlxTextAlign.center);
+	}
     if (event.event.name == 'Lyrics' && value1 != '')
     {
 		lyrics.alpha = 1;
 		lyrics.text = value1;
-		lyrics.screenCenter(FlxAxes.X);
     }
-	if(value2 == 'mid') lyrics.subtitleCam.height/2;
+	switch(value2){
+		default:
+			lyrics.screenCenter(FlxAxes.X);
+		case 'mid':
+			lyrics.screenCenter();
+			lyrics.setFormat(Paths.font("VCR.ttf"), 72, FlxColor.WHITE, FlxTextAlign.center);
+
+	}
 	if(value1 == '') FlxTween.tween(lyrics, {alpha: 0},0.8, {ease: FlxEase.linear});
 }

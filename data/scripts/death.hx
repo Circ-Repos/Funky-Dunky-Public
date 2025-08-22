@@ -8,7 +8,7 @@ function create(event){
     FlxG.camera.alpha = 0;
     //event.cancel();
     trace('HELP NOW');
-    event.gameOverSong = 'gameover'; //NOTHING EVER HAPPENS -Any Interloper investigatorss
+    event.gameOverSong = 'gameover';
     event.retrySFX = 'flash';
 
     FlxG.cameras.add(camFlash, true);

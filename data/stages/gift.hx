@@ -3,6 +3,8 @@ import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import openfl.geom.Rectangle;
+import openfl.display.BlendMode;
+importScript('data/scripts/dodge'); //i coded it for portal funkin'
 
 //funni revisetdr code
 // Cam Values
@@ -24,7 +26,12 @@ function dgv(alp1:Float = 1, alp2:Float = 0, alp3:Float = 0){
 	strumLines.members[0].characters[0].alpha = iconP2.alpha = alp1;
 	strumLines.members[0].characters[1].alpha = iconP3.alpha = alp2;
 	strumLines.members[0].characters[2].alpha = iconP4.alpha = alp3;
-
+	if(alp3 == 1) bow.alpha = 0;
+	if(alp3 == 0) bow.alpha = 1;
+}
+function bgv(alp1:Float = 1, alp2:Float = 0){
+	strumLines.members[1].characters[0].alpha = iconP1.alpha = alp1;
+	strumLines.members[1].characters[1].alpha = iconP5.alpha = alp2;
 }
 function cutsceneAlpha(camAlph, camHUDAlph){
 	camGame.alpha = camAlph;
@@ -43,9 +50,7 @@ function stepHit(e){
 			doorclosed.alpha = 0;
 			cutsceneAlpha(1,1);
 		case 2080:
-			iconP1.alpha = 0;
-			iconP2.alpha = 0;
-			iconP3.alpha = 0;
+			iconP1.alpha = iconP3.alpha =iconP2.alpha = iconP5.alpha = iconP4.alpha = 0;
 			treetime = true;
 			scoreTxt.text = 'Score: 333333';
 			missesTxt.text = 'Misses: 3333';
@@ -93,11 +98,22 @@ function postCreate(){
 	add(iconP4);
 	remove(iconP4, true);
 	insert(members.indexOf(iconP2) - 1, iconP4);
+
+	iconArray.push(iconP5 = new HealthIcon(strumLines.members[1].characters[1] != null ? strumLines.members[1].characters[1].getIcon() : Flags.DEFAULT_HEALTH_ICON, true));
+	iconP5.camera = camHUD;
+	iconP5.y = healthBar.y - (iconP5.height / 2);
+	iconP5.alpha = 0;
+	iconP5.flipX = true;
+	add(iconP5);
+	remove(iconP5, true);
+	insert(members.indexOf(iconP1) - 1, iconP5);
+
+	bgv(1,0);
 	dgv(0,0,0);
 
 	healthBar.alpha = 0;
 	healthBarBG.alpha = 0;
-	iconP2.alpha = iconP1.alpha = iconP3.alpha = iconP4.alpha = 0;
+	iconP2.alpha = iconP1.alpha = iconP3.alpha = iconP4.alpha = iconP5.alpha = 0;
 	healthBar.angle = 180;
 
 	strumLines.members[0].characters[1].x -= 60;
@@ -111,6 +127,14 @@ function postCreate(){
 
 	iconP1.flipX = true;
 	iconP2.flipX = true;
+
+	tvlight.blend = BlendMode.ADD;
+
+}
+function onDadHit(event){ //too fucking lazy rn
+    if(health > 0.03 && event.note.isSustainNote == false){
+        health -= 0.02;
+    }
 }
 function hideStuff(){
 	camGame.alpha = 0;
@@ -139,11 +163,12 @@ function oppupdateIconPositions() {
 	var center:Float = healthBar.x + healthBar.width * FlxMath.remapToRange(healthBarPercent, -100, 0, 1, 0);
 
 	iconP3.x = iconP4.x = iconP2.x = center - iconOffset;
-	iconP1.x = center - (iconP2.width - iconOffset);
-	iconP1.health = healthBarPercent / 100;
+	iconP5.x = iconP1.x = center - (iconP2.width - iconOffset);
+	iconP5.health = iconP1.health = healthBarPercent / 100;
 	iconP4.health = iconP3.health = iconP2.health = 1 - (healthBarPercent / 100);
 }
 function update(){
+	if(healthBar.alpha == 0) health = 1; //lazy
 	if(treetime){
 		scoreTxt.color = missesTxt.color = accuracyTxt.color = FlxColor.RED;
 	}

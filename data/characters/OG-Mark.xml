@@ -1,8 +1,0 @@
-<!DOCTYPE codename-engine-character>
-<character sprite="mark-OG" holdTime="6.1" scale="1" color="#A1A1A1">
-	<anim anim="markidle" name="idle"/>
-	<anim y="5" anim="leftmark" name="singLEFT"/>
-	<anim x="-17" y="30" anim="upmark" name="singUP"/>
-	<anim x="10" y="-5" anim="downmark" name="singDOWN"/>
-	<anim x="-10" y="8" anim="markright" name="singRIGHT"/>
-</character>

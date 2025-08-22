@@ -1,0 +1,13 @@
+<!DOCTYPE codename-engine-character>
+<character x="-400" y="-200" sprite="MAD Mark Reloaded" flipX="true" isPlayer="true" icon="mark-mad" color="#FFFFFF">
+	<anim name="idle" anim="idle0"/>
+	<anim name="shoot" anim="shoot0"/>
+	<anim name="singDOWN" anim="note down0"/>
+	<anim name="singRIGHT" anim="note right0"/>
+	<anim name="singLEFT" anim="note left0"/>
+	<anim name="singUP" anim="note up0"/>
+	<anim name="note up miss" anim="note up miss0"/>
+	<anim name="note down miss" anim="note down miss0"/>
+	<anim name="note left miss" anim="note left miss0"/>
+	<anim name="note right miss" anim="note right miss0"/>
+</character>

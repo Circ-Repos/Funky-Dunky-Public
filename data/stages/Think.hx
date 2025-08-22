@@ -129,7 +129,7 @@ function postCreate(){
 	textBlob2.x = 320;
 	textBlob2.updateHitbox();
 	textBlob2.antialiasing = false;
-	textBlob2.text = "[MH]: ALRIGHT, I MEAN IT SHOULDN'T BE TOO BAD. I JUST GONNA SWITCH THEM ON AND GET OUTTA THERE THOUGH. YOU KNOW WHAT I FEEL ABOUT YOUR HOUSE. \n\n[CT]: YEAH, THAT'S FINE. ONE LAST THING, TRY TO GET A GOOD VIEW";
+	textBlob2.text = "[MH]: ALRIGHT, I MEAN IT SHOULDN'T BE TOO BAD. I'm JUST GONNA SWITCH THEM ON AND GET OUTTA THERE THOUGH. YOU KNOW WHAT I FEEL ABOUT YOUR HOUSE. \n\n[CT]: YEAH, THAT'S FINE. ONE LAST THING, TRY TO GET A GOOD VIEW";
     add(textBlob2);
 	add(blackOverlayForFlicker);
 	for(i in [camThink, camThinkB, camHUD]){
