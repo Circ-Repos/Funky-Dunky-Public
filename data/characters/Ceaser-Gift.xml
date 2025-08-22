@@ -1,8 +1,8 @@
 <!DOCTYPE codename-engine-character>
-<character x="-400" y="-200" sprite="Alt_Cesar_Reloaded" scale="0.7" color="#000000" gameOverChar="da">
-	<anim name="idle" anim="idle0"/>
-	<anim name="singDOWN" anim="note down0" x="5" y="-39"/>
-	<anim name="singLEFT" anim="note left0" x="65" y="-7"/>
-	<anim name="singRIGHT" anim="note right0" x="-15" y="150"/>
-	<anim name="singUP" anim="note up0" x="-32" y="40"/>
+<character x="-400" y="-300" sprite="Cesar" color="#1F1F1F">
+	<anim name="idle" anim="CesarIdle"/>
+	<anim name="singDOWN" anim="CesarDown" x="15" y="-10"/>
+	<anim name="singRIGHT" anim="CesarRight" x="30" y="30"/>
+	<anim name="singLEFT" anim="CesarLeft" y="15"/>
+	<anim name="singUP" anim="CesarUp" x="50" y="55"/>
 </character>
