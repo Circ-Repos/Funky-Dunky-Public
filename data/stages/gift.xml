@@ -9,6 +9,6 @@
 
 	<sprite type="none" sprite="bow" name="bow"/>
 	<bf x="851" y="671.777777777778"/>
-	<sprite type="none" sprite="TV Light" name="TV Light"/>
+	<sprite type="none" sprite="TV Light" name="tvlight"/>
 	<sprite type="none" sprite="TV" name="TV"/>
 </stage>

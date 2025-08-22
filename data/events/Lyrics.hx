@@ -1,6 +1,7 @@
 import flixel.text.FlxTextBorderStyle;
 import flixel.text.FlxText;
 import flixel.text.FlxTextAlign;
+
 var lyrics:FlxText;
 
 public var subtitleCam = new HudCamera();
@@ -11,6 +12,7 @@ function postCreate() {
     subtitleCam.bgColor = 0;
 
 	lyrics = new FlxText(0, 600, 0, "");
+	lyrics.alignment = FlxTextAlign.CENTER;
 	lyrics.setFormat(Paths.font("VCR.ttf"), 36, FlxColor.WHITE, FlxTextAlign.center);
 	if(PlayState.SONG.meta.name.toLowerCase() == 'thonk') lyrics.font = Paths.font('comicsans.ttf');
 	lyrics.setBorderStyle(FlxTextBorderStyle.NONE);

@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-stage>
-<stage folder="stages/distraught/" zoom="0.8">
+<stage folder="stages/distraught/" zoom="0.6">
 	<dad x="-237" scale="0.8" y="327"/>
 	<bf/>
 	<combo/>

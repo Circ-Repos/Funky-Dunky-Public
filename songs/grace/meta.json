@@ -1,17 +1,16 @@
 {
+	"color": "#5F5F5F",
+	"customValues": {},
 	"opponentModeAllowed": false,
 	"icon": "gabriel-true",
 	"difficulties": [
 		"normal"
 	],
-	"customValues": {},
-	"color": "#5F5F5F",
-	"name": "grace",
 	"coopAllowed": false,
+	"quote": "Don't be afraid!",
 	"stepsPerBeat": 4,
 	"displayName": "Grace",
 	"beatsPerMeasure": 4,
 	"needsVoices": false,
-	"quote": "Don't be afraid!",
 	"bpm": 110
 }

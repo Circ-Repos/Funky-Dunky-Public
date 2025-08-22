@@ -244,10 +244,398 @@
 		},
 		{
 			"params": [
-				1
+				"oh",
+				" "
+			],
+			"time": 77129.6296296296,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 77314.8148148148
+		},
+		{
+			"params": [
+				"oh thats werid",
+				" "
+			],
+			"time": 77628.602660153,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 78020.2517068091
+		},
+		{
+			"params": [
+				"oh thats werid, I guess",
+				" "
+			],
+			"time": 78240.7407407407,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 78457.0255297281
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come",
+				" "
+			],
+			"time": 78703.7037037037,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 78796.2962962963
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and",
+				" "
+			],
+			"time": 79106.810499129,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 79351.8518518519
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on",
+				" "
+			],
+			"time": 79537.037037037,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 79754.9586472772
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security",
+				" "
+			],
+			"time": 80000,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security",
+				" "
+			],
+			"time": 80277.7777777778,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 81111.1111111111
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even",
+				" "
+			],
+			"time": 81666.6666666667,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even though",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 81851.8518518519
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even though I'm",
+				" "
+			],
+			"time": 82129.6296296296,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even though I'm definitley",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 82407.4074074074
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even though I'm definitley afraid",
+				" "
+			],
+			"time": 82777.7777777778,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even though I'm definitley afraid of",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 83055.5555555556
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even though I'm definitley afraid of your",
+				" "
+			],
+			"time": 83240.7407407407,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"oh thats werid, I guess I'll come over and turn on your security cameras\n even though I'm definitley afraid of your house.",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 83425.9259259259
+		},
+		{
+			"params": [
+				"And",
+				" "
+			],
+			"time": 84259.2592592593,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"And this",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 84537.037037037
+		},
+		{
+			"params": [
+				"And this has",
+				" "
+			],
+			"time": 84722.2222222222,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"And this has no",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 85000
+		},
+		{
+			"params": [
+				"And this has no plot",
+				" "
+			],
+			"time": 85462.962962963,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"And this has no plot relevance",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 85648.1481481481
+		},
+		{
+			"params": [
+				"",
+				" "
+			],
+			"time": 86203.7037037037,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				1,
+				true,
+				4,
+				"CLASSIC",
+				"In"
 			],
 			"time": 87407.4074074073,
 			"name": "Camera Movement"
+		},
+		{
+			"params": [
+				"uh",
+				" "
+			],
+			"time": 87407.4074074073,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhh",
+				" "
+			],
+			"time": 87500,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhhh",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 87592.5925925926
+		},
+		{
+			"params": [
+				"uhhhh",
+				" "
+			],
+			"time": 87685.1851851852,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhhhhh",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 87777.7777777778
+		},
+		{
+			"params": [
+				"uhhhhhh",
+				" "
+			],
+			"time": 87870.3703703704,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhhhhhhh",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 87962.962962963
+		},
+		{
+			"params": [
+				"uhhhhhhhh",
+				" "
+			],
+			"time": 88055.5555555556,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhhhhhhhhh",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 88148.1481481481
+		},
+		{
+			"params": [
+				"uhhhhhhhhhh",
+				" "
+			],
+			"time": 88240.7407407407,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhhhhhhhhhhh",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 88333.3333333333
+		},
+		{
+			"params": [
+				"uhhhhhhhhhhhh",
+				" "
+			],
+			"time": 88425.9259259259,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhhhhhhhhhhhhh",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 88518.5185185185
+		},
+		{
+			"params": [
+				"uhhhhhhhhhhhhhh",
+				" "
+			],
+			"time": 88611.1111111111,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"uhhhhhhhhhhhhhhh",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 88703.7037037037
+		},
+		{
+			"params": [
+				"",
+				" "
+			],
+			"time": 88796.2962962963,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"*cough*",
+				" "
+			],
+			"time": 91111.1111111111,
+			"name": "Lyrics"
+		},
+		{
+			"params": [
+				"",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 91203.7037037037
 		},
 		{
 			"params": [
@@ -262,6 +650,22 @@
 			],
 			"time": 94814.8148148147,
 			"name": "Camera Movement"
+		},
+		{
+			"params": [
+				"*cough*",
+				" "
+			],
+			"name": "Lyrics",
+			"time": 96666.6666666667
+		},
+		{
+			"params": [
+				"",
+				" "
+			],
+			"time": 96759.2592592593,
+			"name": "Lyrics"
 		},
 		{
 			"params": [
@@ -503,7 +907,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 186.000000000004,
+					"sLen": 186.000000000011,
 					"time": 26296.2962962963,
 					"type": 0
 				},
@@ -581,7 +985,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 187.000000000004,
+					"sLen": 187.000000000007,
 					"time": 29259.2592592593,
 					"type": 0
 				},
@@ -863,7 +1267,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 186.000000000007,
+					"sLen": 186.000000000029,
 					"time": 51697.5308641975,
 					"type": 0
 				},
@@ -941,7 +1345,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 282.000000000007,
+					"sLen": 282.000000000015,
 					"time": 62592.5925925926,
 					"type": 0
 				},
@@ -2765,13 +3169,13 @@
 				},
 				{
 					"id": 2,
-					"sLen": 186,
+					"sLen": 185.999999999985,
 					"time": 53703.7037037037,
 					"type": 0
 				},
 				{
 					"id": 0,
-					"sLen": 278.999999999985,
+					"sLen": 278.999999999978,
 					"time": 54074.0740740741,
 					"type": 0
 				},
@@ -3287,7 +3691,7 @@
 				},
 				{
 					"id": 3,
-					"sLen": 186.000000000015,
+					"sLen": 186.000000000029,
 					"time": 105925.925925926,
 					"type": 0
 				},
@@ -3813,20 +4217,20 @@
 		{
 			"keyCount": 1,
 			"notes": [],
-			"visible": false,
+			"position": "girlfriend",
+			"strumScale": 1,
 			"strumSpacing": 1,
+			"visible": false,
+			"type": 2,
+			"characters": [
+				"cosars dead as fuck mom"
+			],
 			"strumPos": [
 				0,
 				50
 			],
-			"position": "girlfriend",
-			"strumScale": 1,
 			"vocalsSuffix": "",
-			"strumLinePos": 0.25,
-			"type": 2,
-			"characters": [
-				"cosars dead as fuck mom"
-			]
+			"strumLinePos": 0.25
 		}
 	],
 	"codenameChart": true,

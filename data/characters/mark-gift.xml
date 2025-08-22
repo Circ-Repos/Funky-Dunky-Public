@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-400" y="-200" sprite="MAD_Mark_Reloaded" flipX="true" isPlayer="true" icon="mark-angry">
+<character x="-400" y="-200" sprite="MAD_Mark_Reloaded" flipX="true" isPlayer="true" color="#ffffffff" icon="mark-angry">
 	<anim name="idle" anim="idle0"/>
 	<anim name="singDOWN" anim="note down0"/>
 	<anim name="singRIGHT" anim="note right0"/>

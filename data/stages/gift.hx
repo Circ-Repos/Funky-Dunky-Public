@@ -9,7 +9,7 @@ import openfl.geom.Rectangle;
 var dadX:Float = 1900;
 var dadY:Float = 603.5;
 
-var bfX:Float = 800;
+var bfX:Float = 1200;
 var bfY:Float = 900;
 
 var gfX:Float = 1500;
@@ -19,6 +19,7 @@ var camOther = new FlxCamera();
 var vig:FlxSprite;
 var iconP3:HealthIcon;
 var treetime:Bool = false;
+
 function dgv(alp1:Float = 1, alp2:Float = 1){
 	strumLines.members[0].characters[0].alpha = iconP2.alpha = alp1;
 	strumLines.members[0].characters[1].alpha = iconP3.alpha = alp2;
@@ -109,6 +110,8 @@ function hideStuff(){
 }
 function onCountdown(e) e.cancel();
 function onSongStart(){
+	boyfriend.debugMode = true;
+	dad.debugMode = true;
 	//PlayState.instance.dad.alpha = 0.001;
 	camFollow.setPosition(1700, dadY);
 	//char debug modes prevent the idle from playing
@@ -116,6 +119,9 @@ function onSongStart(){
 
 	FlxTween.tween(camGame, {alpha: 1},2.35, {ease: FlxEase.linear});
 
+}
+function onDance(event){
+	if(dad.debugMode) event.cancel();
 }
 function startZoom(){
 	boyfriend.debugMode = true;
@@ -162,15 +168,24 @@ function postUpdate(){
 }
 function onCountdown(event) event.cancel();
 function idleEnable() boyfriend.debugMode = dad.debugMode = false;
+function onStepHit(){
+	case 785:
+		boyfriend.debugMode = dad.debugMode = true; //stop idles at end of song
+}
 function onCameraMove(e) {
 	if(camZooming){
 	switch (curCameraTarget){
 		case 0:
 			e.position.set(dadX, dadY);
+			defaultCamZoom = 1.1;
+
 		case 1: 
 			e.position.set(bfX, bfY);
+			defaultCamZoom = 0.7;
+			
 		default: 
 			e.position.set(gfX, gfY);
+			defaultCamZoom = 0.65;
 		}
 	}
 	if(!camZooming) e.cancel();
