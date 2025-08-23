@@ -1,34 +1,34 @@
 {
 	"bookmarks": [
 		{
-			"name": "Ceasr goes here",
+			"time": 1313.08669152993,
 			"color": "#FF0000",
-			"time": 1313.08669152993
+			"name": "Ceasr goes here"
 		},
 		{
-			"name": "\"Fake\" Ceasr here",
+			"time": 1431.72870891365,
 			"color": "#59FF00",
-			"time": 1431.72870891365
+			"name": "\"Fake\" Ceasr here"
 		},
 		{
-			"name": "YOU FUCKING BASTARD",
+			"time": 1552.07925140332,
 			"color": "#FFFFFF",
-			"time": 1552.07925140332
+			"name": "YOU FUCKING BASTARD"
 		},
 		{
-			"name": "End Of Chart / Vocals",
+			"time": 2079.55956161755,
 			"color": "#FFFFFF",
-			"time": 2079.55956161755
+			"name": "End Of Chart / Vocals"
 		},
 		{
-			"name": "Cesar Starts Singing Through Door -- Turn 1",
+			"time": 128.424095591821,
 			"color": "#FFFFFF",
-			"time": 128.424095591821
+			"name": "Cesar Starts Singing Through Door -- Turn 1"
 		},
 		{
-			"name": "GOOD GRIEF HES NAKED!",
+			"time": 511.708317267376,
 			"color": "#FF0000",
-			"time": 511.708317267376
+			"name": "GOOD GRIEF HES NAKED!"
 		}
 	],
 	"events": [
@@ -1096,6 +1096,36 @@
 		{
 			"params": [
 				2,
+				1.4,
+				"STEP",
+				0
+			],
+			"time": 155927.272727273,
+			"name": "Camera Modulo Change"
+		},
+		{
+			"params": [
+				1,
+				1,
+				"STEP",
+				0
+			],
+			"time": 157298.701298701,
+			"name": "Camera Modulo Change"
+		},
+		{
+			"params": [
+				4,
+				1,
+				"STEP",
+				0
+			],
+			"time": 158670.12987013,
+			"name": "Camera Modulo Change"
+		},
+		{
+			"params": [
+				2,
 				1,
 				"STEP",
 				0
@@ -1142,13 +1172,9 @@
 			"name": "HScript Call"
 		}
 	],
-	"codenameChart": true,
-	"stage": "gift",
 	"strumLines": [
 		{
 			"keyCount": 4,
-			"strumScale": 1,
-			"position": "dad",
 			"notes": [
 				{
 					"id": 1,
@@ -1980,7 +2006,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857144936,
+					"sLen": 85.7142857145082,
 					"time": 79641.5584415584,
 					"type": 0
 				},
@@ -2040,7 +2066,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857144936,
+					"sLen": 85.7142857145082,
 					"time": 80841.5584415584,
 					"type": 0
 				},
@@ -2160,7 +2186,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857144936,
+					"sLen": 85.7142857145082,
 					"time": 83241.5584415584,
 					"type": 0
 				},
@@ -2802,7 +2828,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857139988,
+					"sLen": 85.7142857139843,
 					"time": 99698.7012987013,
 					"type": 0
 				},
@@ -2982,7 +3008,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146391,
+					"sLen": 85.7142857146682,
 					"time": 125070.12987013,
 					"type": 0
 				},
@@ -3198,7 +3224,7 @@
 				},
 				{
 					"id": 3,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 138784.415584416,
 					"type": 0
 				},
@@ -3456,7 +3482,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 144784.415584416,
 					"type": 0
 				},
@@ -3618,7 +3644,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 148384.415584416,
 					"type": 0
 				},
@@ -3888,7 +3914,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 257.142857143219,
+					"sLen": 257.142857143248,
 					"time": 155584.415584416,
 					"type": 0
 				},
@@ -3972,7 +3998,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 257.142857143219,
+					"sLen": 257.142857143248,
 					"time": 157984.415584416,
 					"type": 0
 				},
@@ -4188,7 +4214,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 162784.415584416,
 					"type": 0
 				},
@@ -4332,7 +4358,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 166384.415584416,
 					"type": 0
 				},
@@ -4512,7 +4538,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146973,
+					"sLen": 85.7142857147264,
 					"time": 170327.272727273,
 					"type": 0
 				},
@@ -4895,25 +4921,25 @@
 					"type": 0
 				}
 			],
+			"position": "dad",
+			"strumScale": 1,
+			"strumSpacing": 1,
+			"visible": true,
+			"type": 0,
 			"characters": [
 				"Ceaser-Alt-Gift",
 				"alternate-gift",
 				"Ceaser-Gift"
 			],
-			"type": 0,
-			"visible": true,
-			"strumSpacing": 1,
 			"strumPos": [
 				0,
 				50
 			],
-			"strumLinePos": 0.75,
-			"vocalsSuffix": "-Ceaser-and-Alternate"
+			"vocalsSuffix": "-Ceaser-and-Alternate",
+			"strumLinePos": 0.75
 		},
 		{
 			"keyCount": 4,
-			"strumScale": 1,
-			"position": "boyfriend",
 			"notes": [
 				{
 					"id": 2,
@@ -5499,7 +5525,7 @@
 				},
 				{
 					"id": 0,
-					"sLen": 257.142857143059,
+					"sLen": 257.142857143073,
 					"time": 73641.5584415584,
 					"type": 0
 				},
@@ -5571,7 +5597,7 @@
 				},
 				{
 					"id": 0,
-					"sLen": 85.7142857144936,
+					"sLen": 85.7142857145082,
 					"time": 76041.5584415584,
 					"type": 0
 				},
@@ -5613,7 +5639,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857144936,
+					"sLen": 85.7142857145082,
 					"time": 77241.5584415584,
 					"type": 0
 				},
@@ -5649,7 +5675,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 257.142857143044,
+					"sLen": 257.142857143059,
 					"time": 78441.5584415584,
 					"type": 0
 				},
@@ -5685,7 +5711,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857144936,
+					"sLen": 85.7142857145082,
 					"time": 79641.5584415584,
 					"type": 0
 				},
@@ -5751,7 +5777,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857144936,
+					"sLen": 85.7142857145082,
 					"time": 80841.5584415584,
 					"type": 0
 				},
@@ -6423,7 +6449,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857139697,
+					"sLen": 85.7142857139406,
 					"time": 97298.7012987013,
 					"type": 0
 				},
@@ -6555,7 +6581,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857145373,
+					"sLen": 85.7142857145518,
 					"time": 100555.844155844,
 					"type": 0
 				},
@@ -6951,7 +6977,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 138784.415584416,
 					"type": 0
 				},
@@ -7071,7 +7097,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 141184.415584416,
 					"type": 0
 				},
@@ -7221,7 +7247,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 144784.415584416,
 					"type": 0
 				},
@@ -7449,7 +7475,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 150784.415584416,
 					"type": 0
 				},
@@ -7491,7 +7517,7 @@
 				},
 				{
 					"id": 3,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 151984.415584416,
 					"type": 0
 				},
@@ -7521,7 +7547,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 153184.415584416,
 					"type": 0
 				},
@@ -7629,7 +7655,7 @@
 				},
 				{
 					"id": 0,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 155584.415584416,
 					"type": 0
 				},
@@ -7683,7 +7709,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 156784.415584416,
 					"type": 0
 				},
@@ -7719,7 +7745,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 157984.415584416,
 					"type": 0
 				},
@@ -7761,7 +7787,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 159184.415584416,
 					"type": 0
 				},
@@ -7827,7 +7853,7 @@
 				},
 				{
 					"id": 2,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 160384.415584416,
 					"type": 0
 				},
@@ -8103,7 +8129,7 @@
 				},
 				{
 					"id": 3,
-					"sLen": 85.7142857146682,
+					"sLen": 85.7142857146973,
 					"time": 166384.415584416,
 					"type": 0
 				},
@@ -8115,7 +8141,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146973,
+					"sLen": 85.7142857147264,
 					"time": 166727.272727273,
 					"type": 0
 				},
@@ -8301,7 +8327,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 85.7142857146973,
+					"sLen": 85.7142857147264,
 					"time": 171527.272727273,
 					"type": 0
 				},
@@ -8654,40 +8680,44 @@
 					"type": 0
 				}
 			],
+			"position": "boyfriend",
+			"strumScale": 1,
+			"strumSpacing": 1,
+			"visible": true,
+			"type": 1,
 			"characters": [
 				"mark-gift",
 				"mad-mark-gift"
 			],
-			"type": 1,
-			"visible": true,
-			"strumSpacing": 1,
 			"strumPos": [
 				0,
 				50
 			],
-			"strumLinePos": 0.25,
-			"vocalsSuffix": "-MARK"
+			"vocalsSuffix": "-MARK",
+			"strumLinePos": 0.25
 		},
 		{
 			"keyCount": 1,
-			"strumScale": 1,
-			"position": "girlfriend",
 			"notes": [],
+			"position": "girlfriend",
+			"strumScale": 1,
+			"strumSpacing": 1,
+			"visible": false,
+			"type": 2,
 			"characters": [
 				"i only exist as a camera"
 			],
-			"type": 2,
-			"visible": false,
-			"strumSpacing": 1,
 			"strumPos": [
 				0,
 				50
 			],
-			"strumLinePos": 0.25,
-			"vocalsSuffix": ""
+			"vocalsSuffix": "",
+			"strumLinePos": 0.25
 		}
 	],
-	"chartVersion": "1.6.0",
+	"codenameChart": true,
+	"stage": "gift",
 	"scrollSpeed": 2,
+	"chartVersion": "1.6.0",
 	"noteTypes": []
 }

@@ -4,6 +4,12 @@ import flixel.util.FlxColor;
 import flixel.FlxG;
 import openfl.geom.Rectangle;
 import openfl.display.BlendMode;
+import flixel.text.FlxTextBorderStyle;
+import flixel.text.FlxText;
+import flixel.text.FlxTextAlign;
+import flixel.text.FlxTextFormat;
+import flixel.text.FlxTextFormatMarkerPair;
+
 importScript('data/scripts/dodge'); //i coded it for portal funkin'
 
 //funni revisetdr code
@@ -21,6 +27,7 @@ var camOther = new FlxCamera();
 var vig:FlxSprite;
 var iconP3:HealthIcon;
 var treetime:Bool = false;
+function onSongEnd() FlxG.save.data.beatenGift = true;
 
 function dgv(alp1:Float = 1, alp2:Float = 0, alp3:Float = 0){
 	strumLines.members[0].characters[0].alpha = iconP2.alpha = alp1;
@@ -37,34 +44,7 @@ function cutsceneAlpha(camAlph, camHUDAlph){
 	camGame.alpha = camAlph;
 	camHUD.alpha = camHUDAlph;
 }
-function stepHit(e){
-	switch(e){
-		case 512:
-			healthBar.alpha = 1;
-			healthBarBG.alpha = 1;
-			iconP1.alpha = 1;
-			iconP2.alpha = 1;
-			iconP3.alpha = 1;
-			dgv(0,1,0);
-			health = 1; //reset health since player didnt see it before now
-			doorclosed.alpha = 0;
-			cutsceneAlpha(1,1);
-		case 2080:
-			iconP1.alpha = iconP3.alpha =iconP2.alpha = iconP5.alpha = iconP4.alpha = 0;
-			treetime = true;
-			scoreTxt.text = 'Score: 333333';
-			missesTxt.text = 'Misses: 3333';
-			accuracyTxt.text = "Accuracy: 333.333%";
-			scoreTxt.color = missesTxt.color = accuracyTxt.color = FlxColor.RED;
-		
-			healthBar.alpha = 0;
-			healthBarBG.alpha = 0;
-			healthBarBG.alpha = 0;
-		case 2111:
-			FlxTween.tween(camHUD, {alpha: 0},10, {ease: FlxEase.linear});
 
-	}
-}
 function postCreate(){
 	camOther.bgColor = 0;
     camOther.alpha = 1;
@@ -130,6 +110,18 @@ function postCreate(){
 
 	tvlight.blend = BlendMode.ADD;
 
+	tutorialText = new FlxText(0,350,0, 'When The Screen Flashes YELLOW, Press SPACE to SHOOT\n Failure to do so is considered A... Bad Decision', 48);
+	tutorialText.font = Paths.font('Times New Roman Italic.ttf');
+	tutorialText.italic = true;
+	tutorialText.underline = true;
+	tutorialText.alignment = FlxTextAlign.CENTER;
+	tutorialText.antialiasing = false;
+	tutorialText.camera = camOther;
+	tutorialText.setBorderStyle(FlxTextBorderStyle.NONE);
+	tutorialText.screenCenter();
+	tutorialText.alpha = 0;
+	add(tutorialText);
+
 }
 function onDadHit(event){ //too fucking lazy rn
     if(health > 0.03 && event.note.isSustainNote == false){
@@ -188,4 +180,37 @@ function onCameraMove(e) {
 			e.position.set(bfX, bfY);
 			defaultCamZoom = 0.7;
 		}
+}
+function stepHit(e){
+	switch(e){
+		case 385:
+			FlxTween.tween(tutorialText, { alpha: 1 }, 2, { ease: FlxEase.expoInOut});
+		case 450:
+			FlxTween.tween(tutorialText, { alpha: 0 }, 3, { ease: FlxEase.expoInOut});
+		case 512:
+			tutorialText.alpha = 0;
+			healthBar.alpha = 1;
+			healthBarBG.alpha = 1;
+			iconP1.alpha = 1;
+			iconP2.alpha = 1;
+			iconP3.alpha = 1;
+			dgv(0,1,0);
+			health = 1; //reset health since player didnt see it before now
+			doorclosed.alpha = 0;
+			cutsceneAlpha(1,1);
+		case 2080:
+			iconP1.alpha = iconP3.alpha =iconP2.alpha = iconP5.alpha = iconP4.alpha = 0;
+			treetime = true;
+			scoreTxt.text = 'Score: 333333';
+			missesTxt.text = 'Misses: 3333';
+			accuracyTxt.text = "Accuracy: 333.333%";
+			scoreTxt.color = missesTxt.color = accuracyTxt.color = FlxColor.RED;
+		
+			healthBar.alpha = 0;
+			healthBarBG.alpha = 0;
+			healthBarBG.alpha = 0;
+		case 2111:
+			FlxTween.tween(camHUD, {alpha: 0},10, {ease: FlxEase.linear});
+
+	}
 }

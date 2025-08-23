@@ -7,8 +7,8 @@
 		"normal"
 	],
 	"coopAllowed": true,
-	"quote": "I have a SUPRISE for you!",
 	"stepsPerBeat": 4,
+	"quote": "I have a SUPRISE for you!",
 	"displayName": "Gift",
 	"needsVoices": true,
 	"beatsPerMeasure": 4,

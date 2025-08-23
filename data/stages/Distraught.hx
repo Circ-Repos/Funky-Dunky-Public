@@ -7,6 +7,7 @@ var tV:FlxSprite;
 var tvwhite:FlxSprite;
 
 function onCountdown(event) event.cancel();
+function onSongEnd() FlxG.save.data.beatenDistraught = true;
 
 function postCreate(){
     camTV = new FlxCamera();

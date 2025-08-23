@@ -11,6 +11,10 @@ var blackOverlayForFlicker:FlxSprite;
 
 var textBlob2:FlxText;
 var textBlob1:FlxText;
+
+function onSongEnd() FlxG.save.data.beatenThink = true;
+
+
 function create(){
     camThink = new FlxCamera();
     camThink.visible = true;

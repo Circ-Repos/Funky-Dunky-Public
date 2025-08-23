@@ -24,6 +24,9 @@ var heatShader:CustomShader;
 var dreaming:Bool = false;
 var shaderIntensity:Float = 0.5;
 var vig:FlxSprite;
+
+function onSongEnd() FlxG.save.data.beatenScaryNight = true;
+
 function postCreate(){
 	defaultCamZoom = dadZoom;
 	camZooming = false;
