@@ -1,5 +1,88 @@
 <!-- I just wanted the mod credits to be compatible with the CNE credits - DM -->
 <!-- Oh, also someone should probably finish this whole thing lmao - DM again -->
 <menu name="Funkdela Reloaded" desc="">
-	<credit name="Mortal" desc="Lead Director" quote="You should probably subscribe to me on Youtube." icon="mortal" size="100" url="https://youtu.be/" />
+	<credit
+		name="Mortal"
+		icon="mortal"
+		desc="Director / Musician / Artist"
+		url="youtube here"
+		quote="my youtube channel died because of this project"
+	/>
+	<credit
+		name="HazyRiver"
+		icon="hazy"
+		desc="Co-Director / Charter"
+		url=""
+		quote="I am FreakyRiver!!!!!!"
+	/>
+	<credit
+		name="Retr0"
+		icon="retr0"
+		desc="Main Menu Artist"
+		url=""
+		quote="lump toch"
+	/>
+	<credit
+		name="MdwzIsHere"
+		icon="what"
+		desc="Credits Artist"
+		url=""
+		quote="TBD"
+	/>
+	<credit
+		name="Factures"
+		icon="fac"
+		desc="Animator"
+		url=""
+		quote="@sleepyoreo please drop superstition i know you finished it you said in VC stop gatekeeping and drop it already grrrrrr"
+	/>
+	<credit
+		name="Neo Giovy"
+		icon="neo"
+		desc="Animator"
+		url=""
+		quote="I might be a Mandela fan but uhhh I love blue haired women-"
+	/>
+	<credit
+		name="Circuitella"
+		icon="Circuitella"
+		desc="Main Programmer"
+		url=""
+		quote="Your balls are a 'skill issue' "
+	/>
+	<credit
+		name="Demi-Kun"
+		icon="demi"
+		desc="Programmer"
+		url=""
+		quote="Can't read, can't write, but I sure can run! (away from my homework)"
+	/>
+	<credit
+		name="Fiffi"
+		icon="Fiffi"
+		desc="Programmer"
+		url=""
+		quote="Fiffi was found dead at his laptop, coding this FUCKING mod"
+	/>
+	<credit
+		name="Half"
+		icon="Half"
+		desc="Former Programmer"
+		url=""
+		quote="my grandma's house just exploded backwards into a tree bro....."
+	/>
+	<credit
+		name="JayJay"
+		icon="jayjay"
+		desc="Charter"
+		url=""
+		quote="my balls are like a shart, if you cat through a ligma you can see jim carrey"
+	/>
+	<credit
+		name="Rexquisite"
+		icon="rex"
+		desc="Charter"
+		url=""
+		quote="glugclestersta <3"
+	/>
 </menu>
