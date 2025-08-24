@@ -1,6 +1,7 @@
 import flixel.text.FlxTextBorderStyle;
 import Date;
 import DateTools;
+import funkin.backend.system.framerate.Framerate;
 
 var options:Array<FlxText> = [];
 var curOption:Array<Dynamic> = [];
@@ -10,8 +11,8 @@ var scrollOffset:Int = 0;
 var visibleRows:Int = 5;
 
 var gameFPS:Int = Options.framerate;
-var shits:Array<String> = ['framerate', 'antialiasing', 'gameplayShaders', 'flashingMenu', 'lowMemoryMode', 'gpuOnlyBitmaps', 'autoPause'];
-var labels:Array<String> = ["FRAMERATE", "ANTIALIASING", "SHADERS", "FLASHING LIGHTS", "LOW MEMORY MODE", "VRAM SPRITES", "AUTO PAUSE"];
+var shits:Array<String> = ['framerate', 'antialiasing', 'gameplayShaders', 'flashingMenu', 'lowMemoryMode', 'gpuOnlyBitmaps', 'autoPause', 'fpsWatermark', 'showFPS'];
+var labels:Array<String> = ["FRAMERATE", "ANTIALIASING", "SHADERS", "FLASHING LIGHTS", "LOW MEMORY MODE", "VRAM SPRITES", "AUTO PAUSE", "FPS WATERMARK", "SHOW FPS"];
 
 function create() {
     bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF6617B5);
@@ -47,22 +48,34 @@ function create() {
         options[a].antialiasing = false;
         insert(2 + a, options[a]);
 
-        if (a == 0) {
-            var fpsText = new FlxText(900, options[a].y, 0, gameFPS + "", 75);
-            fpsText.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-            fpsText.antialiasing = false;
-            curOption.push(fpsText);
-            insert(100 + a, fpsText);
-        } else {
-            var check = new FlxSprite(940, 220 + (67 * a)).loadGraphic(Paths.image('menus/onionMenu/checkedBox'), true, 35, 35);
-            check.setGraphicSize(50, 50);
-            check.updateHitbox();
-            check.antialiasing = false;
-            check.animation.add('false', [1], 1, false);
-            check.animation.add('true', [0], 1, false);
-            check.animation.play(Reflect.field(Options, shits[a]));
-            curOption.push(check);
-            insert(100 + a, check);
+        switch(a){
+            case 0:
+                var fpsText = new FlxText(900, options[a].y, 0, gameFPS + "", 75);
+                fpsText.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+                fpsText.antialiasing = false;
+                curOption.push(fpsText);
+                insert(100 + a, fpsText);
+            case 7 | 8:
+                var check = new FlxSprite(940, 220 + (67 * a)).loadGraphic(Paths.image('menus/onionMenu/checkedBox'), true, 35, 35);
+                check.setGraphicSize(50, 50);
+                check.updateHitbox();
+                check.antialiasing = false;
+                check.animation.add('false', [1], 1, false);
+                check.animation.add('true', [0], 1, false);
+                check.animation.play(Reflect.field(FlxG.save.data, shits[a]));
+                curOption.push(check);
+                insert(100 + a, check);
+            default:
+                var check = new FlxSprite(940, 220 + (67 * a)).loadGraphic(Paths.image('menus/onionMenu/checkedBox'), true, 35, 35);
+                check.setGraphicSize(50, 50);
+                check.updateHitbox();
+                check.antialiasing = false;
+                check.animation.add('false', [1], 1, false);
+                check.animation.add('true', [0], 1, false);
+                check.animation.play(Reflect.field(Options, shits[a]));
+                curOption.push(check);
+                insert(100 + a, check);
+
         }
     }
 
@@ -107,6 +120,31 @@ function postUpdate() {
                 curOption[0].text = gameFPS + "";
                 curOption[0].x = FlxG.width - 290 - curOption[0].width;
             }
+        case 7 | 8:
+            if (controls.ACCEPT) {
+                if(optionNum == 7 && FlxG.save.data.showFPS == false){
+                    CoolUtil.playMenuSFX(2, 0.7);
+                    return;
+                }
+                var key:String = shits[optionNum];
+                var value:Bool = !Reflect.field(FlxG.save.data, key);
+                Reflect.setField(FlxG.save.data, key, value);
+                curOption[optionNum].animation.play(value ? "true" : "false");
+		        Framerate.codenameBuildField.visible = FlxG.save.data.fpsWatermark;
+		        Framerate.codenameBuildField.visible = FlxG.save.data.fpsWatermark;
+                if(!FlxG.save.data.showFPS){
+                    FlxG.save.data.showFPS = false;
+                    Framerate.codenameBuildField.visible = false;
+                    Framerate.fpsCounter.visible = false;
+                    Framerate.memoryCounter.visible = false;
+                }
+                if(FlxG.save.data.showFPS){
+                    FlxG.save.data.showFPS = true;
+                    Framerate.codenameBuildField.visible = Framerate.codenameBuildField.visible;
+                    Framerate.fpsCounter.visible = true;
+                    Framerate.memoryCounter.visible = true;
+                }
+            }
         default:
             if (controls.ACCEPT) {
                 var key:String = shits[optionNum];
@@ -144,7 +182,7 @@ function changeItem(bleh:Int) {
                 curOption[i].y = yPos + 13;
         }
     }
-    if(optionNum == 6) arrowDown.alpha = 0;
+    if(optionNum == 8) arrowDown.alpha = 0;
     else
         arrowDown.alpha = 1;
     if(optionNum == 0) arrowUp.alpha = 0;

@@ -25,7 +25,7 @@ var beatText:FunkinText;
 var quoteText:FunkinText;
 var frame:FlxSprite;
 var albumSprite:FlxSprite;
-
+var uniqueVolumeSongs:Array<String> = ['Grace', 'Thonk'];
 // doing it like this frees ram from caching Inst's
 var songLengths:Array<String> = [
 	'04:30', //Grace
@@ -91,14 +91,12 @@ function create()
 		var vhsName:String = '???';
 		if(beatenShit || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
 		{
-			switch(song.icon)
+			switch(song.icon.toUpperCase())
 			{
-				case 'gabriel-true': vhsName = 'GABRIEL';
-				case 'SIX_DT_Icons': vhsName = 'SIX';
-				case 'intruder': vhsName = 'INTRUDER';
-				case 'lil-ceasers': vhsName = 'CEASER';
-				case 'Mark-Normal': vhsName = 'MARK';
-				case 'Ceaser-Gift': vhsName = 'CEASER';
+				case 'GABRIEL-FALSE' | 'GABRIEL-TRUE': vhsName = 'GABRIEL';
+				case 'SIX_DT_ICONS' | 'INTRUDER': vhsName = 'INTRUDER';
+				case 'LIL-CEASERS' | 'CEASER-GIFT': vhsName = 'CESAR';
+				case 'MARK-NORMAL': vhsName = 'MARK';
 				default: vhsName = song.icon;
 			}
 		}
@@ -140,8 +138,8 @@ function create()
 
 		var icon:HealthIcon = new HealthIcon(iconName != null ? song.icon : Flags.DEFAULT_HEALTH_ICON, true);
 		icon.scrollFactor.set();
-		if(song.displayName == 'Thonk') icon.color = 0xFF4DF8;
 		icon.antialiasing = Options.antialiasing;
+		icon.flipX = true;
 		iconArray.push(icon);
 		add(icon);
 	}
@@ -338,9 +336,21 @@ function changeItem(change:Int = 0)
 	timerText.text = songLengths[curSelectedFreeplay];
 	clock.visible = timerText.text.length > 0;
 
-	var scrollBarYTarg:Float = 114 * curSelectedFreeplay + 1 + 60;
+	var scrollBarYTarg:Float = 91.5 * curSelectedFreeplay + 1 + 60;
 	if(scrollTween == null) scrollTween = new FlxTween();
 	scrollTween.tween(scrollBar, {y: scrollBarYTarg}, 0.21, {ease: FlxEase.quadOut});
+
+	if(uniqueVolumeSongs.indexOf(songs[curSelectedFreeplay].displayName) != -1){
+		switch(songs[curSelectedFreeplay].displayName){
+			case 'Grace':
+				volumeText.text = "Overthrone";
+			case 'Thonk':
+				volumeText.text = "Scrimblo";
+		}
+	}
+	else{
+		volumeText.text = "Volume 1";
+	}
 }
 
 function repositionItems()

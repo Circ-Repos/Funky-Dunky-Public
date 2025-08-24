@@ -1,11 +1,15 @@
 import flixel.addons.display.FlxBackdrop; // i'll be so fr, idk how imports work in CNE, lmao
 import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxTextAlign;
-import StringTools; // <- The reason I don't like CNE
+import openfl.filters.BlurFilter;
+import funkin.backend.system.framerate.Framerate;
 
+import StringTools; // <- The reason I don't like CNE
+//^ skill issue -Circ
 var grpMenuItems:FlxTypedGroup<FlxText>;
 var menuItems:Array<String> = ['resume', 'restart song', 'change controls', 'change options', 'botplay', 'exit to menu'];
 var camPause:FlxCamera;
+var sigmaBlur:BlurFilter;
 
 var allowInputs:Bool = false;
 
@@ -23,6 +27,23 @@ var overlay:FlxSprite;
 function create(event)
 {
 	event.cancel();
+
+	Framerate.offset.y = 16;
+	Framerate.offset.x = 17;
+
+	sigmaBlur = new BlurFilter(0, 0);
+	sigmaBlur.quality = 2;
+	for(i in [FlxG.camera, PlayState.instance.camHUD]) i.setFilters([sigmaBlur]);
+
+	var dbg:FlxSprite = new FlxSprite().makeSolid(FlxG.width + 100, FlxG.height + 100, FlxColor.BLACK);
+	dbg.updateHitbox();
+	dbg.alpha = 0;
+	dbg.screenCenter();
+	dbg.scrollFactor.set();
+	add(dbg);
+
+	FlxTween.tween(dbg, {alpha: 0.4}, 0.4, {ease: FlxEase.quartInOut});
+	FlxTween.tween(sigmaBlur, {blurX: 6, blurY: 6}, 0.4, {ease: FlxEase.quartInOut});
 
 	camPause = new FlxCamera();
 	camPause.bgColor = 0x00000000;
@@ -43,8 +64,10 @@ function create(event)
 	bgOverlay.cameras = [camPause];
 	bgOverlay.antialiasing = false;
 	bgOverlay.velocity.set(0, 40);
-	bgOverlay.alpha = 0.1;
+	bgOverlay.alpha = 0;
 	add(bgOverlay);
+
+	FlxTween.tween(bgOverlay, {alpha: 0.1}, 0.4, {ease: FlxEase.quartInOut});
 
 	// these pause arts are pissing me
 	// off...
@@ -95,15 +118,17 @@ function create(event)
 	add(arrow);
 
 	var charName:String = PlayState.instance.cpuStrums.characters[0].curCharacter.toLowerCase();
-	switch(charName) // is there a better way to do this???
+	
+	//changed the switch cause it might try to check again after doing it once, idk
+	switch(PlayState.instance.cpuStrums.characters[0].curCharacter.toLowerCase()) // is there a better way to do this???
 	{ //i dont think theres a better way to do it
-		case 'ceaser-gift' | 'ceaser' | 'og-cesar': charName = 'cesar';
+		case 'ceaser-gift' | 'ceaser' | 'og-cesar' | 'ceaser-alt-gift': charName = 'cesar';
 		case 'gabriel-false' | 'gabriel-true': charName = 'gabriel';
 		case 'alternate-gift': charName = 'alternate';
-		case 'intruder-dream': charName = 'intruder';
+		case 'intruder-dream' | 'six': charName = 'intruder';
 		case 'lil-mark-dream': charName = 'lil mark';
 		case 'og-mark': charName = 'mark';
-		default: charName = StringTools.replace(charName, '-', ' ');
+		default: charName = StringTools.replace(PlayState.instance.cpuStrums.characters[0].curCharacter.toLowerCase(), '-', ' ');
 	}
 	songText = new FlxText(0, 80, FlxG.width - 90, PlayState.SONG.meta.displayName.toUpperCase() + ' - ' + charName.toUpperCase(), 40);
 	songText.setFormat(Paths.font("vcr.ttf"), 40, FlxColor.WHITE, FlxTextAlign.RIGHT);
@@ -188,6 +213,9 @@ function confirmSelection(playSound:Bool)
 				FlxTween.cancelTweensOf(txt);
 			});
 			new FlxTimer().start(0.4, function(_) {
+				FlxTween.tween(sigmaBlur, {blurX: 0, blurY: 0}, 0.2, {
+					ease: FlxEase.sineInOut,
+				});
 				FlxTween.tween(camPause, {alpha: 0}, 0.2, {
 					ease: FlxEase.sineInOut,
 					onComplete: (_) -> selectOption()
@@ -210,4 +238,8 @@ function destroy()
 {
 	if(FlxG.cameras.list.contains(camPause))
 		FlxG.cameras.remove(camPause);
+	sigmaBlur.blurX = 0;
+	sigmaBlur.blurY = 0;
+	Framerate.offset.y = 0;
+	Framerate.offset.x = 0;
 }

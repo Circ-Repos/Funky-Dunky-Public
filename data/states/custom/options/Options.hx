@@ -2,6 +2,7 @@ import flixel.text.FlxTextBorderStyle;
 import Type;
 import Date;
 import DateTools;
+import funkin.backend.system.framerate.Framerate;
 
 var optionNum:Int = 0;
 
@@ -12,8 +13,12 @@ var subMenu = [
     'DevOptions'
 ];
 var optionsMaxNum:Int = 3;
-
+function destroy()
+{
+	Framerate.offset.y = 0; //sadly tweens cant happen
+}
 function create(){
+    Framerate.offset.y = 60;
 	FlxG.mouse.visible = false;
 	if(FlxG.sound.music == null)
     {

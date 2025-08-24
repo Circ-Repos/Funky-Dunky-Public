@@ -2,12 +2,12 @@
 	"color": "#5F5F5F",
 	"customValues": {},
 	"opponentModeAllowed": false,
-	"icon": "gabriel-true",
+	"icon": "Gabriel-false",
 	"difficulties": [
 		"normal"
 	],
 	"coopAllowed": false,
-	"quote": "Don't be afraid!",
+	"quote": "Can't you see? I deceived them.",
 	"stepsPerBeat": 4,
 	"displayName": "Grace",
 	"beatsPerMeasure": 4,
