@@ -44,7 +44,8 @@ function cutsceneAlpha(camAlph, camHUDAlph){
 	camGame.alpha = camAlph;
 	camHUD.alpha = camHUDAlph;
 }
-
+var alternateString1:String = 'dont do it.';
+var alternateString2:String = 'theres not enough room for the two of us.';
 function postCreate(){
 	camOther.bgColor = 0;
     camOther.alpha = 1;
@@ -110,7 +111,7 @@ function postCreate(){
 
 	tvlight.blend = BlendMode.ADD;
 
-	tutorialText = new FlxText(0,350,0, 'When The Screen Flashes YELLOW, Press SPACE to SHOOT\n Failure to do so is considered A... Bad Decision', 48);
+	tutorialText = new FlxText(0,350,0, 'When The Screen Flashes Yellow, \nPress SPACE to Shoot The Alternate!', 48);
 	tutorialText.font = Paths.font('Times New Roman Italic.ttf');
 	tutorialText.italic = true;
 	tutorialText.underline = true;
@@ -186,7 +187,23 @@ function stepHit(e){
 		case 385:
 			FlxTween.tween(tutorialText, { alpha: 1 }, 2, { ease: FlxEase.expoInOut});
 		case 450:
-			FlxTween.tween(tutorialText, { alpha: 0 }, 3, { ease: FlxEase.expoInOut});
+			tutorialText.antialiasing = false;
+			tutorialText.font = Paths.font('VCR.ttf');
+			tutorialText.italic = false;
+			tutorialText.underline = false;
+			tutorialText.text = alternateString1;
+			tutorialText.screenCenter();
+
+			tutorialText.alpha = 1;
+		case 460:
+			tutorialText.alpha = 0;
+		case 500:
+			tutorialText.text = alternateString2;
+			tutorialText.screenCenter();
+
+			tutorialText.alpha = 1;
+		case 514:
+			tutorialText.alpha = 0;
 		case 512:
 			tutorialText.alpha = 0;
 			healthBar.alpha = 1;
