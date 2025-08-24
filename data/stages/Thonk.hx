@@ -7,9 +7,9 @@ function onSongEnd() FlxG.save.data.beatenThonk = true;
 
 
 function postCreate(){
-	boyfriend.y -= 600;
+	boyfriend.y -= 700;
 	boyfriend.x += 50;
-	dad.y -= 600;
+	dad.y -= 650;
 	dad.x -= 1000;
 	if(gf != null) gf.alpha = 0;
 	for (i in playerStrums.members) {

@@ -37,9 +37,9 @@ function postCreate(){
 	insert(members.indexOf(iconP2), iconP3);
 	dgv(1,0);
 }
-function create(){
-	PlayState.instance.introLength = 0;
-}
+
+function create()PlayState.instance.introLength = 0;
+
 function onCountdown(event) event.cancel();
 function update() oppupdateIconPositions();
 function oppupdateIconPositions() {
@@ -65,9 +65,58 @@ function onCameraMove(e) {
 			e.position.set(gfX, gfY);
 		}
 }
+
+var notePlacementX:Array = [0, 0, 0, 0];
+
+var allowGlitch:Bool = false;
 function postUpdate(elapsed:Float) {
 	FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.06);
+
+	if(allowGlitch){
+		for(no in playerStrums.notes){
+			no.x += FlxG.random.int(-15, 15);
+			no.angle = FlxG.random.int(-15, 15);
+		}
+		for(i in 0...4){
+			playerStrums.members[i].x = notePlacementX[i] + FlxG.random.int(-6, 6);
+			playerStrums.members[i].y = 50 + FlxG.random.int(-6, 6);
+		}
+	}
 }
+
+var angleShit:Array = [10, -15, 5, -10];
+
+function stepHit(){
+	switch(curStep){
+		case 380: 
+			for(i in 0...4) notePlacementX[i] = playerStrums.members[i].x;
+		case 384: allowGlitch = true;
+		case 400: 
+			allowGlitch = false;
+			for(i in 0...4) playerStrums.members[i].setPosition(notePlacementX[i], 50);
+		
+		case 1880:
+			for(i in 0...4){
+				for(strums in strumLines.members){
+					FlxTween.tween(strums.members[i], {y: 740}, 2, {ease: FlxEase.expoIn, startDelay: 1 * (i * 0.33)});
+					FlxTween.tween(strums.members[i], {angle: angleShit[i]}, 2, {ease: FlxEase.cubeIn, startDelay: 1 * (i * 0.33)});
+				}
+			}
+			for(icon in iconArray){
+				FlxTween.tween(icon, {y: 1280}, 2, {ease: FlxEase.expoIn, startDelay: 1 * (iconP1 ? 2 : 0 * 0.33)});
+				FlxTween.tween(icon, {angle: iconP1 ? -10 : 5}, 2, {ease: FlxEase.cubeIn, startDelay: 1 * (iconP1 ? 2 : 0 * 0.33)});
+			}
+			for(i in [scoreTxt, missesTxt, accuracyTxt, healthBar, healthBarBG]){
+				FlxTween.tween(i, {y: 1280}, 2, {ease: FlxEase.expoIn, startDelay: 1 * (0 * 0.33)});
+				FlxTween.tween(i, {angle: -10}, 2, {ease: FlxEase.cubeIn, startDelay: 1 * (0 * 0.33)});
+			}
+			
+			
+
+	}
+}
+
+
 //onNotehit if dad.curName != Gab-True or someth health -= 0.02 bc .2 is amount added by default
 function onNoteHit(event){
     if(event.characters[0].alpha == 0 && health > 0.03){

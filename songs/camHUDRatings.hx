@@ -1,5 +1,10 @@
 public var ratingScaleDiff:Float = 0.1;
 
+function displayCombo(_){
+	_.displayCombo = false;
+}
+
+/*																		Use Later - fiffi
 function postCreate()
 {
 	if(SONG.meta.name.toLowerCase() == "distraught") return;
@@ -22,3 +27,4 @@ function onNoteHit(event)
 	event.numScale -= ratingScaleDiff;
 	event.ratingScale -= ratingScaleDiff;
 }
+*/

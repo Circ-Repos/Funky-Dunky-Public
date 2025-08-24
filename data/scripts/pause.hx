@@ -207,6 +207,36 @@ function confirmSelection(playSound:Bool)
 			curBotplay = !curBotplay;
 			updateBotplayText(curSelected);
 			changeSelection(0);
+		case 'restart song':
+			grpMenuItems.forEach(function(txt:FlxText) {
+				FlxTween.cancelTweensOf(txt);
+			});
+			new FlxTimer().start(0.4, function(_) {
+				game.persistentUpdate = true;
+				game.canPause = false;
+				FlxTween.tween(sigmaBlur, {blurX: 0, blurY: 0}, 0.2, {
+					ease: FlxEase.sineInOut,
+				});
+				FlxTween.tween(camPause, {alpha: 0}, 0.2, {
+					ease: FlxEase.sineInOut,
+					onComplete: function(){
+						new FlxTimer().start(0.7, function(_) {
+							selectOption();
+						});
+					}
+				});
+
+				FlxTween.num(game.health, 1, 0.7, {ease: FlxEase.expoIn}, function(val){
+					game.health = val;
+				});
+
+				for(strum in game.strumLines.members){
+					for(no in strum.notes){
+						no.updateNotesPosY = false;
+						FlxTween.tween(no, {y: no.y + 1280}, 0.7, {startDelay: 0.2, ease: FlxEase.expoIn});
+					}
+				}
+			});
 		default:
 			if(menuItems[curSelected] == 'exit to menu') curSelected -= 1;
 			grpMenuItems.forEach(function(txt:FlxText) {

@@ -1,12 +1,12 @@
 <!DOCTYPE codename-engine-character>
-<character icon="Cosar" sprite="Cosar" flipX="true" color="#FF3968" scale="1.3">
-	<anim loop="false" x="75" fps="24" y="0" anim="Cosar Down0" name="singDOWN"/>
-
-	<anim loop="false" x="-28" fps="24" y="-80" anim="Cosar Idle0" name="idle"/>
-
-	<anim loop="false" x="16" fps="24" y="-60" anim="Cosar Left0" name="singRIGHT"/>
-
-	<anim loop="false" x="69" fps="24" y="-93" anim="Cosar Right0" name="singLEFT"/>
-
-	<anim loop="false" x="21" fps="24" y="-40" anim="Cosar Up0" name="singUP"/>
+<character scale="1.3" flipX="true" isPlayer="true" color="#FF3968">
+	<anim name="idle" anim="Idle0" x="-28" y="-80"/>
+	<anim name="singLEFT" anim="Left0" x="-29" y="-70"/>
+	<anim name="singDOWN" anim="Down0" x="53" y="-29"/>
+	<anim name="singUP" anim="Up0" x="-2" y="-78"/>
+	<anim name="singRIGHT" anim="Right0" x="-12" y="-88"/>
+	<anim name="singLEFTmiss" anim="LeftMISS0" x="-29" y="-70"/>
+	<anim name="singDOWNmiss" anim="DownMISS0" x="66" y="-21" indices="2..14"/>
+	<anim name="singUPmiss" anim="UpMISS" x="-2" y="-78" indices="2..14"/>
+	<anim name="singRIGHTmiss" anim="RightMISS" x="1" y="-89" indices="2..14"/>
 </character>
