@@ -3,9 +3,6 @@ import flixel.text.FlxTextBorderStyle;
 
 function onCountdown(event) event.cancel();
 
-function onSongEnd() FlxG.save.data.beatenThonk = true;
-
-
 function postCreate(){
 	boyfriend.y -= 700;
 	boyfriend.x += 50;

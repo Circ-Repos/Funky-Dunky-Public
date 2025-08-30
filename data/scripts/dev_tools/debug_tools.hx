@@ -11,17 +11,29 @@ var systemInfoText:FlxText;
 var camFreeMoving:Bool = false;
 var camCoords:FlxText;
 
+//playback rate
+var toggleFast:Bool = false;
+var playbackRate:Float = 1;
+var initialPlaybackRate:Float = 1;
+
 //camera dedicated for any debug info
 var camOther:FlxCamera;
 var instructions:FlxText;
 
+function onSubstateClose() if(paused) setPlaybackRate(initialPlaybackRate);
+function onGamePause() setPlaybackRate(1);
+function destroy() setPlaybackRate(1);
+
 function postCreate()
 {
+	if(Charter.playtestInfo != null) initialPlaybackRate = Charter.playtestInfo.playbackSpeed;
+	setPlaybackRate(initialPlaybackRate);
+
 	camOther = new FlxCamera();
 	camOther.bgColor = 0x00000000;
 	FlxG.cameras.add(camOther, false);
 
-	var instructTxt:String = "Buttons to Press\n\n  4: Enable Botplay\n  5: Charting Menu\n  I: Debug Info\n  |: Enable/Disable camGame Camera Movement\n  Arrow Keys: Move camGame Camera\n(Will be adding more as time goes on)";
+	var instructTxt:String = "Buttons to Press\n\n  4: Toggle Botplay\n  5: Charting Menu\n  I: Toggle Debug Info\n  |: Toggle camGame Camera Movement\n  Arrow Keys: Move camGame Camera\n  Y: Fast Forward (While held down)\n(Will be adding more as time goes on)";
 	instructions = new FlxText(20, 80, FlxG.width, instructTxt, 32);
 	instructions.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, "left", FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	instructions.borderSize = 1.25;
@@ -53,8 +65,20 @@ function onCameraMove(event)
 
 function onNoteHit(event)
 {
-	if(player.cpu && event.character.curCharacter == boyfriend.curCharacter)
-		health += 0.02;
+    if(player.cpu && event.character.curCharacter == boyfriend.curCharacter && !event.note.isSustainNote)
+	{
+        event.countAsCombo = true;
+        event.accuracy = 1;
+        event.countScore = true;
+        health += 0.02;
+        songScore += 300;
+        goodNoteHit(event);
+        updateRating();
+        displayRating(event.rating, event);
+        if(combo > 9) displayCombo(event);
+        event.showSplash = true;
+        splashHandler.showSplash(event.note.splash, event.note.__strum);
+    }
 }
 
 function update(elapsed:Float)
@@ -85,6 +109,21 @@ function update(elapsed:Float)
 
 	// Information
 	if(FlxG.keys.justPressed.I) popupInfo();
+
+	// Playback Rate
+	if(FlxG.keys.pressed.Y)
+	{
+		if(!toggleFast)
+		{
+			toggleFast = true;
+			setPlaybackRate(10);
+		}
+	}
+	else if(toggleFast)
+	{
+		toggleFast = false;
+		setPlaybackRate(1);
+	}
 }
 
 function popupInfo()
@@ -102,4 +141,11 @@ function popupInfo()
 		FlxTween.tween(camCoords, {alpha: 0}, 0.4);
 	}
 	theSysBool = !theSysBool;
+}
+
+function setPlaybackRate(rate:Float)
+{
+	FlxG.timeScale = playbackRate = rate;
+	//inst.pitch = vocals.pitch = rate;
+	//for(strline in strumLines.members) strline.vocals.pitch = rate;
 }

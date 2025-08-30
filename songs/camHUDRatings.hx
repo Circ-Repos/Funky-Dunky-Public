@@ -1,6 +1,7 @@
 public var ratingScaleDiff:Float = 0.1;
 
-function displayCombo(_){
+function displayCombo(_)
+{
 	_.displayCombo = false;
 }
 

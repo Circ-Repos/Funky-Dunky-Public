@@ -7,7 +7,7 @@ var dancinBF:FlxSprite;
 function create(event){
     FlxG.camera.alpha = 0;
     //event.cancel();
-    trace('HELP NOW');
+	if(FlxG.save.data.DevModeTracing) trace('HELP NOW');
     event.gameOverSong = 'gameover';
     event.retrySFX = 'flash';
 

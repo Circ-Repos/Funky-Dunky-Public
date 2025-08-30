@@ -17,8 +17,6 @@ var gfZoom:Float = 0.4;
 
 var iconP3:HealthIcon;
 
-function onSongEnd() FlxG.save.data.beatenGrace = true;
-
 function dgv(alp1:Float = 1, alp2:Float = 1){
 	strumLines.members[0].characters[0].alpha = iconP2.alpha = alp1;
 	strumLines.members[0].characters[1].alpha = iconP3.alpha = alp2;

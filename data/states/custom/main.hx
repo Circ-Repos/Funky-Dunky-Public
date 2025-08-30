@@ -22,9 +22,6 @@ function create()
 {
 	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
 
-	FlxG.mouse.useSystemCursor = true;
-	FlxG.mouse.visible = false;
-
 	bg = new FlxSprite().loadGraphic(Paths.image('menus/main/bg'));
 	bg.antialiasing = Options.antialiasing;
 	bg.screenCenter();
@@ -164,9 +161,4 @@ function usedMouse():Bool
 		return true;
 	}
 	return false;
-}
-
-function destroy()
-{
-	FlxG.mouse.visible = false;
 }

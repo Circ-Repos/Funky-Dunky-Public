@@ -37,16 +37,13 @@ var songLengths:Array<String> = [
 ];
 
 var songPreviewText:FunkinText;
+var volumeRectangle:FlxSprite;
 var volumeText:FunkinText;
 var timerText:FunkinText;
 var scrollBar:FlxSprite;
 
 function create()
 {
-	FlxG.mouse.visible = false; //no mouse controls, no mouse
-
-	songList = Json.parse(Assets.getText(Paths.json('../data/songs'))); //why did i make it like this
-
 	FlxTween.tween(Framerate.offset, {y: 70}, 0.74, {ease: FlxEase.quadInOut});
 	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false); //no music? Not a problem
 
@@ -61,25 +58,12 @@ function create()
 	bgOverlay.alpha = 0.1;
 	add(bgOverlay);
 
+	// should probably have a better place for this
+	if(FlxG.save.data.songsBeaten.length >= songs.length)
+		FlxG.save.data.beatenAll = true;
+
 	for(i => song in songs)
 	{
-		var beatenShit:Bool = false;
-		if(FlxG.save.data.beatenGrace && FlxG.save.data.beatenDistraught && FlxG.save.data.beatenScaryNight && FlxG.save.data.beatenThink && FlxG.save.data.beatenGift && FlxG.save.data.beatenThonk)
-			FlxG.save.data.beatenAll = true;
-
-		if(!FlxG.save.data.beatenAll)
-		{
-			switch(song.displayName) //Im Sorry this is the only way i could i think
-			{
-				case 'Grace': beatenShit = FlxG.save.data.beatenGrace;
-				case 'Scary Night': beatenShit = FlxG.save.data.beatenScaryNight;
-				case 'Think': beatenShit = FlxG.save.data.beatenThink;
-				case 'Distraught': beatenShit = FlxG.save.data.beatenDistraught;
-				case 'Gift': beatenShit = FlxG.save.data.beatenGift;
-			}
-		}
-		else beatenShit = true;
-
 		var vhs:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menus/freeplay/vhs"));
 		vhs.updateHitbox();
 		if(song.displayName == 'Thonk') vhs.color = 0xFF4DF8; //Why Are You Pink?
@@ -89,7 +73,7 @@ function create()
 		vhsArray.push(vhs);
 
 		var vhsName:String = '???';
-		if(beatenShit || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
+		if(FlxG.save.data.beatenAll || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
 		{
 			switch(song.icon.toUpperCase())
 			{
@@ -111,7 +95,7 @@ function create()
 		add(nameText);
 
 		var songName:String = '"???"';
-		if(beatenShit || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
+		if(FlxG.save.data.beatenAll || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
 			songName = '"' + song.displayName.toUpperCase() + '"';
 
 		var songText:FunkinText = new FunkinText(0, 0, FlxG.width, songName, 12);
@@ -133,7 +117,7 @@ function create()
 		add(iconBg);
 
 		var iconName:String = 'locked';
-		if(beatenShit || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
+		if(FlxG.save.data.beatenAll || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
 			iconName = song.icon;
 
 		var icon:HealthIcon = new HealthIcon(iconName != null ? song.icon : Flags.DEFAULT_HEALTH_ICON, true);
@@ -194,15 +178,15 @@ function create()
 	clock.antialiasing = Options.antialiasing;
 	add(clock);
 
-	var volumeRectangle:FlxSprite = new FlxSprite();
+	volumeRectangle = new FlxSprite();
 	volumeRectangle.frames = Paths.getSparrowAtlas("menus/freeplay/volume_bg");
 	volumeRectangle.animation.addByPrefix("idle", "idle", 24, true);
 	volumeRectangle.animation.play('idle');
 	volumeRectangle.antialiasing = Options.antialiasing;
 	add(volumeRectangle);
 
-	volumeText = new FunkinText(-550, 4, FlxG.width, 'Volume 1', 46);
-	volumeText.setFormat(Paths.font(globalFont), 46, FlxColor.WHITE, 'center');
+	volumeText = new FunkinText(10, 4, FlxG.width, 'Volume 1', 46);
+	volumeText.setFormat(Paths.font(globalFont), 46, FlxColor.WHITE, 'left');
 	volumeText.scrollFactor.set();
 	volumeText.antialiasing = Options.antialiasing;
 	add(volumeText);
@@ -308,10 +292,9 @@ function changeAlbum(artTuah:String = 'ph')
 	albumSprite.setPosition(frame.x - 85.1, frame.y - 85.1);
 }
 
-var scrollTween:FlxTween;
 function changeItem(change:Int = 0)
 {
-	if(scrollTween != null) scrollTween.cancel();
+	FlxTween.cancelTweensOf(scrollBar);
 
 	if(change != 0) CoolUtil.playMenuSFX(0, 0.7);
 	curSelectedFreeplay = FlxMath.wrap(curSelectedFreeplay + change, 0, songs.length - 1);
@@ -337,18 +320,21 @@ function changeItem(change:Int = 0)
 	clock.visible = timerText.text.length > 0;
 
 	var scrollBarYTarg:Float = 91.5 * curSelectedFreeplay + 1 + 60;
-	if(scrollTween == null) scrollTween = new FlxTween();
-	scrollTween.tween(scrollBar, {y: scrollBarYTarg}, 0.21, {ease: FlxEase.quadOut});
+	FlxTween.tween(scrollBar, {y: scrollBarYTarg}, 0.21, {ease: FlxEase.quadOut});
 
 	if(uniqueVolumeSongs.indexOf(songs[curSelectedFreeplay].displayName) != -1){
 		switch(songs[curSelectedFreeplay].displayName){
 			case 'Grace':
+				volumeRectangle.scale.x = 1.4;
 				volumeText.text = "Overthrone";
 			case 'Thonk':
+				volumeRectangle.scale.x = 1;
 				volumeText.text = "Scrimblo";
 		}
 	}
-	else{
+	else
+	{
+		volumeRectangle.scale.x = 1;
 		volumeText.text = "Volume 1";
 	}
 }
@@ -453,11 +439,7 @@ function repositionItems()
 function selectSong()
 {
 	transitioning = true;
+	CoolUtil.playMenuSFX(1, 0.7);
 	PlayState.loadSong(songs[curSelectedFreeplay].name, 'normal');
-	FlxG.switchState(new PlayState());
-}
-
-function destroy()
-{
-	Framerate.offset.y = 0; //sadly tweens cant happen
+	new FlxTimer().start(0.6, (_) -> FlxG.switchState(new PlayState()));
 }

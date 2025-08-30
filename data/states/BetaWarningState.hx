@@ -4,11 +4,13 @@ import flixel.text.FlxTextAlign;
 import flixel.text.FlxTextFormatMarkerPair;
 import flixel.text.FlxTextFormat;
 import funkin.menus.ui.Alphabet;
+
 var updateNOW:FunkinText;
 var updateNOW2:FunkinText;
 var versionText:FunkinText;
 
-function create() {
+function create()
+{
     titleAlphabetfake = new Alphabet(0, 0, "OUTDATED VERSION", true);
     titleAlphabetfake.screenCenter(FlxAxes.X);
     add(titleAlphabetfake);
@@ -20,14 +22,15 @@ function create() {
         ]
     );
     updateNOW.alignment = FlxTextAlign.CENTER;
-
     add(updateNOW);
 
     var off = Std.int((FlxG.height - (updateNOW.y + updateNOW.height)) / 2);
     updateNOW.y += off;
     titleAlphabetfake.y += off;
 }
-function update(elapsed:Float) {
+
+function update(elapsed:Float)
+{
     if(controls.ACCEPT) controls.ACCEPT = false;
     titleAlphabet.alpha = 0;
     disclaimer.alpha = 0;

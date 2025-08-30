@@ -25,8 +25,6 @@ var dreaming:Bool = false;
 var shaderIntensity:Float = 0.5;
 var vig:FlxSprite;
 
-function onSongEnd() FlxG.save.data.beatenScaryNight = true;
-
 function postCreate(){
 	defaultCamZoom = dadZoom;
 	camZooming = false;
@@ -104,7 +102,7 @@ function postUpdate(elapsed:Float) {
 	FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.06);
 }
 function woozyStart(){
-	trace('Woozying');
+	if(FlxG.save.data.DevModeTracing) trace('Woozying');
 	//use the num tween to increase the motha fuckin shader
 	//var then the Desired Num, Followed By- Time.. Doctor Freeman?
 	FlxTween.num(shaderIntensity, 300, 6, {ease: FlxEase.quadInOut, onUpdate: (val:Float) -> wiggleDistance = val.value});
@@ -119,7 +117,7 @@ function woozyEnd(){
 }
 function dreamStart(){
 	vig.alpha = 0;
-	trace('Dreaming Start');
+	if(FlxG.save.data.DevModeTracing) trace('Dreaming Start');
 	woozyEnd();
 
 	camZooming = true;
@@ -129,7 +127,7 @@ function dreamStart(){
 	stairsD.alpha = 1;
 }
 function dreamEnd(){
-	trace('Ending Le Dream');
+	if(FlxG.save.data.DevModeTracing) trace('Ending Le Dream');
 	vig.alpha = 1;
 	woozyEnd();
 

@@ -27,7 +27,6 @@ var camOther = new FlxCamera();
 var vig:FlxSprite;
 var iconP3:HealthIcon;
 var treetime:Bool = false;
-function onSongEnd() FlxG.save.data.beatenGift = true;
 
 function dgv(alp1:Float = 1, alp2:Float = 0, alp3:Float = 0){
 	strumLines.members[0].characters[0].alpha = iconP2.alpha = alp1;

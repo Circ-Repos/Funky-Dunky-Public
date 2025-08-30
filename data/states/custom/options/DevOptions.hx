@@ -8,7 +8,10 @@ var curOption:Array = [];
 var optionNum:Int = 0;
 var optionItemFix:Int = 0;
 
-var shits:Array<String> = ['DevMode', 'DevModeTracing', 'beatenGrace', 'beatenDistraught', 'beatenScaryNight','beatenThink','beatenGift','beatenThonk','beatenAll'];
+// TO-DO: make this less jank
+var songShit:Array<String> = ['Grace', 'Distraught', 'Scary Night', 'Think', 'Gift', 'Thonk'];
+var shits:Array<String> = ['DevMode', 'DevModeTracing', 'Grace', 'Distraught', 'Scary Night', 'Think', 'Gift', 'Thonk', 'beatenAll'];
+var names:Array<String> = ['DEVELOPER MODE', 'TRACES', 'BEATEN GRACE', 'BEATEN DISTRAUGHT', 'BEATEN SCARY NIGHT', 'BEATEN THINK', 'BEATEN GIFT', 'BEATEN THONK', 'BEATEN ALL'];
 var songOffsetSetter:Int = 0;
 
 function create(){
@@ -22,8 +25,8 @@ function create(){
     selectedOption =  new FlxSprite(40, 210).makeGraphic(1086, 75, 0xFF470C60);
     insert(1, selectedOption);
 
-    for(a in 0...8){
-        options.push(new FlxText(50, 207 + (67 * a), FlxG.width, ["DEVELOPER MODE", 'TRACES','BEATEN GRACE', 'BEATEN DISTRAUGHT', 'BEATEN SCARY NIGHT','BEATEN THINK','BEATEN GIFT','BEATEN THONK','BEATEN ALL'][a], 75));
+    for(a in 0...shits.length-1){
+        options.push(new FlxText(50, 207 + (67 * a), FlxG.width, names[a], 75));
         options[a].setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
         insert(2 + a, options[a]).antialiasing = false;
 
@@ -33,7 +36,9 @@ function create(){
             curOption[a].updateHitbox();
             curOption[a].animation.add('true', [0], 1, false);
             curOption[a].animation.add('false', [1], 1, false);
-            curOption[a].animation.play(Reflect.field(FlxG.save.data, shits[a]));
+            if(shits[a] == songShit[a - 2]) // -2 because of the first 2 options
+                curOption[a].animation.play(FlxG.save.data.songsBeaten.contains(shits[optionNum]) ? "true" : "false");
+            else curOption[a].animation.play(Reflect.field(FlxG.save.data, shits[a]));
     }
 
     helperArrowA = new FlxSprite(249 + 70, 57 / 3).loadGraphic(Paths.image('menus/onionMenu/arrowSmall'));
@@ -70,8 +75,17 @@ function postUpdate(){
     if(controls.UP_P || controls.DOWN_P) changeItem((controls.UP_P ? -1 : 0) + (controls.DOWN_P ? 1 : 0));
 
     if(controls.ACCEPT){
-        Reflect.setField(FlxG.save.data, shits[optionNum], !Reflect.field(FlxG.save.data, shits[optionNum]));
-        curOption[optionNum].animation.play(Reflect.field(FlxG.save.data, shits[optionNum]) ? "true" : "false");
+        if(shits[optionNum] == songShit[optionNum - 2]) // -2 because of the first 2 options
+        {
+            if(FlxG.save.data.songsBeaten.contains(shits[optionNum])) FlxG.save.data.songsBeaten.remove(shits[optionNum]);
+            else FlxG.save.data.songsBeaten.push(shits[optionNum]);
+            curOption[optionNum].animation.play(FlxG.save.data.songsBeaten.contains(shits[optionNum]) ? "true" : "false");
+        }
+        else
+        {
+            Reflect.setField(FlxG.save.data, shits[optionNum], !Reflect.field(FlxG.save.data, shits[optionNum]));
+            curOption[optionNum].animation.play(Reflect.field(FlxG.save.data, shits[optionNum]) ? "true" : "false");
+        }
         //Options.applySettings();
     }
 }
@@ -81,5 +95,4 @@ function changeItem(bleh){
     else if(optionNum < 1 && controls.UP_P) optionNum = 7; 
     else optionNum += bleh;
     selectedOption.y = 210 + (optionNum * 66);
-
 }

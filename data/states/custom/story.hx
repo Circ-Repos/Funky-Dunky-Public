@@ -100,7 +100,7 @@ function create(){
 		nameText.antialiasing = Options.antialiasing;
 		nameText.color = FlxColor.BLACK;
 		nameText.italic = true;
-		if(FlxG.save.data.beatenGrace == false && i.name.toUpperCase() == 'VOLUME 1') nameText.text = '"???"';
+		if(!FlxG.save.data.songsBeaten.contains("Grace") && i.name.toUpperCase() == 'VOLUME 1') nameText.text = '"???"';
 		nameTexts.push(nameText);
 		add(nameText);
 	}
@@ -136,7 +136,7 @@ function update(elapsed:Float) {
 		}
 		if(controls.ACCEPT){
 
-			if(FlxG.save.data.beatenGrace == false && weekIndex == 1){
+			if(!FlxG.save.data.songsBeaten.contains("Grace") && weekIndex == 1){
 				CoolUtil.playMenuSFX(2, 0.7);
 			}
 			else{
@@ -157,7 +157,7 @@ function updatesongText() {
         displaySongs.push(song.name);
     }
     songText.text = displaySongs.join("\n");
-	if(weekIndex == 1 && FlxG.save.data.beatenGrace == false) songText.text = "???\n???\n???\n???";
+	if(weekIndex == 1 && !FlxG.save.data.songsBeaten.contains("Grace")) songText.text = "???\n???\n???\n???";
 	songText.updateHitbox();
 	songText.y = 250;
 	if(weekIndex == 0) songText.y = 350;
@@ -204,8 +204,4 @@ function updatesongText() {
 			y: isCenter ? 1 : 0.5
 		}, 0.2, { ease: FlxEase.quadOut });
 	}
-}
-function destroy()
-{
-	Framerate.offset.y = Framerate.offset.x = 0; //sadly tweens cant happen
 }

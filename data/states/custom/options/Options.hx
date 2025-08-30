@@ -5,6 +5,7 @@ import DateTools;
 import funkin.backend.system.framerate.Framerate;
 
 var optionNum:Int = 0;
+var optionsMaxNum:Int = 3;
 
 var subMenu = [
     'ControlsOptions',
@@ -12,14 +13,11 @@ var subMenu = [
     'AppearenceOptions',
     'DevOptions'
 ];
-var optionsMaxNum:Int = 3;
-function destroy()
+
+function create()
 {
-	Framerate.offset.y = 0; //sadly tweens cant happen
-}
-function create(){
-    Framerate.offset.y = 60;
-	FlxG.mouse.visible = false;
+	FlxTween.tween(Framerate.offset, {y: 60}, 0.5, {ease: FlxEase.quadInOut});
+
 	if(FlxG.sound.music == null)
     {
         if(lastState == PlayState) CoolUtil.playMusic(Paths.music("untitled"), false, 1, true);
@@ -96,7 +94,7 @@ function update(elapsed){
     } else {
         if(allowSecondControl){
             if(controls.ACCEPT){
-                trace('lemme get back to you');
+	            if(FlxG.save.data.DevModeTracing) trace('lemme get back to you');
                 allowSecondControl = false;
                 resetWindow.alpha = resetTxtA.alpha = resetTxtB.alpha = 0;
                 allowControl = true;

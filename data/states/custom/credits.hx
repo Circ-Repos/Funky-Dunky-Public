@@ -8,20 +8,9 @@ import haxe.xml.Parser;
 import Xml;
 var access:Xml;
 var grpMenuItems:FlxTypedGroup<FlxSprite>;
-// TO-DO: add everyone to the credits
-// Name[0] - Role[1] - Quote[2] - URL[3] - Portrait[4]
-var menuItems:Array<Array<String>> = [ // (Portrait at the end in case we get XML working so we can remove it)
-	["Failed", "Lead Director", "You should probably subscribe to me on Youtube.", "https://youtu.be/", "mortal"],
-	["Circuitella", "Lead Programmer", "Im Gonna Fucking Poison You", "https://youtube.com/@Circuitela", "circuitella"],
-	["Mortal 3", "Whuh Oh!", "Duplication...", "https://youtu.be/", "mortal"]
-];
 
-var teamMember:Array<String> = [];
-var teamMemberDesc:Array<String> = [];
-var teamMemberURL:Array<String> = [];
-var teamMemberIcon:Array<String> = [];
-var teamMemberQuote:Array<String> = [];
-var nonsense:Array<String> = [];
+// Name[0] - Portrait[1] - Role[2] - Quote[3] - URL[4]
+var teamData:Array<Array<String>> = [];
 
 var grpArrows:FlxTypedGroup<FlxSprite>;
 
@@ -42,13 +31,9 @@ var txtDesc:FlxText;
 
 function create()
 {
-
     access = Xml.parse(Assets.getText(Paths.xml('config/credits'))).firstElement();
 
-    if(access != null)
-    {
-		parseCreditsXML();
-    }
+    if(access != null) parseCreditsXML();
 
 	// FlxG.mouse.visible = true;
 	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false);
@@ -124,12 +109,10 @@ function create()
 	add(special);
 	special.y = special.y + FlxG.height;
 
-
-
 	var num:Int = 0;
-
-	for (credit in teamMemberIcon) {
-		var portrait:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/creds/' + credit));
+	for(credit in teamData)
+	{
+		var portrait:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/creds/' + credit[1]));
 		portrait.antialiasing = Options.antialiasing;
 		portrait.scale.set(0.7, 0.7);
 		portrait.updateHitbox();
@@ -183,27 +166,20 @@ function create()
 	changeRow(0, false);
 	changeSelection(0, false);
 }
+
 function parseCreditsXML()
 {
-
-    for (node in access.elements()){
-
-        var desc = node.get("desc");
-        teamMemberDesc.push(desc);
-
+    for(node in access.elements())
+	{
         var name = node.get("name");
-        teamMember.push(name);
-
         var icon = node.get("icon");
-		teamMemberIcon.push(icon);
-
+        var role = node.get("desc");
 		var quote = node.get("quote");
-		teamMemberQuote.push(quote);
-
         var url = node.get("url");
-        teamMemberURL.push(url);
+		teamData.push([name, icon, role, quote, url]);
     }
 }
+
 function update(elapsed)
 {
 	if(!allowInputs) return;
@@ -245,15 +221,14 @@ function update(elapsed)
 function changeSelection(change:Int, playSound:Bool)
 {
 	var lastSelected:Int = curSelected;
-	curSelected = FlxMath.bound(curSelected + change, 0, teamMember.length - 1);
+	curSelected = FlxMath.bound(curSelected + change, 0, teamData.length - 1);
 
 	grpArrows.members[0].alpha = curSelected == 0 ? 0.5 : 1;
-	grpArrows.members[1].alpha = curSelected == teamMember.length - 1 ? 0.5 : 1;
+	grpArrows.members[1].alpha = curSelected == teamData.length - 1 ? 0.5 : 1;
 
-	txtName.text = teamMember[curSelected].toUpperCase();
-	txtRole.text = teamMemberDesc[curSelected].toUpperCase();
-	txtDesc.text = '"' + teamMemberQuote[curSelected] + '"';
-
+	txtName.text = teamData[curSelected][0].toUpperCase();
+	txtRole.text = teamData[curSelected][2].toUpperCase();
+	txtDesc.text = '"' + teamData[curSelected][3] + '"';
 
 	if(lastSelected == curSelected) return;
 
@@ -275,6 +250,9 @@ function changeRow(change:Int, playSound:Bool)
 	var lastRow:Int = curRow;
 	curRow = FlxMath.bound(curRow + change, 0, 1);
 
+	if(curRow == 1) for(i in 0...2) grpArrows.members[i].alpha = 0.5;
+	else changeSelection(0, false);
+
 	grpArrows.members[2].alpha = curRow == 0 ? 0.5 : 1;
 	grpArrows.members[3].alpha = curRow == 0 ? 1 : 0.5;
 
@@ -291,11 +269,6 @@ function confirmSelection()
 {
 	allowInputs = false;
 	CoolUtil.playMenuSFX(1, 0.7);
-	CoolUtil.openURL(menuItems[curSelected][3]);
+	CoolUtil.openURL(teamData[curSelected][4]);
 	new FlxTimer().start(0.2, (_) -> allowInputs = true);
-}
-
-function destroy()
-{
-	FlxG.mouse.visible = false;
 }

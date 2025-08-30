@@ -22,14 +22,11 @@ var songText:FlxText;
 var deathsText:FlxText;
 var overlay:FlxSprite;
 
-
-
 function create(event)
 {
 	event.cancel();
 
-	Framerate.offset.y = 16;
-	Framerate.offset.x = 17;
+	FlxTween.tween(Framerate.offset, {x: 17, y: 16}, 0.3, {ease: FlxEase.quadInOut});
 
 	sigmaBlur = new BlurFilter(0, 0);
 	sigmaBlur.quality = 2;
@@ -90,6 +87,7 @@ function create(event)
 	songArt.origin.set(songArt.width, songArt.height);
 	// the corner of the overlay is on x: 1216 | y: 658
 	songArt.setPosition(1216, 658);
+
 	pauseText = new FlxText(80, 86, 0, 'PAUSED', 80);
 	pauseText.setFormat(Paths.font("vcr.ttf"), 80);
 	pauseText.antialiasing = false;
@@ -118,7 +116,6 @@ function create(event)
 	add(arrow);
 
 	var charName:String = PlayState.instance.cpuStrums.characters[0].curCharacter.toLowerCase();
-	
 	//changed the switch cause it might try to check again after doing it once, idk
 	switch(PlayState.instance.cpuStrums.characters[0].curCharacter.toLowerCase()) // is there a better way to do this???
 	{ //i dont think theres a better way to do it
@@ -208,6 +205,7 @@ function confirmSelection(playSound:Bool)
 			updateBotplayText(curSelected);
 			changeSelection(0);
 		case 'restart song':
+			FlxTween.tween(Framerate.offset, {x: 0, y: 0}, 0.3, {ease: FlxEase.quadInOut});
 			grpMenuItems.forEach(function(txt:FlxText) {
 				FlxTween.cancelTweensOf(txt);
 			});
@@ -238,6 +236,7 @@ function confirmSelection(playSound:Bool)
 				}
 			});
 		default:
+			FlxTween.tween(Framerate.offset, {x: 0, y: 0}, 0.3, {ease: FlxEase.quadInOut});
 			if(menuItems[curSelected] == 'exit to menu') curSelected -= 1;
 			grpMenuItems.forEach(function(txt:FlxText) {
 				FlxTween.cancelTweensOf(txt);

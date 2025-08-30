@@ -3,8 +3,6 @@ import flixel.tweens.FlxTweenType;
 
 function create()
 {
-	FlxG.mouse.visible = false;
-
 	clouds = new FlxSprite().loadGraphic(Paths.image("menus/theFUCKINGtitle/sky"));
 	clouds.screenCenter();
 	clouds.scale.set(0.55, 0.55);

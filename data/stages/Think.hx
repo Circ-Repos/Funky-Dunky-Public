@@ -12,9 +12,6 @@ var blackOverlayForFlicker:FlxSprite;
 var textBlob2:FlxText;
 var textBlob1:FlxText;
 
-function onSongEnd() FlxG.save.data.beatenThink = true;
-
-
 function create(){
     camThink = new FlxCamera();
     camThink.visible = true;
@@ -120,7 +117,7 @@ function postCreate(){
     textBlob1.y = 870;
 	textBlob1.x = 320;
 	textBlob1.updateHitbox();
-	textBlob1.antialiasing = false;
+	textBlob1.antialiasing = Options.antialiasing; // I like my text smooth!
 	textBlob1.text = "[CT]: HEY, IT'S CESAR. I HOPE IT'S NOT TOO LATE.\n\n[MH]: NO, IT'S FINE, DON'T WORRY. WHAT'S UP ARE YOU ALRIGHT?\n\n[CT]: YEAH, IT'S NOT ME IT'S MY MOM";
     add(textBlob1);
 
@@ -132,7 +129,7 @@ function postCreate(){
     textBlob2.y = 870;
 	textBlob2.x = 320;
 	textBlob2.updateHitbox();
-	textBlob2.antialiasing = false;
+	textBlob2.antialiasing = Options.antialiasing; // Unless it's a pixel font, then i like it crispy :]
 	textBlob2.text = "[MH]: ALRIGHT, I MEAN IT SHOULDN'T BE TOO BAD. I'm JUST GONNA SWITCH THEM ON AND GET OUTTA THERE THOUGH. YOU KNOW WHAT I FEEL ABOUT YOUR HOUSE. \n\n[CT]: YEAH, THAT'S FINE. ONE LAST THING, TRY TO GET A GOOD VIEW";
     add(textBlob2);
 	add(blackOverlayForFlicker);
