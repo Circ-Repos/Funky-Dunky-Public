@@ -17,7 +17,7 @@ function preStateSwitch()
 	FlxG.mouse.useSystemCursor = true;
 	FlxG.mouse.visible = false;
 	// we need some check so it doesn't flicker back to the OG icon when still in the mod
-	WindowUtils.setWindow(Flags.TITLE, 'iconOG');
+	WindowUtils.setWindow(Flags.TITLE, 'window/iconOG');
 	Framerate.offset.x = 0;
 	Framerate.offset.y = 0;
 }
@@ -41,7 +41,7 @@ function destroy()
 {
 	FlxG.camera.bgColor = 0xFF000000;
 
-	WindowUtils.setWindow(Flags.TITLE, 'iconOG');
+	WindowUtils.setWindow(Flags.TITLE, 'window/iconOG');
 	WindowUtils.resetAffixes();
 	WindowUtils.resetTitle();
 

@@ -6,37 +6,26 @@ import flixel.text.FlxTextAlign;
 import flixel.tweens.FlxEase;
 import funkin.backend.system.framerate.Framerate;
 import funkin.savedata.FunkinSave;
-import openfl.text.TextFormat;
+import funkin.menus.StoryMenuState.StoryWeeklist;
 
-
-var menuPath:String = 'menus/storyMenu/'; //im lazy
+var timesNew = Paths.font('Times New Roman Italic.ttf');
 var nameTexts:Array<FunkinText> = [];
 var vhsArray:Array<FlxSprite> = [];
 
-var weeks:Array<Dynamic> = [ //yo sorry it aint easy to edit
-	{
-		"name": "Overthrone",
-		"songs": [{"name": "Grace"}],
-		"id": 0
-	},
-		{
-		"name": "Volume 1",
-		"songs": [{"name": "Distraught"}, {"name": "Scary Night"}, {"name": "Think"}, {"name": "Gift"},],
-		"id": 1
-	}
-];
+var weeks = StoryWeeklist.get(true, false).weeks;
 
 var weekIndex:Int = 0;
 var songText:FlxText;
 var transitioning = false;
 
-function create(){
+function create()
+{
 	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false); //no music? Not a problem
 
 	FlxTween.tween(Framerate.offset, {x: FlxG.width - 200, y: 60}, 0.21, {ease: FlxEase.quadInOut});
 	Framerate.debugMode = 1;
-	timesNew = Paths.font('Times New Roman Italic.ttf');
-	menuBG = new FlxSprite(0,0,Paths.image(menuPath + 'funkdela-story-menu-bg'));
+
+	menuBG = new FlxSprite(0, 0).loadGraphic(Paths.image('menus/storyMenu/bg'));
 	menuBG.scrollFactor.set();
 	add(menuBG);
 	
@@ -46,7 +35,8 @@ function create(){
 	bgOverlay.alpha = 0.025;
 	add(bgOverlay);
 
-	bar = new FlxSprite(0,0,Paths.image(menuPath + 'bar that separates the two halves'));
+	bar = new FlxSprite(0, 0).makeGraphic(15, FlxG.height, FlxColor.WHITE);
+	bar.antialiasing = false;
 	bar.screenCenter(FlxAxes.X);
 	bar.x += 70;
 	add(bar);
@@ -64,15 +54,22 @@ function create(){
 	tracksLabel.antialiasing = Options.antialiasing;
 	tracksLabel.setBorderStyle(FlxTextBorderStyle.NONE);
 	add(tracksLabel);
-	
-	crossLeft = new FlxSprite(tracksLabel.x - 80,tracksLabel.y + 25,Paths.image(menuPath + 'cross'));
+
+	crossLeft = new FlxSprite(tracksLabel.x - 80,tracksLabel.y + 25).loadGraphic(Paths.image('menus/storyMenu/cross'));
+	crossLeft.antialiasing = false;
 	add(crossLeft);
 
-	crossRight = new FlxSprite(tracksLabel.x + 375,tracksLabel.y + 25,Paths.image(menuPath + 'cross'));
+	crossRight = new FlxSprite(tracksLabel.x + 375,tracksLabel.y + 25).loadGraphic(Paths.image('menus/storyMenu/cross'));
+	crossRight.antialiasing = false;
 	add(crossRight);
 
-	songBorder = new FlxSprite(75,125, Paths.image(menuPath + 'track list bar'));
-	add(songBorder);
+	songBorderLeft = new FlxSprite(crossLeft.x,125).makeGraphic(6, 480, FlxColor.WHITE);
+	songBorderLeft.antialiasing = false;
+	add(songBorderLeft);
+
+	songBorderRight = new FlxSprite(crossRight.x + 48,songBorderLeft.y).makeGraphic(6, 480, FlxColor.WHITE);
+	songBorderRight.antialiasing = false;
+	add(songBorderRight);
 
 	scoreText = new FunkinText(02, FlxG.height - 100, FlxG.width, "HI-SCORE: hey babygrill will you play my fnf mod?", 126);
 	scoreText.setFormat(Paths.font(timesNew), 84, FlxColor.WHITE, 'left');
@@ -81,8 +78,9 @@ function create(){
 	scoreText.setBorderStyle(FlxTextBorderStyle.NONE);
 	add(scoreText);
 	
-	for(i in weeks){
-		var vhs:FlxSprite = new FlxSprite(770).loadGraphic(Paths.image(menuPath + "vhs tape"));
+	for(i in weeks)
+	{
+		var vhs:FlxSprite = new FlxSprite(770).loadGraphic(Paths.image("menus/storyMenu/vhs"));
 		vhs.scale.set(0.4, 0.4);
 		vhs.updateHitbox();
 		vhs.scrollFactor.set();
@@ -90,10 +88,8 @@ function create(){
 		add(vhs);
 		vhsArray.push(vhs);
 
-		var nameText:FunkinText = new FunkinText(770, 0, FlxG.width, '"FRAUD // FIRST \nHURTBREAK WONDERLAND"', 26);
+		var nameText:FunkinText = new FunkinText(770, 0, FlxG.width, '"' + i.name.toUpperCase() + '"', 26);
 		nameText.alignment = 'center';
-		nameText.text = '"' + i.name.toUpperCase() + '"';
-
 		nameText.font = Paths.font(timesNew);
 		nameText.setBorderStyle(FlxTextBorderStyle.NONE);
 		nameText.scrollFactor.set();
@@ -113,47 +109,54 @@ function create(){
 	chooseLabel.underline = true;
 	add(chooseLabel);
 
-	updatesongText();
-
+	changeWeek(0);
 }
-function update(elapsed:Float) {
+
+function update(elapsed:Float)
+{
 	if(Framerate.debugMode == 2) Framerate.debugMode = 0;
-	if(!transitioning){
-		if(controls.BACK)
-		{
-			transitioning = true;
-			CoolUtil.playMenuSFX(2, 0.7);
-			new FlxTimer().start(0.6, (_) -> FlxG.switchState(new MainMenuState()));
-		}
-		if(controls.DOWN_P){
-			weekIndex = FlxMath.wrap(weekIndex + 1, 0, weeks.length -1);
+	if(transitioning) return;
 
-			updatesongText();
-		}
-		if(controls.UP_P){
-			weekIndex = FlxMath.wrap(weekIndex - 1, 0, weeks.length -1);
-			updatesongText();
-		}
-		if(controls.ACCEPT){
+	if(controls.BACK)
+	{
+		transitioning = true;
+		CoolUtil.playMenuSFX(2, 0.7);
+		new FlxTimer().start(0.6, (_) -> FlxG.switchState(new MainMenuState()));
+	}
 
-			if(!FlxG.save.data.songsBeaten.contains("Grace") && weekIndex == 1){
-				CoolUtil.playMenuSFX(2, 0.7);
-			}
-			else{
-				PlayState.loadWeek(weeks[weekIndex]);
-				FlxG.switchState(new PlayState());
-				transitioning = true;
-			}
-		}
+	if(controls.DOWN_P) changeWeek(1);
+	if(controls.UP_P) changeWeek(-1);
+
+	if(controls.ACCEPT) confirmSelection();
+}
+
+function changeWeek(change:Int)
+{
+	if(change != 0) CoolUtil.playMenuSFX(0, 0.7);
+	weekIndex = FlxMath.wrap(weekIndex + change, 0, weeks.length-1);
+	updatesongText();
+}
+
+function confirmSelection()
+{
+	if(!FlxG.save.data.weeksBeaten.contains("Grace") && weekIndex == 1)
+	{
+		CoolUtil.playMenuSFX(2, 0.7);
+	}
+	else
+	{
+		transitioning = true;
+		PlayState.loadWeek(weeks[weekIndex]);
+		FlxG.switchState(new PlayState());
 	}
 }
-var displaySongs:Array<String> = [];
 
-function updatesongText() {
-    displaySongs =[];
-
+function updatesongText()
+{
+	var displaySongs:Array<String> = [];
     var displayedWeekList = weeks[weekIndex];
-    for (song in displayedWeekList.songs) {
+    for(song in displayedWeekList.songs)
+	{
         displaySongs.push(song.name);
     }
     songText.text = displaySongs.join("\n");
@@ -163,10 +166,10 @@ function updatesongText() {
 	if(weekIndex == 0) songText.y = 350;
 	var highScorebutScuffed:Int = 0;
 
-	for(i in weeks[weekIndex].songs){
+	for(i in weeks[weekIndex].songs)
+	{
 		var saveData:SongHighscore = FunkinSave.getSongHighscore(i.name, 'normal');		
 		highScorebutScuffed += saveData.score;
-
 	}
 	scoreText.text = 'HI-SCORE:' + highScorebutScuffed;
 
@@ -179,11 +182,9 @@ function updatesongText() {
 		var bg = vhsArray[i];
 		var offset = i - weekIndex;
 		var spacing:Float = 200;
-		var yPos = FlxG.height / 2 - 200 + offset * spacing;
-		
+		var yPos = FlxG.height / 2 - 100 + offset * spacing;
 		var baseTX = 440;
-		
-		var tyPos = (FlxG.height / 2 - 200 + offset * spacing) + 90;
+
 		FlxTween.tween(bg, {
 			x: baseX,
 			y: yPos - 10,
