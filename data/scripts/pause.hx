@@ -69,7 +69,6 @@ function create(event)
 	// these pause arts are pissing me
 	// off...
 	// im the original      starwalker
-	// TO-DO: finish this
 	var songName:String = PlayState.SONG.meta.name.toLowerCase();
 	switch(songName)
 	{
@@ -84,9 +83,35 @@ function create(event)
 	// this is the transformation point, right???
 	// the idea is to set that to the bottom right and then place the art on a specific spot,
 	// so we don't have to manually adjust the pos on every image
-	songArt.origin.set(songArt.width, songArt.height);
+	songArt.origin.set(songArt.width * 0.3, songArt.height * 0.3); // ok cne. i see how it is.
 	// the corner of the overlay is on x: 1216 | y: 658
-	songArt.setPosition(1216 - songArt.width * 0.3 - 70, 658 - songArt.height * 0.3 - 75);
+	songArt.setPosition(1216 - 13, 658 - 13); // offset, because it's still not perfectly in the corner
+
+	lineLeft = new FlxSprite(songArt.x - songArt.width + 13, songArt.y - songArt.height + 14).makeGraphic(4, songArt.height, FlxColor.WHITE);
+	lineLeft.antialiasing = false;
+	lineLeft.cameras = [camPause];
+	add(lineLeft);
+
+	lineTop = new FlxSprite(songArt.x - songArt.width + 14, songArt.y - songArt.height + 14).makeGraphic(songArt.width, 4, FlxColor.WHITE);
+	lineTop.antialiasing = false;
+	lineTop.cameras = [camPause];
+	add(lineTop);
+
+	lineRight = new FlxSprite(songArt.x + 13, songArt.y - songArt.height + 14).makeGraphic(4, songArt.height, FlxColor.WHITE);
+	lineRight.antialiasing = false;
+	lineRight.cameras = [camPause];
+	add(lineRight);
+
+	switch(songName) // for manual adjustments
+	{
+		case 'scary-night':
+			songArt.x -= 5;
+		case 'gift':
+			songArt.setPosition(songArt.x + 44, songArt.y + 43);
+			lineLeft.x += 88;
+			lineTop.scale.x = 0.78;
+			lineTop.x += 46;
+	}
 
 	pauseText = new FlxText(80, 86, 0, 'PAUSED', 80);
 	pauseText.setFormat(Paths.font("vcr.ttf"), 80);
