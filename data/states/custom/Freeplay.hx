@@ -148,7 +148,7 @@ function create()
 	albumSprite.antialiasing = Options.antialiasing;
 	add(albumSprite);
 
-	scoreText = new FunkinText(FlxG.width - 80, FlxG.height - 200, FlxG.width, "", 64);
+	scoreText = new FunkinText(FlxG.width - 190, FlxG.height - 200, FlxG.width, "", 64);
 	scoreText.setFormat(Paths.font(globalFont), 46, FlxColor.WHITE, 'left');
 	scoreText.antialiasing = Options.antialiasing;
 	add(scoreText);

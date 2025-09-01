@@ -45,10 +45,10 @@ function postCreate(){
 }
 
 function onSongStart(){
-    var wJumpscare = FlxG.random.bool(5);
+    var wJumpscare = FlxG.random.bool(3 / 300);
     if(wJumpscare)
     {
-	    if(FlxG.save.data.DevModeTracing) trace('Something wicked this way comes.');
+	    trace('Something wicked this way comes.');
         FlxG.sound.music.volume = 0;
         FlxG.sound.play(Paths.sound('w'));
 
@@ -60,7 +60,6 @@ function onSongStart(){
 function createSplash() {
     titleText = new FlxText(0, 0, 0, "");
     titleText.setFormat(Paths.font("vcr.ttf"), 42, FlxColor.WHITE);
-    titleText.text = 'Something wicked this way comes.';
     titleText.updateHitbox();
     titleText.screenCenter(FlxAxes.X);
     titleText.text = '';

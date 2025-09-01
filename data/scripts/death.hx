@@ -1,62 +1,60 @@
 
 var camDeath = new FlxCamera();
-var camFlash = new FlxCamera();
-
 var dancinBF:FlxSprite;
 
 function create(event){
-    FlxG.camera.alpha = 0;
     //event.cancel();
 	if(FlxG.save.data.DevModeTracing) trace('HELP NOW');
     event.gameOverSong = 'gameover';
-    event.retrySFX = 'flash';
+    event.retrySFX = 'retry';
+    FlxG.camera.zoom = 1;
 
-    FlxG.cameras.add(camFlash, true);
-    FlxG.cameras.add(camDeath, true);
-    camDeath.bgColor = 0;
-    camDeath.alpha = 1;
-    FlxG.camera.alpha = 0;
-    FlxG.camera.zoom = 3;
-    //camGame.alpha = 0;
 
 }
-var creditTextPerson:FunkinText;
+var gameoverText:FunkinText;
 function postCreate(){
+    character.alpha = 0;
     var gabriel = new FlxSprite(0,0,Paths.image('game/die/gabriel-game-over-screen'));
     gabriel.scrollFactor.set(0,0);
+    gabriel.alpha = 0;
+    FlxTween.tween(gabriel, {alpha: 1}, 1.75, {ease: FlxEase.sineOut});
     add(gabriel);
-    creditTextPerson = new FunkinText(0,0,FlxG.width,'DISCONNECTED\nPRESS ACCEPT TO RETRY CONNECTION', 128);
-    creditTextPerson.alignment = 'center';
-    creditTextPerson.text = 'You Died';
-    creditTextPerson.font = Paths.font('VCR.ttf');
-    creditTextPerson.scrollFactor.set();
-    creditTextPerson.color = FlxColor.RED;
-    creditTextPerson.screenCenter();
-    creditTextPerson.antialiasing = false;
-    creditTextPerson.scale.set(3,3);
-    creditTextPerson.camera = camDeath;
-    creditTextPerson.alpha = 0;
-    add(creditTextPerson);
+    gameoverText = new FunkinText(0,0,0,'DISCONNECTED\nPRESS ACCEPT TO RETRY CONNECTION', 62);
+    gameoverText.alignment = 'center';
+    gameoverText.font = Paths.font('VCR.ttf');
+    gameoverText.scrollFactor.set();
+    gameoverText.color = FlxColor.GRAY;
+    gameoverText.screenCenter();
+    gameoverText.antialiasing = false;
+    gameoverText.scale.set(3,3);
+    gameoverText.alpha = 0;
+    add(gameoverText);
 
     camDeath.zoom = 1;
 }
 var executed:Bool = false;
-
-function update(elapsed:Float){
-    creditTextPerson.screenCenter(FlxAxes.X);
-    if(character.getAnimName() == 'firstDeath' && character.isAnimFinished() && !executed){
+function deathStart(event){
         //FlxTween.tween(bfdeathshit, {alpha: 1}, 1);
-        executed = true;
-        FlxG.sound.play(Paths.sound('died'), 0.7);
-        FlxTween.tween(creditTextPerson.scale, {y: 1}, 2, {ease: FlxEase.sineOut});
-        FlxTween.tween(creditTextPerson.scale, {x: 1}, 2, {ease: FlxEase.sineOut});
-        FlxTween.tween(creditTextPerson, {alpha: 1}, 1.75, {ease: FlxEase.sineOut});
+    trace('Music here i think');    
+    executed = true;
+    FlxG.sound.play(Paths.sound('died'), 0.7);
+    FlxTween.tween(gameoverText.scale, {y: 1}, 2, {ease: FlxEase.sineOut});
+    FlxTween.tween(gameoverText.scale, {x: 1}, 2, {ease: FlxEase.sineOut});
+    FlxTween.tween(gameoverText, {alpha: 1}, 1.75, {ease: FlxEase.sineOut});
 
-    }
+}
+function update(elapsed:Float){
+    gameoverText.screenCenter(FlxAxes.X);
+
 }
 function onEnd(){
-    creditTextPerson.alpha = 0;
-    camDeath.flash(FlxColor.BLACK, 4); // White flash for 0.5 seconds
+    gameoverText.alpha = 1;
+    gameoverText.scale.set(1,1);
+    var sound = FlxG.sound.play(Paths.sound(retrySFX));
+    var secsLength:Float = sound.length / 1000;
+    var fadeOutTime = secsLength - 0.7;
+    FlxTween.tween(gameoverText, {alpha: 0}, 0.75, {ease: FlxEase.sineOut});
+    //FlxTween.tween(FlxG.camera, {zoom: 2}, fadeOutTime + 2, {ease: FlxEase.backInOut}, {startDelay: 1.2});
 
 
 }

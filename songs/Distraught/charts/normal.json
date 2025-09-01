@@ -372,11 +372,10 @@
 			"time": 187228.915662651
 		}
 	],
+	"codenameChart": true,
 	"strumLines": [
 		{
 			"keyCount": 4,
-			"strumScale": 1,
-			"position": "dad",
 			"notes": [
 				{
 					"id": 2,
@@ -1772,7 +1771,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 273.000000000102,
+					"sLen": 273.000000000116,
 					"time": 95421.686746988,
 					"type": 0
 				},
@@ -2054,7 +2053,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 636.999999999898,
+					"sLen": 636.999999999884,
 					"time": 108433.734939759,
 					"type": 0
 				},
@@ -2300,7 +2299,7 @@
 				},
 				{
 					"id": 1,
-					"sLen": 272.999999999898,
+					"sLen": 272.999999999884,
 					"time": 121084.337349398,
 					"type": 0
 				},
@@ -3271,17 +3270,19 @@
 					"type": 0
 				}
 			],
+			"position": "dad",
+			"strumScale": 1,
+			"visible": false,
+			"type": 0,
 			"characters": [
 				"Six"
 			],
-			"type": 0,
-			"visible": false,
 			"strumPos": [
 				0,
 				50
 			],
-			"vocalsSuffix": "-SIX",
-			"strumLinePos": 0.5
+			"strumLinePos": 0.5,
+			"vocalsSuffix": "-SIX"
 		},
 		{
 			"keyCount": 4,
@@ -6192,7 +6193,7 @@
 				}
 			],
 			"visible": true,
-			"strumSpacing": 1,
+			"strumSpacing": 1.2,
 			"strumPos": [
 				0,
 				50
@@ -6203,11 +6204,10 @@
 			"strumLinePos": 0.5,
 			"type": 1,
 			"characters": [
-				"bf"
+				"circuitella"
 			]
 		}
 	],
-	"codenameChart": true,
 	"scrollSpeed": 3.4,
 	"chartVersion": "1.6.0",
 	"stage": "Distraught",

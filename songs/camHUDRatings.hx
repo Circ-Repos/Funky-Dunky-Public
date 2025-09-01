@@ -3,7 +3,7 @@ public var ratingScaleDiff:Float = 0.1;
 function postCreate() {
 	PlayState.instance.defaultDisplayRating = false;
 	PlayState.instance.defaultDisplayCombo = false;
-    PlayState.instance.minDigitDisplay = 69420; //like thats ever gonna happen
+    PlayState.instance.minDigitDisplay = 3333; //like thats ever gonna happen
 
 }
 
