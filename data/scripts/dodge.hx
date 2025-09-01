@@ -54,7 +54,7 @@ function opponentAttack():Void {
             warningFlash.alpha = 0;
         } else {
             warningFlash.alpha = 0;
-            if(strumLines.members[1].characters[1] != null) strumLines.members[1].characters[1].playAnim('shoot', true, SING);
+            if(strumLines.members[1].characters[1] != null) strumLines.members[1].characters[1].playAnim('shoot', true, 'SING');
             //FlxG.sound.play(Paths.sound('dodge'), 0.5);
         }
     });

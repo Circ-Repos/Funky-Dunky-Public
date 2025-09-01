@@ -102,10 +102,11 @@ function create(){
 		nameText.antialiasing = Options.antialiasing;
 		nameText.color = FlxColor.BLACK;
 		nameText.italic = true;
-		if(!FlxG.save.data.songsBeaten.contains("Grace") && i.name.toUpperCase() == 'VOLUME 1') nameText.text = '"???"';
+		if(!FlxG.save.data.songsBeaten.contains("grace") && i.name.toUpperCase() == 'VOLUME 1') nameText.text = '"???"';
 		nameTexts.push(nameText);
 		add(nameText);
 	}
+	trace(FlxG.save.data.songsBeaten);
 
 	chooseLabel = new FunkinText(760,5,0,"CHOOSE YOUR DEMISE",44); //YOUR DEMISE? LIKE THE DDTO SONG? 
 	chooseLabel.font = timesNew;
@@ -145,11 +146,17 @@ function changeWeek(change:Int)
 
 function confirmSelection()
 {
-	if(!FlxG.save.data.weeksBeaten.contains("Grace") && weekIndex == 1)
+	if(!FlxG.save.data.weeksBeaten.contains("grace") && weekIndex == 1)
 	{
 		CoolUtil.playMenuSFX(2, 0.7);
 	}
-	else
+	if(FlxG.save.data.songsBeaten.contains("grace"))
+	{
+		transitioning = true;
+		PlayState.loadWeek(weeks[weekIndex]);
+		FlxG.switchState(new PlayState());
+	}
+	if(weekIndex != 1 && !FlxG.save.data.weeksBeaten.contains("overthrone"))
 	{
 		transitioning = true;
 		PlayState.loadWeek(weeks[weekIndex]);
@@ -166,7 +173,7 @@ function updatesongText()
         displaySongs.push(song.name);
     }
     songText.text = displaySongs.join("\n");
-	if(weekIndex == 1 && !FlxG.save.data.songsBeaten.contains("Grace")) songText.text = "???\n???\n???\n???";
+	if(weekIndex == 1 && !FlxG.save.data.songsBeaten.contains("grace")) songText.text = "???\n???\n???\n???";
 	songText.updateHitbox();
 	songText.y = 250;
 	if(weekIndex == 0) songText.y = 350;
