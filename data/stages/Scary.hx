@@ -25,6 +25,14 @@ var dreaming:Bool = false;
 var shaderIntensity:Float = 0.5;
 var vig:FlxSprite;
 
+function dgv(alp1:Float = 1, alp2:Float = 1){
+	strumLines.members[0].characters[0].alpha = alp1;
+	strumLines.members[0].characters[1].alpha = alp2;
+}
+function bgv(alp1:Float = 1, alp2:Float = 1){
+	strumLines.members[1].characters[0].alpha = alp1;
+	strumLines.members[1].characters[1].alpha = alp2;
+}
 function postCreate(){
 	defaultCamZoom = dadZoom;
 	camZooming = false;
@@ -32,6 +40,8 @@ function postCreate(){
     camOther.bgColor = 0;
     camOther.alpha = 1;
 	heatShader = new CustomShader("heatShader");
+	dgv(1,0);
+	bgv(1,0);
 }
 function lookLeft(){
     //FlxTween.tween(FlxG.camera.scroll, {x: 500},0.7, {ease: FlxEase.sineInOut});
@@ -102,11 +112,10 @@ function postUpdate(elapsed:Float) {
 	FlxG.camera.follow(camFollow, FlxCameraFollowStyle.LOCKON, 0.06);
 }
 function woozyStart(){
-	if(FlxG.save.data.DevModeTracing) trace('Woozying');
 	//use the num tween to increase the motha fuckin shader
 	//var then the Desired Num, Followed By- Time.. Doctor Freeman?
-	FlxTween.num(shaderIntensity, 300, 6, {ease: FlxEase.quadInOut, onUpdate: (val:Float) -> wiggleDistance = val.value});
-	dreaming = true;
+	// FlxTween.num(shaderIntensity, 300, 6, {ease: FlxEase.quadInOut, onUpdate: (val:Float) -> wiggleDistance = val.value});
+	// dreaming = true;
 	camZooming = false;
 	//FlxTween.tween(FlxG.camera.scroll, {x: 500},0.7, {ease: FlxEase.sineInOut});
 	FlxTween.tween(camFollow, {x: bfX + 150,y: bfY},2.5, {ease: FlxEase.sineInOut});
@@ -117,7 +126,7 @@ function woozyEnd(){
 }
 function dreamStart(){
 	vig.alpha = 0;
-	if(FlxG.save.data.DevModeTracing) trace('Dreaming Start');
+	// trace('Dreaming Start');
 	woozyEnd();
 
 	camZooming = true;
@@ -125,12 +134,15 @@ function dreamStart(){
 	wallD.alpha = 1;
 	stairs.alpha = 0;
 	stairsD.alpha = 1;
+	dgv(0,1);
+	bgv(0,1);
 }
 function dreamEnd(){
-	if(FlxG.save.data.DevModeTracing) trace('Ending Le Dream');
+	// trace('Ending Le Dream');
 	vig.alpha = 1;
 	woozyEnd();
-
+	dgv(1,0);
+	bgv(1,0);
 	camZooming = true;
 	wall.alpha = 1;
 	wallD.alpha = 0;

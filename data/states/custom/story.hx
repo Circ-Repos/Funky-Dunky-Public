@@ -18,8 +18,14 @@ var weekIndex:Int = 0;
 var songText:FlxText;
 var transitioning = false;
 
-function create()
-{
+
+var centerX = FlxG.width / 2;
+var centerY = FlxG.height / 2;
+var radius = 150; // distance from center
+var soulColors = [0xFF0000, 0xFFFF00, 0x00FF00, 0x0000FF, 0xFF00FF, 0x00FFFF];
+var souls:Array<FlxSprite> = [];
+
+function create(){
 	if(FlxG.sound.music == null) CoolUtil.playMenuSong(false); //no music? Not a problem
 
 	FlxTween.tween(Framerate.offset, {x: FlxG.width - 200, y: 60}, 0.21, {ease: FlxEase.quadInOut});
@@ -112,8 +118,8 @@ function create()
 	changeWeek(0);
 }
 
-function update(elapsed:Float)
-{
+function update(elapsed:Float) {
+
 	if(Framerate.debugMode == 2) Framerate.debugMode = 0;
 	if(transitioning) return;
 

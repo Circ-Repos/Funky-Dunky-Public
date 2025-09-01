@@ -9,36 +9,26 @@ var tvwhite:FlxSprite;
 function onCountdown(event) event.cancel();
 
 function postCreate(){
-    camTV = new FlxCamera();
-    camTV.visible = true;
-    camTV.alpha = 1;
-	camTV.bgColor = 0;
-    FlxG.cameras.remove(camHUD, false);
-
-    FlxG.cameras.remove(camTV, false);
-    FlxG.cameras.add(camTV, false);
-	FlxG.cameras.add(camHUD, false);
-	camTV.zoom = 0.001;
 	remove(dad, true);
 
 	tvwhite = new FlxSprite();
     tvwhite.loadGraphic(Paths.image('stages/distraught/ScreenBG'));
-	tvwhite.camera = camTV;
+	tvwhite.camera = camGame;
 	tvwhite.scale.set(0.5, 0.5);
 	tvwhite.screenCenter();	
 	insert(0, tvwhite);
 
 	tV = new FlxSprite();
 	tV.loadGraphic(Paths.image('stages/distraught/TV'));
-	tV.camera = camTV;
+	tV.camera = camGame;
 	tV.scale.set(0.5, 0.5);
 	tV.screenCenter();
 	insert(3, tV);
 	dad.alpha = 0;
-	camTV.y = 720;
+	camGame.y = 720;
 	hideArrows = false;
 	insert(2, dad);
-	dad.camera = camTV;
+	dad.camera = camGame;
 	dad.screenCenter();
 	iconP1.setIcon('LYNN_ICONS');
 	healthBar.createFilledBar(0xFF241A39, 0xFFF6D9FF);
@@ -61,12 +51,15 @@ function onCameraMove(e) {
 	e.cancel();
 }
 function onSongStart(){
-	FlxTween.tween(camTV, {zoom: 0.5}, 6.35, {ease: FlxEase.sineInOut});
-	FlxTween.tween(camTV, {y: 0}, 6.35, {ease: FlxEase.sineInOut});
-	comboGroup.x -= 450;
-	comboGroup.camera = camTV;
+	FlxTween.tween(camGame, {zoom: 0.5}, 6.35, {ease: FlxEase.sineInOut});
+	FlxTween.tween(camGame, {y: 0}, 6.35, {ease: FlxEase.sineInOut});
+	comboGroup.x -= 750;
 }
 
 function dadAlpha(alp:Float, tim:Float){
 	FlxTween.tween(dad, {alpha: alp}, tim, {ease: FlxEase.sineInOut});
+}
+function onCameraMove(e){
+		e.position.set(650, 400);
+
 }

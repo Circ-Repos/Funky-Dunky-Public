@@ -86,7 +86,7 @@ function create(event)
 	// so we don't have to manually adjust the pos on every image
 	songArt.origin.set(songArt.width, songArt.height);
 	// the corner of the overlay is on x: 1216 | y: 658
-	songArt.setPosition(1216, 658);
+	songArt.setPosition(1216 - songArt.width * 0.3 - 70, 658 - songArt.height * 0.3 - 75);
 
 	pauseText = new FlxText(80, 86, 0, 'PAUSED', 80);
 	pauseText.setFormat(Paths.font("vcr.ttf"), 80);

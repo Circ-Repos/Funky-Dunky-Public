@@ -1,18 +1,16 @@
 {
-	"beatsPerMeasure": 4,
+	"customValues": {},
+	"color": "#636467",
 	"opponentModeAllowed": false,
-	"coopAllowed": false,
-	"stepsPerBeat": 4,
-	"bpm": 100,
 	"difficulties": [
 		"normal"
 	],
-	"needsVoices": false,
-	"parsedColor": -10263449,
-	"displayName": "Scary Night",
 	"icon": "intruder",
-	"name": "scary-night",
-	"color": "#636467",
+	"coopAllowed": false,
 	"quote": "I saw the man in the corner.",
-	"customValues": {}
+	"stepsPerBeat": 4,
+	"displayName": "Scary Night",
+	"beatsPerMeasure": 4,
+	"needsVoices": false,
+	"bpm": 100
 }

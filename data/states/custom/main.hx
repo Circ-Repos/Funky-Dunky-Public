@@ -63,6 +63,7 @@ function create()
 	}
 
 	changeSelection(0, false);
+
 }
 
 function update(elapsed)
