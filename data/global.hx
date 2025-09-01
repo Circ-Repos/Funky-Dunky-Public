@@ -55,6 +55,7 @@ function destroy()
 }
 
 // save shit
+FlxG.save.data.seenWarning ??= false;
 FlxG.save.data.DevMode ??= false;
 FlxG.save.data.DevModeTracing ??= false;
 FlxG.save.data.fpsWatermark ??= true;
