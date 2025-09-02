@@ -7,8 +7,8 @@
 		"normal"
 	],
 	"coopAllowed": true,
-	"stepsPerBeat": 4,
 	"quote": "I am finally free.",
+	"stepsPerBeat": 4,
 	"displayName": "Gift",
 	"needsVoices": true,
 	"beatsPerMeasure": 4,
