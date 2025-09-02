@@ -36,7 +36,7 @@ function create()
 
 	for(i => txt in boring)
 	{
-		var poo:FunkinText = new FunkinText(0, 25 + (i + 100), FlxG.width, "", 64);
+		var poo:FunkinText = new FunkinText(0, 25 + (i * 100), FlxG.width, "", 64);
 		poo.setFormat(Paths.font("Times New Roman Italic.ttf"), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.NONE, FlxColor.BLACK);
 		poo.antialiasing = Options.antialiasing;
 		poo.applyMarkup(txt, [
