@@ -22,24 +22,32 @@ var songText:FlxText;
 var deathsText:FlxText;
 var overlay:FlxSprite;
 
+var songName:String = PlayState.SONG.meta.name.toLowerCase();
+
 function create(event)
 {
 	event.cancel();
 
 	FlxTween.tween(Framerate.offset, {x: 17, y: 16}, 0.3, {ease: FlxEase.quadInOut});
 
+	switch(songName)
+	{
+		case 'think-(og)': songName = 'think';
+	}
+
 	sigmaBlur = new BlurFilter(0, 0);
 	sigmaBlur.quality = 2;
-	for(i in [FlxG.camera, PlayState.instance.camHUD]) i.setFilters([sigmaBlur]);
 
-	var dbg:FlxSprite = new FlxSprite().makeSolid(FlxG.width + 100, FlxG.height + 100, FlxColor.BLACK);
-	dbg.updateHitbox();
-	dbg.alpha = 0;
-	dbg.screenCenter();
-	dbg.scrollFactor.set();
-	add(dbg);
+	var game = PlayState.instance;
+	var cams:Array<FlxCamera> = [FlxG.camera, game.camHUD];
+	// we need to fix the cams not blurring
+//	if(songName == 'think')
+//	{
+//		cams.push(game.camThink);
+//		cams.push(game.camThinkB);
+//	}
+	for(cam in cams) cam.setFilters([sigmaBlur]);
 
-	FlxTween.tween(dbg, {alpha: 0.4}, 0.4, {ease: FlxEase.quartInOut});
 	FlxTween.tween(sigmaBlur, {blurX: 6, blurY: 6}, 0.4, {ease: FlxEase.quartInOut});
 
 	camPause = new FlxCamera();
@@ -47,6 +55,16 @@ function create(event)
 	FlxG.cameras.add(camPause, false);
 	camPause.alpha = 0;
 	cameras = [camPause];
+
+	var dbg:FlxSprite = new FlxSprite().makeSolid(FlxG.width + 100, FlxG.height + 100, FlxColor.BLACK);
+	dbg.antialiasing = false;
+	dbg.alpha = 0;
+	dbg.scrollFactor.set();
+	dbg.updateHitbox();
+	dbg.screenCenter();
+	add(dbg);
+
+	FlxTween.tween(dbg, {alpha: 0.4}, 0.4, {ease: FlxEase.quartInOut});
 
 	bg = new FlxSprite().makeGraphic(1, 1, FlxColor.BLACK);
 	bg.antialiasing = false;
@@ -66,14 +84,6 @@ function create(event)
 
 	FlxTween.tween(bgOverlay, {alpha: 0.1}, 0.4, {ease: FlxEase.quartInOut});
 
-	// these pause arts are pissing me
-	// off...
-	// im the original      starwalker
-	var songName:String = PlayState.SONG.meta.name.toLowerCase();
-	switch(songName)
-	{
-		case 'think-(og)': songName = 'think';
-	}
 	songArt = new FlxSprite(0, 0).loadGraphic(Paths.image('game/pause/' + songName));
 	songArt.antialiasing = Options.antialiasing;
 	songArt.cameras = [camPause];
