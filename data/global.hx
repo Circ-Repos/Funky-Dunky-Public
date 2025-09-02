@@ -27,7 +27,7 @@ function postStateSwitch() //post is more consistent than pre
 	WindowUtils.setWindow(Flags.TITLE, Flags.MOD_ICON);
 
 	//only fuck with memory if ShowFPS is on, no point otherwise
-	if(FlxG.save.data.showFPS)
+	if(FlxG.save.data.showFPS && FlxG.save.data.fpsWatermark)
 	{
 		Framerate.codenameBuildField.text = 'Codename Engine v' + Application.current.meta.get('version') + '\nFunkdela Reloaded v' + Flags.VERSION;
 		Framerate.codenameBuildField.visible = FlxG.save.data.fpsWatermark;

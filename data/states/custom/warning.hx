@@ -10,11 +10,6 @@ var leaving:Bool = true;
 
 function create()
 {
-	if(FlxG.save.data.seenWarning)
-	{
-		FlxG.switchState(new TitleState());
-		return;
-	}
 
 	var bg:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFFBBBBBB, 0xFF000000));
 	bg.scrollFactor.set(0.5, 0.5);
@@ -52,6 +47,8 @@ function create()
 
 function update()
 {
+	//idk why, but putting it in update works
+	if(FlxG.save.data.seenWarning) FlxG.switchState(new TitleState());
 	if(leaving) return;
 	if(controls.ACCEPT) iReadTheTermsOfServiceAndAgreeToAllMyDataBeingStolenForIllegalPurposes();
 }
