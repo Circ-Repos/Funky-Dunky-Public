@@ -6,6 +6,8 @@ import flixel.text.FlxTextBorderStyle;
 import haxe.xml.Access;
 import haxe.xml.Parser;
 import Xml;
+import StringTools;
+
 var access:Xml;
 var grpMenuItems:FlxTypedGroup<FlxSprite>;
 
@@ -267,6 +269,9 @@ function changeRow(change:Int, playSound:Bool)
 
 function confirmSelection()
 {
+	if(teamData[curSelected][4] == null || teamData[curSelected][4].length < 1) return;
+	if(!StringTools.startsWith(teamData[curSelected][4], "https://")) return; // stinky
+
 	allowInputs = false;
 	CoolUtil.playMenuSFX(1, 0.7);
 	CoolUtil.openURL(teamData[curSelected][4]);

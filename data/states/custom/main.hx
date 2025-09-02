@@ -63,7 +63,6 @@ function create()
 	}
 
 	changeSelection(0, false);
-
 }
 
 function update(elapsed)
@@ -109,6 +108,12 @@ function update(elapsed)
 		persistentDraw = true;
 		persistentUpdate = false;
 		openSubState(new EditorPicker());
+	}
+
+	if(controls.DOWN_P || controls.UP_P)
+	{
+		usingMouse = false;
+		FlxG.mouse.visible = false;
 	}
 
 	if(controls.DOWN_P || FlxG.mouse.wheel < 0) changeSelection(1, true);
