@@ -30,7 +30,7 @@ function create(event)
 
 	FlxTween.tween(Framerate.offset, {x: 17, y: 16}, 0.3, {ease: FlxEase.quadInOut});
 
-	switch(songName)
+	switch(songName) // useful for song variations that don't edit too much ig?
 	{
 		case 'think-(og)': songName = 'think';
 	}
@@ -38,15 +38,21 @@ function create(event)
 	sigmaBlur = new BlurFilter(0, 0);
 	sigmaBlur.quality = 2;
 
+	// using FlxG.cameras.list lags the game for some reason
 	var game = PlayState.instance;
 	var cams:Array<FlxCamera> = [FlxG.camera, game.camHUD];
-	// we need to fix the cams not blurring
-//	if(songName == 'think')
-//	{
-//		cams.push(game.camThink);
-//		cams.push(game.camThinkB);
-//	}
-	for(cam in cams) cam.setFilters([sigmaBlur]);
+
+	switch(songName)
+	{
+		case 'think':
+			cams.push(camThink);
+			cams.push(camThinkB);
+	}
+
+	for(cam in cams)
+	{
+		if(cam != null) cam.setFilters([sigmaBlur]);
+	}
 
 	FlxTween.tween(sigmaBlur, {blurX: 6, blurY: 6}, 0.4, {ease: FlxEase.quartInOut});
 
@@ -300,8 +306,13 @@ function updateBotplayText(num)
 
 function destroy()
 {
-	if(FlxG.cameras.list.contains(camPause))
-		FlxG.cameras.remove(camPause);
+	if(camPause != null)
+	{
+		if(FlxG.cameras.list.contains(camPause))
+			FlxG.cameras.remove(camPause);
+		camPause.destroy();
+	}
+
 	sigmaBlur.blurX = 0;
 	sigmaBlur.blurY = 0;
 	Framerate.offset.y = 0;

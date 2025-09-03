@@ -230,3 +230,12 @@ function stepHit(e){
 
 	}
 }
+function destroy()
+{
+	if(camOther != null)
+	{
+		if(FlxG.cameras.list.contains(camOther))
+			FlxG.cameras.remove(camOther);
+		camOther.destroy();
+	}
+}

@@ -22,7 +22,6 @@ var instructions:FlxText;
 
 function onSubstateClose() if(paused) setPlaybackRate(initialPlaybackRate);
 function onGamePause() setPlaybackRate(1);
-function destroy() setPlaybackRate(1);
 
 function postCreate()
 {
@@ -148,4 +147,15 @@ function setPlaybackRate(rate:Float)
 	FlxG.timeScale = playbackRate = rate;
 	//inst.pitch = vocals.pitch = rate;
 	//for(strline in strumLines.members) strline.vocals.pitch = rate;
+}
+
+function destroy()
+{
+	if(camOther != null)
+	{
+		if(FlxG.cameras.list.contains(camOther))
+			FlxG.cameras.remove(camOther);
+		camOther.destroy();
+	}
+	setPlaybackRate(1);
 }

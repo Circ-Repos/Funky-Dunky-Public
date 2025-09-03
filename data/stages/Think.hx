@@ -12,7 +12,11 @@ var blackOverlayForFlicker:FlxSprite;
 var textBlob2:FlxText;
 var textBlob1:FlxText;
 
-function create(){
+public static var camThink:FlxCamera;
+public static var camThinkB:FlxCamera;
+
+function create()
+{
     camThink = new FlxCamera();
     camThink.visible = true;
     camThink.alpha = 1;
@@ -56,15 +60,9 @@ function create(){
 	blackOverlayForFlicker.camera = camThinkB;
 	blackOverlayForFlicker.visible = false;
 }
-function onCountdown(event) event.cancel();
-function destroy() {
-	if (FlxG.cameras.list.contains(camThink))
-		FlxG.cameras.remove(camThink);
-	if (FlxG.cameras.list.contains(camThinkB))
-		FlxG.cameras.remove(camThinkB);
 
-}
-function postCreate(){
+function postCreate()
+{
 	for (i in playerStrums.members) {
 		i.alpha = 0;
 	}
@@ -139,13 +137,20 @@ function postCreate(){
 	hideArrows = true;
 
 }
-function flickerCam(){
+
+function onCountdown(event) event.cancel();
+
+function flickerCam()
+{
 	FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
 }
-function flickerCam2(){
+function flickerCam2()
+{
 	FlxFlicker.flicker(blackOverlayForFlicker, 0.5, 0.03, false);
 }
-/*function generateSubs(text1:String, text2:String) { //timer is stupid >:( It No Work
+
+/*function generateSubs(text1:String, text2:String) //timer is stupid >:( It No Work
+{
     if(text1 != '') textBlob1.visible = true;
     if(text2 != '') textBlob2.visible = true;
 	if(text1 == '') textBlob1.visible = false;
@@ -158,9 +163,10 @@ function flickerCam2(){
     textBlob2.y = FlxG.height - 300;
 	textBlob2.screenCenter(FlxAxes.X);
 	textBlob1.screenCenter(FlxAxes.X);
-
 }*/
-function tweenText1(){
+
+function tweenText1()
+{
 	hideArrows = false;
 	FlxTween.tween(textBlob1, {y: -100}, 13, {
 		ease: FlxEase.linear,
@@ -169,7 +175,9 @@ function tweenText1(){
 		}
 	});
 }
-function tweenText2(){
+
+function tweenText2()
+{
 	if(textBlob1.visible) textBlob1.visible = false;
 	FlxTween.tween(textBlob2, {y: -100}, 14, {
 		ease: FlxEase.linear,
@@ -178,12 +186,16 @@ function tweenText2(){
 		}
 	});
 }
-function arrowOpacity(opac:Float, time:Float){
+
+function arrowOpacity(opac:Float, time:Float)
+{
 	for (i in playerStrums.members) {
 		FlxTween.tween(i, {alpha: opac},time, {ease: FlxEase.sineInOut});
 	}
 }
-function onSongStart(){
+
+function onSongStart()
+{
 	if(!downscroll) 	comboGroup.y += 300;
 	if(downscroll) 	comboGroup.y = 300;
 	iconP1.x += 30;
@@ -192,11 +204,14 @@ function onSongStart(){
 		i.alpha = 0;
 	}
 }
+
 var defaultScale = 0.7;
 function beatHit(){
 	iconP2.scale.set(0.9,0.9);
 }
-function postUpdate(elapsed:Float){
+
+function postUpdate(elapsed:Float)
+{
 	if(hideArrows){
 		for (i in playerStrums.members) {
 			i.alpha = 0;
@@ -241,4 +256,20 @@ function postUpdate(elapsed:Float){
 
 	iconP1.health = healthBarPercent / 100;
 	iconP2.health = 1 - (healthBarPercent / 100);
+}
+
+function destroy()
+{
+	if(camThink != null)
+	{
+		if(FlxG.cameras.list.contains(camThink))
+			FlxG.cameras.remove(camThink);
+		camThink.destroy();
+	}
+	if(camThink != null)
+	{
+		if(FlxG.cameras.list.contains(camThinkB))
+			FlxG.cameras.remove(camThinkB);
+		camThinkB.destroy();
+	}
 }

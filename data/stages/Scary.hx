@@ -149,3 +149,13 @@ function dreamEnd(){
 	stairs.alpha = 1;
 	stairsD.alpha = 0;
 }
+
+function destroy()
+{
+	if(camOther != null)
+	{
+		if(FlxG.cameras.list.contains(camOther))
+			FlxG.cameras.remove(camOther);
+		camOther.destroy();
+	}
+}

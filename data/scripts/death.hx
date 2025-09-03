@@ -59,5 +59,12 @@ function onEnd(){
 
 }
 
-
-
+function destroy()
+{
+	if(camDeath != null)
+	{
+		if(FlxG.cameras.list.contains(camDeath))
+			FlxG.cameras.remove(camDeath);
+		camDeath.destroy();
+	}
+}

@@ -108,3 +108,13 @@ function typeNextLetter():Void {
         });
     }
 }
+
+function destroy()
+{
+	if(camw != null)
+	{
+		if(FlxG.cameras.list.contains(camw))
+			FlxG.cameras.remove(camw);
+		camw.destroy();
+	}
+}
