@@ -20,11 +20,12 @@ var vhsArray:Array<FlxSprite> = [];
 var iconBgArray:Array<FlxSprite> = [];
 var iconArray:Array<HealthIcon> = [];
 
+var albumSprites:Array<FlxSprite> = [];
+
 var scoreText:FunkinText;
 var beatText:FunkinText;
 var quoteText:FunkinText;
 var frame:FlxSprite;
-var albumSprite:FlxSprite;
 var uniqueVolumeSongs:Array<String> = ['Grace', 'Thonk'];
 // doing it like this frees ram from caching Inst's
 var songLengths:Array<String> = [
@@ -58,19 +59,38 @@ function create()
 	bgOverlay.alpha = 0.1;
 	add(bgOverlay);
 
+	frame = new FlxSprite().loadGraphic(Paths.image('menus/freeplay/frame'));
+	frame.screenCenter(FlxAxes.Y);
+	frame.y -= 60;
+	frame.x = FlxG.width - 470;
+	frame.scale.set(1.05, 1.05);
+	frame.antialiasing = false;
+	add(frame);
+
 	// should probably have a better place for this
 	if(FlxG.save.data.songsBeaten.length >= songs.length)
 		FlxG.save.data.beatenAll = true;
 
 	for(i => song in songs)
 	{
+		var albumSprite:FlxSprite = new FlxSprite(frame.x, frame.y);
+		albumSprite.loadGraphic(Paths.image('menus/freeplay/album/' + song.displayName.toLowerCase()));
+		albumSprite.scale.set(0.4, 0.4);
+		albumSprite.updateHitbox();
+		albumSprite.antialiasing = Options.antialiasing;
+		albumSprite.visible = false;
+		albumSprite.ID = i;
+		albumSprite.setPosition(frame.x - 85.1, frame.y - 85.1);
+		albumSprites.push(albumSprite);
+		add(albumSprite);
+
 		var vhs:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menus/freeplay/vhs"));
 		vhs.updateHitbox();
 		if(song.displayName == 'Thonk') vhs.color = 0xFF4DF8; //Why Are You Pink?
 		vhs.scrollFactor.set();
 		vhs.antialiasing = Options.antialiasing;
-		add(vhs);
 		vhsArray.push(vhs);
+		add(vhs);
 
 		var vhsName:String = '???';
 		if(FlxG.save.data.beatenAll || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
@@ -127,26 +147,6 @@ function create()
 		iconArray.push(icon);
 		add(icon);
 	}
-
-	frame = new FlxSprite().loadGraphic(Paths.image('menus/freeplay/frame'));
-	frame.screenCenter(FlxAxes.Y);
-	frame.y -= 60;
-	frame.x = FlxG.width - 470;
-	frame.scale.set(1.05, 1.05);
-	frame.antialiasing = false;
-	add(frame);
-
-	albumSprite = new FlxSprite(frame.x + 5, frame.x + 5);
-	albumSprite.frames = Paths.getSparrowAtlas("menus/freeplay/Freeplay-Portraits");
-	albumSprite.animation.addByPrefix("Gift", "Gift");
-	albumSprite.animation.addByPrefix("Grace", "Grace");
-	albumSprite.animation.addByPrefix("Scary Night", "Scary Night");
-	albumSprite.animation.addByPrefix("Think", "ThinkFP");
-	albumSprite.animation.addByPrefix("Thonk", "thonk");
-	albumSprite.animation.addByPrefix("Distraught", "Distraught");
-	albumSprite.scale.set(0.4, 0.4);
-	albumSprite.antialiasing = Options.antialiasing;
-	add(albumSprite);
 
 	scoreText = new FunkinText(FlxG.width - 190, FlxG.height - 200, FlxG.width, "", 64);
 	scoreText.setFormat(Paths.font(globalFont), 46, FlxColor.WHITE, 'left');
@@ -284,12 +284,13 @@ function update(elapsed:Float)
 
 function changeAlbum(artTuah:String = 'ph')
 {
-	albumSprite.color = FlxColor.WHITE;
 	frame.color = FlxColor.WHITE;
 	if(artTuah == 'Thonk') frame.color = 0xFF4DF8;
-	albumSprite.animation.play(artTuah);
-	albumSprite.updateHitbox();
-	albumSprite.setPosition(frame.x - 85.1, frame.y - 85.1);
+	for(spr in albumSprites)
+	{
+		if(spr.ID == curSelectedFreeplay) spr.visible = true;
+		else spr.visible = false;
+	}
 }
 
 function changeItem(change:Int = 0)
