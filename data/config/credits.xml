@@ -1,5 +1,4 @@
-<!-- I just wanted the mod credits to be compatible with the CNE credits - DM -->
-<!-- Oh, also someone should probably finish this whole thing lmao - DM again -->
+<!-- TO-DO: Add URLs to everyone (if they have one) -->
 <menu name="Funkdela Reloaded" desc="">
 	<credit
 		name="Mortal"
@@ -24,7 +23,7 @@
 	/>
 	<credit
 		name="MdwzIsHere"
-		icon="what"
+		icon="mdwz"
 		desc="Credits Artist"
 		url=""
 		quote="Hi my name is MDWZ and my balls itch. Good-bye!"
@@ -45,7 +44,7 @@
 	/>
 	<credit
 		name="Circuitella"
-		icon="Circuitella"
+		icon="circ"
 		desc="Main Programmer"
 		url="https://youtube.com/@Circuitela"
 		quote="Your balls are a 'skill issue' "
@@ -59,21 +58,21 @@
 	/>
 	<credit
 		name="Fiffi"
-		icon="Fiffi"
+		icon="fiffi"
 		desc="Programmer"
 		url=""
 		quote="Fiffi was found dead at his laptop, coding this FUCKING mod"
 	/>
 	<credit
 		name="Half"
-		icon="Half"
+		icon="half"
 		desc="Former Programmer"
 		url=""
 		quote="my grandma's house just exploded backwards into a tree bro....."
 	/>
 	<credit
 		name="JayJay"
-		icon="jayjay"
+		icon="jay"
 		desc="Charter"
 		url=""
 		quote="my balls are like a shart, if you cat through a ligma you can see jim carrey"

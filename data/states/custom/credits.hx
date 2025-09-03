@@ -111,20 +111,31 @@ function create()
 	add(special);
 	special.y = special.y + FlxG.height;
 
-	var num:Int = 0;
-	for(credit in teamData)
+	for(num => credit in teamData)
 	{
-		var portrait:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/creds/' + credit[1]));
-		portrait.antialiasing = Options.antialiasing;
-		portrait.scale.set(0.7, 0.7);
+		var path:String = Paths.image('menus/creds/peeps/' + credit[1]);
+		var portrait:FlxSprite = new FlxSprite();
+		if(!Assets.exists(path)) portrait.frames = Paths.getSparrowAtlas('menus/creds/missing');
+		else portrait.frames = Paths.getSparrowAtlas('menus/creds/peeps/' + credit[1]);
+		portrait.animation.addByPrefix("normal", "normal", 12, true);
+		portrait.animation.addByPrefix("alternate", "alternate", 12, true);
+		portrait.antialiasing = false; //Options.antialiasing; //unsure if it should be on or off with these portraits
 		portrait.updateHitbox();
 		portrait.screenCenter();
-		portrait.x = portrait.x + FlxG.width * num;
-		portrait.y = portrait.y - 85;
+		portrait.x += (FlxG.width / 2) * num;
+		portrait.y -= 85;
 		portrait.ID = num;
-		portrait.antialiasing = Options.antialiasing;
+		if(num != curSelected)
+		{
+			portrait.alpha = 0.6;
+			portrait.animation.play("alternate", true);
+		}
+		else
+		{
+			portrait.scale.set(1.4, 1.4);
+			portrait.animation.play("normal", true);
+		}
 		grpMenuItems.add(portrait);
-		num = num + 1;
 	}
 
 	grpArrows = new FlxTypedGroup();
@@ -240,10 +251,22 @@ function changeSelection(change:Int, playSound:Bool)
 	grpMenuItems.forEach(function(spr:FlxSprite)
 	{
 		FlxTween.cancelTweensOf(spr);
-		FlxTween.tween(spr, {x: spr.x - (FlxG.width * change)}, 0.2, {
-			ease: FlxEase.expoOut,
-			onComplete: (_) -> allowInputs = true
-		});
+		if(spr.ID == curSelected)
+		{
+			FlxTween.tween(spr, {x: spr.x - ((FlxG.width / 2) * change), "scale.x": 1.4, "scale.y": 1.4, alpha: 1}, 0.2, {
+				ease: FlxEase.expoOut,
+				onComplete: (_) -> allowInputs = true
+			});
+			spr.animation.play("normal", true);
+		}
+		else
+		{
+			FlxTween.tween(spr, {x: spr.x - ((FlxG.width / 2) * change), "scale.x": 1, "scale.y": 1, alpha: 0.6}, 0.2, {
+				ease: FlxEase.expoOut,
+				onComplete: (_) -> allowInputs = true
+			});
+			spr.animation.play("alternate", true);
+		}
 	});
 }
 
@@ -274,6 +297,7 @@ function confirmSelection()
 
 	allowInputs = false;
 	CoolUtil.playMenuSFX(1, 0.7);
+
 	CoolUtil.openURL(teamData[curSelected][4]);
 	new FlxTimer().start(0.2, (_) -> allowInputs = true);
 }
