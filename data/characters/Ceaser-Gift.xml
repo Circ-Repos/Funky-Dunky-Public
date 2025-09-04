@@ -1,5 +1,5 @@
 <!DOCTYPE codename-engine-character>
-<character x="-400" y="-300" icon="lil-ceasers" sprite="Cesar" color="#1F1F1F">
+<character x="-400" y="-300" icon="Ceaser-Gift" sprite="Cesar" color="#1F1F1F">
 	<anim name="idle" anim="CesarIdle"/>
 	<anim name="singDOWN" anim="CesarDown" x="15" y="-10"/>
 	<anim name="singRIGHT" anim="CesarRight" x="30" y="30"/>

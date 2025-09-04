@@ -106,7 +106,8 @@ function create(){
 		nameTexts.push(nameText);
 		add(nameText);
 	}
-	trace(FlxG.save.data.songsBeaten);
+
+	if(FlxG.save.data.DevModeTracing) trace(FlxG.save.data.songsBeaten);
 
 	chooseLabel = new FunkinText(760,5,0,"CHOOSE YOUR DEMISE",44); //YOUR DEMISE? LIKE THE DDTO SONG? 
 	chooseLabel.font = timesNew;

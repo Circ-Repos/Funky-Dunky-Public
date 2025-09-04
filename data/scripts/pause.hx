@@ -1,11 +1,10 @@
-import flixel.addons.display.FlxBackdrop; // i'll be so fr, idk how imports work in CNE, lmao
+import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxTextAlign;
 import openfl.filters.BlurFilter;
 import funkin.backend.system.framerate.Framerate;
+import StringTools;
 
-import StringTools; // <- The reason I don't like CNE
-//^ skill issue -Circ
 var grpMenuItems:FlxTypedGroup<FlxText>;
 var menuItems:Array<String> = ['resume', 'restart song', 'change controls', 'change options', 'botplay', 'exit to menu'];
 var camPause:FlxCamera;
@@ -76,7 +75,7 @@ function create(event)
 	bg.antialiasing = false;
 	bg.alpha = 0.2;
 	bg.scrollFactor.set(0, 0);
-	bg.scale.set(FlxG.width, FlxG.height);
+	bg.scale.set(FlxG.width + 10, FlxG.height + 10);
 	bg.updateHitbox();
 	bg.screenCenter();
 	add(bg);
@@ -124,9 +123,12 @@ function create(event)
 			songArt.x -= 5;
 		case 'gift':
 			songArt.setPosition(songArt.x + 44, songArt.y + 43);
-			lineLeft.x += 88;
+			lineLeft.scale.y = 0.87;
+			lineLeft.setPosition(lineLeft.x + 88, lineLeft.y + 23);
+			lineRight.scale.y = 0.87;
+			lineRight.y += 23;
 			lineTop.scale.x = 0.78;
-			lineTop.x += 46;
+			lineTop.setPosition(lineTop.x + 46, lineTop.y + 46);
 	}
 
 	pauseText = new FlxText(80, 86, 0, 'PAUSED', 80);

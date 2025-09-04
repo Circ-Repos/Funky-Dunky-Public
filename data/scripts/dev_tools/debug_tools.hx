@@ -17,7 +17,7 @@ var playbackRate:Float = 1;
 var initialPlaybackRate:Float = 1;
 
 //camera dedicated for any debug info
-var camOther:FlxCamera;
+var camDebug:FlxCamera;
 var instructions:FlxText;
 
 function onSubstateClose() if(paused) setPlaybackRate(initialPlaybackRate);
@@ -28,15 +28,15 @@ function postCreate()
 	if(Charter.playtestInfo != null) initialPlaybackRate = Charter.playtestInfo.playbackSpeed;
 	setPlaybackRate(initialPlaybackRate);
 
-	camOther = new FlxCamera();
-	camOther.bgColor = 0x00000000;
-	FlxG.cameras.add(camOther, false);
+	camDebug = new FlxCamera();
+	camDebug.bgColor = 0x00000000;
+	FlxG.cameras.add(camDebug, false);
 
 	var instructTxt:String = "Buttons to Press\n\n  4: Toggle Botplay\n  5: Charting Menu\n  I: Toggle Debug Info\n  |: Toggle camGame Camera Movement\n  Arrow Keys: Move camGame Camera\n  Y: Fast Forward (While held down)\n(Will be adding more as time goes on)";
 	instructions = new FlxText(20, 80, FlxG.width, instructTxt, 32);
 	instructions.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, "left", FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	instructions.borderSize = 1.25;
-	instructions.camera = camOther;
+	instructions.camera = camDebug;
 	add(instructions);
 	new FlxTimer().start(5, () -> FlxTween.tween(instructions, {alpha: 0}, 3));
 	//trace(SystemInfo.__formattedSysText);
@@ -44,14 +44,14 @@ function postCreate()
 	systemInfoText = new FlxText(0, 0, FlxG.width, '' + SystemInfo.__formattedSysText, 32);
 	systemInfoText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, "right", FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	systemInfoText.borderSize = 1.25;
-	systemInfoText.camera = camOther;
+	systemInfoText.camera = camDebug;
 	systemInfoText.alpha = 0;
 	add(systemInfoText);
 
 	camCoords = new FlxText(0, systemInfoText.y + 60, FlxG.width, 'camFollow.X: ' + camFollow.x + "\ncamFollow.y: " + camFollow.y, 32);
 	camCoords.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, "right", FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	camCoords.borderSize = 1.25;
-	camCoords.camera = camOther;
+	camCoords.camera = camDebug;
 	camCoords.alpha = 0;
 	add(camCoords);
 }
@@ -151,11 +151,11 @@ function setPlaybackRate(rate:Float)
 
 function destroy()
 {
-	if(camOther != null)
+	if(camDebug != null)
 	{
-		if(FlxG.cameras.list.contains(camOther))
-			FlxG.cameras.remove(camOther);
-		camOther.destroy();
+		if(FlxG.cameras.list.contains(camDebug))
+			FlxG.cameras.remove(camDebug);
+		camDebug.destroy();
 	}
 	setPlaybackRate(1);
 }

@@ -17,7 +17,6 @@ var gfX:Float = -80;
 var gfY:Float = 22;
 var gfZoom:Float = 0.4;
 
-var camOther = new FlxCamera();
 //Dreaming Shader
 var itime:Float = 0;
 var heatShader:CustomShader;
@@ -34,29 +33,26 @@ function bgv(alp1:Float = 1, alp2:Float = 1){
 	strumLines.members[1].characters[1].alpha = alp2;
 }
 function postCreate(){
+	vig = new FlxSprite().loadGraphic(Paths.image('vig-rect'));
+	vig.cameras = [camOther];
+	vig.antialiasing = true; // no antialiasing on vignettes look gross...
+	vig.screenCenter();
+    add(vig);
+
 	defaultCamZoom = dadZoom;
 	camZooming = false;
-	FlxG.cameras.add(camOther, false);
-    camOther.bgColor = 0;
-    camOther.alpha = 1;
 	heatShader = new CustomShader("heatShader");
 	dgv(1,0);
 	bgv(1,0);
 }
 function lookLeft(){
     //FlxTween.tween(FlxG.camera.scroll, {x: 500},0.7, {ease: FlxEase.sineInOut});
-	FlxTween.tween(camFollow, {x: dadX,y: dadY},3.3, {ease: FlxEase.sineInOut});
-	FlxTween.tween(camGame, {zoom: 0.8},3.3, {ease: FlxEase.sineInOut});
+	FlxTween.tween(camFollow, {x: dadX,y: dadY}, 3.3, {ease: FlxEase.sineInOut});
+	FlxTween.tween(camGame, {zoom: 0.8}, 3.3, {ease: FlxEase.sineInOut});
 
 }
 function create(){
 	PlayState.instance.introLength = 0.1;
-	vig = new FlxSprite();
-    vig.loadGraphic(Paths.image('vig'));
-	vig.cameras = [camOther];
-    add(vig);
-	remove(vig, true);
-	insert(0, vig);
 }
 function onSongStart(){
 	startZoom();
@@ -148,14 +144,4 @@ function dreamEnd(){
 	wallD.alpha = 0;
 	stairs.alpha = 1;
 	stairsD.alpha = 0;
-}
-
-function destroy()
-{
-	if(camOther != null)
-	{
-		if(FlxG.cameras.list.contains(camOther))
-			FlxG.cameras.remove(camOther);
-		camOther.destroy();
-	}
 }

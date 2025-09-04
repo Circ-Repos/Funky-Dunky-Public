@@ -48,7 +48,7 @@ function onSongStart(){
     var wJumpscare = FlxG.random.bool(3 / 300);
     if(wJumpscare)
     {
-	    trace('Something wicked this way comes.');
+	    if(FlxG.save.data.DevModeTracing) trace('Something wicked this way comes.');
         FlxG.sound.music.volume = 0;
         FlxG.sound.play(Paths.sound('w'));
 

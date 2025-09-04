@@ -3,6 +3,7 @@ import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxTextAlign;
 import flixel.text.FlxTextBorderStyle;
+import flixel.tweens.FlxTweenType;
 import haxe.xml.Access;
 import haxe.xml.Parser;
 import Xml;
@@ -105,6 +106,7 @@ function create()
 
 	special = new FlxSprite().loadGraphic(Paths.image('menus/creds/special-thanks'));
 	special.antialiasing = Options.antialiasing;
+	special.scrollFactor.set(0, 1);
 	special.scale.set(0.5, 0.5);
 	special.updateHitbox();
 	special.screenCenter();
@@ -152,7 +154,7 @@ function create()
 		arrow.scrollFactor.set(0, 0);
 		if(i == 2 || i == 3)
 		{
-			arrow.y = arrow.y + 10;
+			arrow.y += 10;
 			arrow.screenCenter(FlxAxes.X);
 			if(i == 3)
 			{
@@ -162,7 +164,7 @@ function create()
 		}
 		else
 		{
-			arrow.x = arrow.x + 10;
+			arrow.x += 10;
 			arrow.screenCenter(FlxAxes.Y);
 			if(i == 1)
 			{
@@ -239,6 +241,29 @@ function changeSelection(change:Int, playSound:Bool)
 	grpArrows.members[0].alpha = curSelected == 0 ? 0.5 : 1;
 	grpArrows.members[1].alpha = curSelected == teamData.length - 1 ? 0.5 : 1;
 
+	// there's probably a way to optimize this better... but i'm lazy rn :]
+	for(i in 0...2)
+	{
+		FlxTween.cancelTweensOf(grpArrows.members[i]);
+		grpArrows.members[i].x = i == 0 ? 10 : FlxG.width - grpArrows.members[i].width - 10;
+	}
+
+	if(curSelected != 0)
+	{
+		FlxTween.tween(grpArrows.members[0], {x: grpArrows.members[0].x - 20}, 1, {
+			type: FlxTweenType.PINGPONG,
+			ease: FlxEase.quadInOut
+		});
+	}
+
+	if(curSelected != teamData.length - 1)
+	{
+		FlxTween.tween(grpArrows.members[1], {x: grpArrows.members[1].x + 20}, 1, {
+			type: FlxTweenType.PINGPONG,
+			ease: FlxEase.quadInOut
+		});
+	}
+
 	txtName.text = teamData[curSelected][0].toUpperCase();
 	txtRole.text = teamData[curSelected][2].toUpperCase();
 	txtDesc.text = '"' + teamData[curSelected][3] + '"';
@@ -275,18 +300,48 @@ function changeRow(change:Int, playSound:Bool)
 	var lastRow:Int = curRow;
 	curRow = FlxMath.bound(curRow + change, 0, 1);
 
-	if(curRow == 1) for(i in 0...2) grpArrows.members[i].alpha = 0.5;
+	if(curRow == 1)
+	{
+		for(i in 0...2)
+		{
+			grpArrows.members[i].alpha = 0.5;
+			FlxTween.cancelTweensOf(grpArrows.members[i]);
+			grpArrows.members[i].x = i == 0 ? 10 : FlxG.width - grpArrows.members[i].width - 10;
+		}
+	}
 	else changeSelection(0, false);
 
 	grpArrows.members[2].alpha = curRow == 0 ? 0.5 : 1;
 	grpArrows.members[3].alpha = curRow == 0 ? 1 : 0.5;
+
+	for(i in 2...4)
+	{
+		FlxTween.cancelTweensOf(grpArrows.members[i]);
+		grpArrows.members[i].y = i == 2 ? 10 : FlxG.height - grpArrows.members[i].height - 10;
+	}
+
+	if(curRow != 0)
+	{
+		FlxTween.tween(grpArrows.members[2], {y: grpArrows.members[2].y - 20}, 1, {
+			type: FlxTweenType.PINGPONG,
+			ease: FlxEase.quadInOut
+		});
+	}
+
+	if(curRow != 1)
+	{
+		FlxTween.tween(grpArrows.members[3], {y: grpArrows.members[3].y + 20}, 1, {
+			type: FlxTweenType.PINGPONG,
+			ease: FlxEase.quadInOut
+		});
+	}
 
 	if(lastRow == curRow) return;
 
 	allowInputs = false;
 	if(playSound) CoolUtil.playMenuSFX(0, 0.7);
 
-	camFollow.y = camFollow.y + (FlxG.height * change);
+	camFollow.y += (FlxG.height * change);
 	new FlxTimer().start(0.4, (_) -> allowInputs = true);
 }
 

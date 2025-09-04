@@ -23,7 +23,6 @@ var bfY:Float = 900;
 var gfX:Float = 1500;
 var gfY:Float = 750;
 
-var camOther = new FlxCamera();
 var vig:FlxSprite;
 var iconP3:HealthIcon;
 var treetime:Bool = false;
@@ -46,9 +45,7 @@ function cutsceneAlpha(camAlph, camHUDAlph){
 var alternateString1:String = 'dont do it.';
 var alternateString2:String = 'theres not enough room for the two of us.';
 function postCreate(){
-	camOther.bgColor = 0;
-    camOther.alpha = 1;
-
+	FlxG.cameras.remove(camOther, false);
 	FlxG.cameras.remove(camHUD, false);
     FlxG.cameras.add(camOther, false);
 	FlxG.cameras.add(camHUD, false);
@@ -99,9 +96,10 @@ function postCreate(){
 	strumLines.members[0].characters[1].x -= 60;
 	strumLines.members[0].characters[1].y += 100;
 
-	vig = new FlxSprite();
-    vig.loadGraphic(Paths.image('vig'));
+	vig = new FlxSprite().loadGraphic(Paths.image('vig-rect'));
 	vig.cameras = [camOther];
+	vig.antialiasing = true; // no antialiasing on vignettes look gross...
+	vig.screenCenter();
     add(vig);
 	add(vig); //add twice cause yes
 
@@ -228,14 +226,5 @@ function stepHit(e){
 		case 2111:
 			FlxTween.tween(camHUD, {alpha: 0},10, {ease: FlxEase.linear});
 
-	}
-}
-function destroy()
-{
-	if(camOther != null)
-	{
-		if(FlxG.cameras.list.contains(camOther))
-			FlxG.cameras.remove(camOther);
-		camOther.destroy();
 	}
 }

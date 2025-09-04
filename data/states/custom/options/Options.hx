@@ -1,8 +1,9 @@
 import flixel.text.FlxTextBorderStyle;
+import funkin.backend.system.framerate.Framerate;
+import funkin.backend.system.Flags;
 import Type;
 import Date;
 import DateTools;
-import funkin.backend.system.framerate.Framerate;
 
 var optionNum:Int = 0;
 var optionsMaxNum:Int = 3;
@@ -20,7 +21,7 @@ function create()
 
 	if(FlxG.sound.music == null)
     {
-        if(lastState == PlayState) CoolUtil.playMusic(Paths.music("untitled"), false, 1, true);
+        if(lastState == PlayState) CoolUtil.playMusic(Paths.music(Flags.DEFAULT_PAUSE_MENU_MUSIC), false, 1, true);
         else CoolUtil.playMenuSong(false);
     }
 

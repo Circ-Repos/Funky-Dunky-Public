@@ -3,6 +3,15 @@ public var intendedScore:Int = 0;
 var displayedAccuracy:Float = 0;
 public var treetime:Bool = false;
 var songName:String = PlayState.SONG.meta.name.toLowerCase();
+public static var camOther:FlxCamera = null;
+
+function postCreate()
+{
+	camOther = new FlxCamera();
+	camOther.bgColor = 0;
+    camOther.alpha = 1;
+    FlxG.cameras.add(camOther, false);
+}
 
 function onSongEnd()
 {
@@ -43,5 +52,15 @@ function postUpdate(elapsed)
 		scoreTxt.text = 'Score: 333333';
 		missesTxt.text = 'Misses: 3333';
 		accuracyTxt.text = 'Accuracy: 33.33%';
+	}
+}
+
+function destroy()
+{
+	if(camOther != null)
+	{
+		if(FlxG.cameras.list.contains(camOther))
+			FlxG.cameras.remove(camOther);
+		camOther.destroy();
 	}
 }

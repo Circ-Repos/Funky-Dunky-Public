@@ -49,6 +49,7 @@ function camHUDTween(opac:Float, time:Float){
 }
 function onCameraMove(e) {
 	e.cancel();
+	e.position.set(650, 400);
 }
 function onSongStart(){
 	FlxTween.tween(camGame, {zoom: 0.5}, 6.35, {ease: FlxEase.sineInOut});
@@ -58,8 +59,4 @@ function onSongStart(){
 
 function dadAlpha(alp:Float, tim:Float){
 	FlxTween.tween(dad, {alpha: alp}, tim, {ease: FlxEase.sineInOut});
-}
-function onCameraMove(e){
-		e.position.set(650, 400);
-
 }
