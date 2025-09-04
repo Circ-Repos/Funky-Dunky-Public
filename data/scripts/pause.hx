@@ -38,7 +38,6 @@ function create(event)
 	sigmaBlur.quality = 2;
 
 	// using FlxG.cameras.list lags the game for some reason
-	var game = PlayState.instance;
 	var cams:Array<FlxCamera> = [FlxG.camera, game.camHUD];
 
 	switch(songName)
@@ -200,6 +199,12 @@ function create(event)
 
 function update(elapsed)
 {
+	if(pauseMusic != null && pauseMusic.volume < 0.7)
+	{
+		pauseMusic.volume += 0.05 * elapsed;
+		//trace('curr volume: ' + pauseMusic.volume);
+	}
+
 	if(!allowInputs) return;
 
 	if(controls.DOWN_P) changeSelection(1);
@@ -208,14 +213,14 @@ function update(elapsed)
 	if(controls.BACK)
 	{
 		curSelected = 0;
-		CoolUtil.playMenuSFX(2, 0.7);
+		CoolUtil.playMenuSFX(2, 0.4);
 		confirmSelection(false);
 	}
 }
 
 function changeSelection(change:Int)
 {
-	if(change != 0) CoolUtil.playMenuSFX(0, 0.7);
+	if(change != 0) CoolUtil.playMenuSFX(0, 0.4);
 	curSelected = FlxMath.wrap(curSelected + change, 0, menuItems.length - 1);
 
 	grpMenuItems.forEach(function(txt:FlxText)
@@ -234,7 +239,7 @@ function changeSelection(change:Int)
 function confirmSelection(playSound:Bool)
 {
 	allowInputs = false;
-	if(playSound) CoolUtil.playMenuSFX(1, 0.7);
+	if(playSound) CoolUtil.playMenuSFX(1, 0.4);
 
 	lastState = PlayState;
 	switch(menuItems[curSelected])
