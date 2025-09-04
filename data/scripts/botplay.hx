@@ -20,7 +20,7 @@ function postCreate()
 	botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	botplayTxt.visible = false;
 	botplayTxt.borderSize = 1.25;
-	botplayTxt.camera = camHUD;
+	botplayTxt.camera = camOther;
 	add(botplayTxt);
 }
 

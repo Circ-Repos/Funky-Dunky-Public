@@ -48,7 +48,6 @@ function camHUDTween(opac:Float, time:Float){
 	FlxTween.tween(camHUD, {alpha: opac},time, {ease: FlxEase.sineInOut});
 }
 function onCameraMove(e) {
-	e.cancel();
 	e.position.set(650, 400);
 }
 function onSongStart(){
