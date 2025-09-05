@@ -9,14 +9,8 @@ function postCreate()
 {
 	camOther = new FlxCamera();
 	camOther.bgColor = 0;
-    camOther.alpha = 1;
-    FlxG.cameras.add(camOther, false);
-}
-
-function onSongEnd()
-{
-	if(FlxG.save.data.DevModeTracing) trace("Song Beaten: " + PlayState.SONG.meta.displayName);
-	FlxG.save.data.songsBeaten.push(PlayState.SONG.meta.displayName);
+	camOther.alpha = 1;
+	FlxG.cameras.add(camOther, false);
 }
 
 function stepHit(curStep:Int)

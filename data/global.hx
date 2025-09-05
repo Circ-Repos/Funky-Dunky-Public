@@ -62,4 +62,4 @@ FlxG.save.data.fpsWatermark ??= true;
 FlxG.save.data.showFPS ??= true;
 FlxG.save.data.songsBeaten ??= [];
 FlxG.save.data.weeksBeaten ??= [];
-FlxG.save.data.beatenAll ??= false;
+FlxG.save.data.allSongsBeaten ??= false;

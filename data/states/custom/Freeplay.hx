@@ -69,12 +69,16 @@ function create()
 
 	// should probably have a better place for this
 	if(FlxG.save.data.songsBeaten.length >= songs.length)
-		FlxG.save.data.beatenAll = true;
+		FlxG.save.data.allSongsBeaten = true;
+	else
+		FlxG.save.data.allSongsBeaten = false;
 
 	for(i => song in songs)
 	{
+		var path:String = Paths.image('menus/freeplay/album/' + song.name.toLowerCase());
 		var albumSprite:FlxSprite = new FlxSprite(frame.x, frame.y);
-		albumSprite.loadGraphic(Paths.image('menus/freeplay/album/' + song.displayName.toLowerCase()));
+		if(!Assets.exists(path)) albumSprite.loadGraphic(Paths.image('menus/freeplay/missing'));
+		else albumSprite.loadGraphic(Paths.image('menus/freeplay/album/' + song.name.toLowerCase()));
 		albumSprite.scale.set(0.4, 0.4);
 		albumSprite.updateHitbox();
 		albumSprite.antialiasing = Options.antialiasing;
@@ -86,14 +90,14 @@ function create()
 
 		var vhs:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menus/freeplay/vhs"));
 		vhs.updateHitbox();
-		if(song.displayName == 'Thonk') vhs.color = 0xFF4DF8; //Why Are You Pink?
+		if(song.name == 'thonk') vhs.color = 0xFF4DF8; //Why Are You Pink?
 		vhs.scrollFactor.set();
 		vhs.antialiasing = Options.antialiasing;
 		vhsArray.push(vhs);
 		add(vhs);
 
 		var vhsName:String = '???';
-		if(FlxG.save.data.beatenAll || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
+		if(FlxG.save.data.allSongsBeaten || FlxG.save.data.songsBeaten.contains(song.name.toLowerCase()) || song.name.toLowerCase() == 'thonk')
 		{
 			switch(song.icon.toUpperCase())
 			{
@@ -115,7 +119,7 @@ function create()
 		add(nameText);
 
 		var songName:String = '"???"';
-		if(FlxG.save.data.beatenAll || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
+		if(FlxG.save.data.allSongsBeaten || FlxG.save.data.songsBeaten.contains(song.name.toLowerCase()) || song.name.toLowerCase() == 'thonk')
 			songName = '"' + song.displayName.toUpperCase() + '"';
 
 		var songText:FunkinText = new FunkinText(0, 0, FlxG.width, songName, 12);
@@ -131,13 +135,13 @@ function create()
 		iconBg.animation.addByPrefix('idle', 'idle', 24, true);
 		iconBg.animation.play('idle');
 		iconBg.scrollFactor.set();
-		if(song.displayName == 'Thonk') iconBg.color = 0xFF4DF8;
+		if(song.name == 'thonk') iconBg.color = 0xFF4DF8;
 		iconBg.antialiasing = Options.antialiasing;
 		iconBgArray.push(iconBg);
 		add(iconBg);
 
 		var iconName:String = 'locked';
-		if(FlxG.save.data.beatenAll || FlxG.save.data.songsBeaten.contains(song.displayName) || song.displayName == 'Thonk')
+		if(FlxG.save.data.allSongsBeaten || FlxG.save.data.songsBeaten.contains(song.name.toLowerCase()) || song.name.toLowerCase() == 'thonk')
 			iconName = song.icon;
 
 		var icon:HealthIcon = new HealthIcon(iconName != null ? song.icon : Flags.DEFAULT_HEALTH_ICON, true);
@@ -300,7 +304,7 @@ function changeItem(change:Int = 0)
 	if(change != 0) CoolUtil.playMenuSFX(0, 0.7);
 	curSelectedFreeplay = FlxMath.wrap(curSelectedFreeplay + change, 0, songs.length - 1);
 
-	changeAlbum(songs[curSelectedFreeplay].displayName);
+	changeAlbum(songs[curSelectedFreeplay].name);
 	repositionItems();
 
 	if(songs[curSelectedFreeplay].quote != null)
@@ -323,12 +327,14 @@ function changeItem(change:Int = 0)
 	var scrollBarYTarg:Float = 91.5 * curSelectedFreeplay + 1 + 60;
 	FlxTween.tween(scrollBar, {y: scrollBarYTarg}, 0.21, {ease: FlxEase.quadOut});
 
-	if(uniqueVolumeSongs.indexOf(songs[curSelectedFreeplay].displayName) != -1){
-		switch(songs[curSelectedFreeplay].displayName){
-			case 'Grace':
+	if(uniqueVolumeSongs.indexOf(songs[curSelectedFreeplay].name) != -1)
+	{
+		switch(songs[curSelectedFreeplay].name)
+		{
+			case 'grace':
 				volumeRectangle.scale.x = 1.4;
 				volumeText.text = "Overthrone";
-			case 'Thonk':
+			case 'thonk':
 				volumeRectangle.scale.x = 1;
 				volumeText.text = "Scrimblo";
 		}
