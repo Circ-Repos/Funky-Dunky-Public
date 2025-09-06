@@ -82,6 +82,7 @@ function postUpdate(elapsed:Float) {
 	}
 }
 
+
 var angleShit:Array = [10, -15, 5, -10];
 
 function stepHit(){
@@ -92,7 +93,11 @@ function stepHit(){
 		case 400: 
 			allowGlitch = false;
 			for(i in 0...4) playerStrums.members[i].setPosition(notePlacementX[i], 50);
-		
+		case 1838:
+			PlayState.instance.player.cpu = true;
+		case 1910:
+			PlayState.instance.player.cpu = false;
+			FlxTween.tween(FlxG.camera, {alpha: 0}, 3.5, {ease: FlxEase.linear});
 		case 1880:
 			for(i in 0...4){
 				for(strums in strumLines.members){
@@ -108,14 +113,12 @@ function stepHit(){
 				FlxTween.tween(i, {y: 1280}, 2, {ease: FlxEase.expoIn, startDelay: 1 * (0 * 0.33)});
 				FlxTween.tween(i, {angle: -10}, 2, {ease: FlxEase.cubeIn, startDelay: 1 * (0 * 0.33)});
 			}
-			
-			
-
 	}
 }
 
 
 //onNotehit if dad.curName != Gab-True or someth health -= 0.02 bc .2 is amount added by default
+//nvm diff thing
 function onNoteHit(event){
     if(event.characters[0].alpha == 0 && health > 0.03){
         health -= 0.02;

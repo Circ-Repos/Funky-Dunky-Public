@@ -7,8 +7,8 @@
 		"normal"
 	],
 	"coopAllowed": false,
-	"stepsPerBeat": 4,
 	"quote": "Can't you see? I deceived them.",
+	"stepsPerBeat": 4,
 	"displayName": "Grace",
 	"beatsPerMeasure": 4,
 	"needsVoices": false,

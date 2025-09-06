@@ -1,8 +1,8 @@
 <!DOCTYPE codename-engine-character>
 <character sprite="SIX" icon="SIX_DT_Icons" color="#241A39" gameOverChar="da">
-	<anim name="idle" anim="IntruderIdle0" x="0" y="0" fps="24" loop="false"/>
-	<anim name="singDOWN" anim="IntruderDown0" x="16" y="-19" fps="24" loop="false"/>
-	<anim name="singLEFT" anim="IntruderLeft0" x="102" y="-1" fps="24" loop="false"/>
-	<anim name="singRIGHT" anim="IntruderRight0" x="100" y="52" fps="24" loop="false"/>
-	<anim name="singUP" anim="IntruderUp0" x="1" y="26" fps="24" loop="false"/>
+	<anim name="idle" anim="IntruderIdle0" indices="0..31,35..41"/>
+	<anim name="singDOWN" anim="IntruderDown0" x="16" y="-19"/>
+	<anim name="singLEFT" anim="IntruderLeft0" x="102" y="-1"/>
+	<anim name="singRIGHT" anim="IntruderRight0" x="100" y="52"/>
+	<anim name="singUP" anim="IntruderUp0" x="1" y="26"/>
 </character>

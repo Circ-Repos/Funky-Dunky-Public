@@ -31,7 +31,7 @@ var uniqueVolumeSongs:Array<String> = ['Grace', 'Thonk'];
 var songLengths:Array<String> = [
 	'04:30', //Grace
 	'03:15', //Distraught
-	'04:40', //Scary Night
+	'04:33', //Scary Night
 	'02:35', //Think
 	'03:15', //Gift
 	'02:40'  //Thonk
@@ -310,8 +310,9 @@ function changeItem(change:Int = 0)
 	if(songs[curSelectedFreeplay].quote != null)
 		quoteText.text = '"' + songs[curSelectedFreeplay].quote + '"';
 	else
-		quoteText.text = '"' + "I'll Make you feel M@GICAL" + '"';
-
+		//rip it just uses this when a song is locked
+		//quoteText.text = '"' + "I'll Make you feel M@GICAL" + '"';
+		quoteText.text = '"' + "?????????????????????" + '"';
 	var saveData:SongHighscore = FunkinSave.getSongHighscore(songs[curSelectedFreeplay].name, 'normal');
 
 	var score = (saveData != null) ? saveData.score : 0;

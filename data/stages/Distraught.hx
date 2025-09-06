@@ -7,8 +7,15 @@ var tV:FlxSprite;
 var tvwhite:FlxSprite;
 
 function onCountdown(event) event.cancel();
-
-function postCreate(){
+function stepHit(curStep:Int) {
+	switch(curStep){
+		case 2112:
+			FlxTween.tween(FlxG.camera, {alpha: 0},2.5, {ease: FlxEase.sineInOut});
+			FlxTween.tween(camHUD, {alpha: 0},2.5, {ease: FlxEase.sineInOut});
+	
+	}
+}
+function postCreate(){ 
 	remove(dad, true);
 
 	tvwhite = new FlxSprite();
@@ -30,6 +37,7 @@ function postCreate(){
 	insert(2, dad);
 	dad.camera = camGame;
 	dad.screenCenter();
+	dad.x += 25;
 	iconP1.setIcon('LYNN_ICONS');
 	healthBar.createFilledBar(0xFF241A39, 0xFFF6D9FF);
 	healthBar.percent = 49; //forces a update

@@ -23,7 +23,14 @@ var heatShader:CustomShader;
 var dreaming:Bool = false;
 var shaderIntensity:Float = 0.5;
 var vig:FlxSprite;
-
+function stepHit(){
+	switch(curStep){
+		case 1780:
+			FlxTween.tween(FlxG.camera, {alpha: 0},2.5, {ease: FlxEase.sineInOut});
+			FlxTween.tween(camHUD, {alpha: 0},2.5, {ease: FlxEase.sineInOut});
+		
+		}
+}
 function dgv(alp1:Float = 1, alp2:Float = 1){
 	strumLines.members[0].characters[0].alpha = alp1;
 	strumLines.members[0].characters[1].alpha = alp2;

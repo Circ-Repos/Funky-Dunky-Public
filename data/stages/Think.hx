@@ -58,7 +58,8 @@ function create()
 	blackOverlayForFlicker = new FlxSprite();
     blackOverlayForFlicker.loadGraphic(Paths.image('stages/think/BlackOverlay'));
 	blackOverlayForFlicker.camera = camThinkB;
-	blackOverlayForFlicker.visible = false;
+	blackOverlayForFlicker.visible = true;
+
 }
 
 function postCreate()
@@ -142,28 +143,12 @@ function onCountdown(event) event.cancel();
 
 function flickerCam()
 {
-	FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
+	if(Options.flashingMenu) FlxFlicker.flicker(blackOverlayForFlicker, 0.7, 0.07, false);
 }
 function flickerCam2()
 {
-	FlxFlicker.flicker(blackOverlayForFlicker, 0.5, 0.03, false);
+	if(Options.flashingMenu) FlxFlicker.flicker(blackOverlayForFlicker, 0.5, 0.03, false);
 }
-
-/*function generateSubs(text1:String, text2:String) //timer is stupid >:( It No Work
-{
-    if(text1 != '') textBlob1.visible = true;
-    if(text2 != '') textBlob2.visible = true;
-	if(text1 == '') textBlob1.visible = false;
-	if(text2 == '') textBlob2.visible = false;
-	if(text1 != '') textBlob1.text = text1;
-	if(text2 != '') textBlob2.text = text2;
-	textBlob1.updateHitbox();
-	textBlob2.updateHitbox();
-    textBlob1.y = FlxG.height - textBlob1.height;
-    textBlob2.y = FlxG.height - 300;
-	textBlob2.screenCenter(FlxAxes.X);
-	textBlob1.screenCenter(FlxAxes.X);
-}*/
 
 function tweenText1()
 {
@@ -196,6 +181,13 @@ function arrowOpacity(opac:Float, time:Float)
 
 function onSongStart()
 {
+		FlxTween.tween(blackOverlayForFlicker, {alpha: 0}, 4, {
+	ease: FlxEase.linear,
+	onComplete: function(tween:FlxTween) {
+		blackOverlayForFlicker.visible = false;
+		blackOverlayForFlicker.alpha = 1;
+	}
+	});
 	if(!downscroll) 	comboGroup.y += 300;
 	if(downscroll) 	comboGroup.y = 300;
 	iconP1.x += 30;
@@ -209,9 +201,16 @@ var defaultScale = 0.7;
 function beatHit(){
 	iconP2.scale.set(0.9,0.9);
 }
-
+function stepHit(curStep){
+	if(curStep == 790){
+		blackOverlayForFlicker.alpha = 0;
+		blackOverlayForFlicker.visible = true;
+		FlxTween.tween(blackOverlayForFlicker, {alpha: 1}, 4, {	ease: FlxEase.linear});
+	}
+}
 function postUpdate(elapsed:Float)
 {
+	PlayState.instance.camZooming = false;
 	if(hideArrows){
 		for (i in playerStrums.members) {
 			i.alpha = 0;
