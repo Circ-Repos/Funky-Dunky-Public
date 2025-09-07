@@ -1,6 +1,7 @@
 import flixel.text.FlxTextBorderStyle;
 import funkin.backend.system.framerate.Framerate;
 import funkin.backend.system.Flags;
+import funkin.menus.WarningState;
 import Type;
 import Date;
 import DateTools;
@@ -25,7 +26,6 @@ function create()
         else CoolUtil.playMenuSong(false);
     }
 
-    FlxG.save.data.DevMode = true; //just for now
     if(FlxG.save.data.DevMode) optionsMaxNum = 4;
     bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF6617B5);
     insert(0, bg);
@@ -72,8 +72,6 @@ function create()
     insert(202, resetTxtB);
 
     changeItem(0);
-
-    //
 }
 
 var allowControl:Bool = true;
@@ -95,9 +93,18 @@ function update(elapsed){
     } else {
         if(allowSecondControl){
             if(controls.ACCEPT){
+                if(resetTxtB.alpha == 1 && allowSecondControl){
+                    FlxG.save.data.songsBeaten = [];
+                    FlxG.save.data.weeksBeaten = [];
+                    FlxG.save.data.allSongsBeaten = false;
+                    FlxG.save.data.seenWarning = false;
+                    resetWindow.alpha = resetTxtA.alpha = resetTxtB.alpha = 0;
+                    FlxG.sound.music.stop();
+                    FlxG.switchState(new WarningState());
+	                if(FlxG.save.data.DevModeTracing) trace('Bye Bye Russia');
+                }
 	            if(FlxG.save.data.DevModeTracing) trace('lemme get back to you');
                 allowSecondControl = false;
-                resetWindow.alpha = resetTxtA.alpha = resetTxtB.alpha = 0;
                 allowControl = true;
             } else if(controls.BACK){
                 allowSecondControl = false;

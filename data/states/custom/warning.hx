@@ -30,7 +30,8 @@ function create()
 
 	for(i => txt in boring)
 	{
-		var poo:FunkinText = new FunkinText(0, 25 + (i * 80), FlxG.width, "", 64);
+		var poo:FunkinText = new FunkinText(0, i * 80, FlxG.width, "", 64);
+		poo.alpha = 0;
 		poo.setFormat(Paths.font("Times New Roman Italic.ttf"), 64, FlxColor.WHITE, FlxTextAlign.CENTER, FlxTextBorderStyle.NONE, FlxColor.BLACK);
 		poo.antialiasing = Options.antialiasing;
 		poo.applyMarkup(txt, [
@@ -38,6 +39,9 @@ function create()
 			new FlxTextFormatMarkerPair(new FlxTextFormat(0xFFFFD900), "|"),
 			new FlxTextFormatMarkerPair(new FlxTextFormat(0xFF00FF00), "/")
 		]);
+		FlxTween.tween(poo, {alpha: 1}, 2, {startDelay: i + 1* 0.5});
+		FlxTween.tween(poo, {y: 25 + i * 80}, 0.8, {startDelay: i + 1 * 0.5}, {ease: FlxEase.elasticInOut});
+
 		add(poo);
 	}
 

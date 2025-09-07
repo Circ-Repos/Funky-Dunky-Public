@@ -75,27 +75,6 @@ function create()
 
 	for(i => song in songs)
 	{
-		var path:String = Paths.image('menus/freeplay/album/' + song.name.toLowerCase());
-		var albumSprite:FlxSprite = new FlxSprite(frame.x, frame.y);
-		if(!Assets.exists(path)) albumSprite.loadGraphic(Paths.image('menus/freeplay/missing'));
-		else albumSprite.loadGraphic(Paths.image('menus/freeplay/album/' + song.name.toLowerCase()));
-		albumSprite.scale.set(0.4, 0.4);
-		albumSprite.updateHitbox();
-		albumSprite.antialiasing = Options.antialiasing;
-		albumSprite.visible = false;
-		albumSprite.ID = i;
-		albumSprite.setPosition(frame.x - 85.1, frame.y - 85.1);
-		albumSprites.push(albumSprite);
-		add(albumSprite);
-
-		var vhs:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menus/freeplay/vhs"));
-		vhs.updateHitbox();
-		if(song.name == 'thonk') vhs.color = 0xFF4DF8; //Why Are You Pink?
-		vhs.scrollFactor.set();
-		vhs.antialiasing = Options.antialiasing;
-		vhsArray.push(vhs);
-		add(vhs);
-
 		var vhsName:String = '???';
 		if(FlxG.save.data.allSongsBeaten || FlxG.save.data.songsBeaten.contains(song.name.toLowerCase()) || song.name.toLowerCase() == 'thonk')
 		{
@@ -117,6 +96,31 @@ function create()
 		nameText.color = FlxColor.BLACK;
 		nameTexts.push(nameText);
 		add(nameText);
+		remove(nameText);
+	
+		var path:String = Paths.image('menus/freeplay/album/' + song.name.toLowerCase());
+		var albumSprite:FlxSprite = new FlxSprite(frame.x, frame.y);
+		if(!Assets.exists(path)) albumSprite.loadGraphic(Paths.image('menus/freeplay/missing'));
+		else albumSprite.loadGraphic(Paths.image('menus/freeplay/album/' + song.name.toLowerCase()));
+		if(vhsName == '???') albumSprite.loadGraphic(Paths.image('menus/freeplay/missing'));
+		albumSprite.scale.set(0.4, 0.4);
+		albumSprite.updateHitbox();
+		albumSprite.antialiasing = Options.antialiasing;
+		albumSprite.visible = false;
+		albumSprite.ID = i;
+		albumSprite.setPosition(frame.x - 85.1, frame.y - 85.1);
+		albumSprites.push(albumSprite);
+		add(albumSprite);
+
+		var vhs:FlxSprite = new FlxSprite().loadGraphic(Paths.image("menus/freeplay/vhs"));
+		vhs.updateHitbox();
+		if(song.name == 'thonk') vhs.color = 0xFF4DF8; //Why Are You Pink?
+		vhs.scrollFactor.set();
+		vhs.antialiasing = Options.antialiasing;
+		vhsArray.push(vhs);
+		add(vhs);
+
+		insert(99, nameText);
 
 		var songName:String = '"???"';
 		if(FlxG.save.data.allSongsBeaten || FlxG.save.data.songsBeaten.contains(song.name.toLowerCase()) || song.name.toLowerCase() == 'thonk')
@@ -143,8 +147,8 @@ function create()
 		var iconName:String = 'locked';
 		if(FlxG.save.data.allSongsBeaten || FlxG.save.data.songsBeaten.contains(song.name.toLowerCase()) || song.name.toLowerCase() == 'thonk')
 			iconName = song.icon;
-
-		var icon:HealthIcon = new HealthIcon(iconName != null ? song.icon : Flags.DEFAULT_HEALTH_ICON, true);
+		if(vhsName == '???') iconName == 'locked';
+		var icon:HealthIcon = new HealthIcon(iconName != null ? iconName : Flags.DEFAULT_HEALTH_ICON, true);
 		icon.scrollFactor.set();
 		icon.antialiasing = Options.antialiasing;
 		icon.flipX = true;
@@ -233,14 +237,15 @@ function create()
 
 var backOut:FlxTimer;
 var backOutScale:FlxTween;
-function popupPreview(songName:String)
+function popupPreview(songName:String, locked:Bool = false)
 {
 	if(backOut != null) backOut.cancel();
 	if(backOutScale != null) backOutScale.cancel();
 
 	songPreviewText.y = 670;
 	songPreviewText.visible = true;
-	songPreviewText.text = "Now playing " + songName + ' Inst';
+	if(!locked) songPreviewText.text = "Now playing " + songName + ' Inst';
+	if(locked) songPreviewText.text = "Song Is Locked, unlock it in Story Mode";
 	FlxTween.tween(songPreviewText, { x: 0, y: 670 }, 0.5, { ease: FlxEase.backOut });
 	backOut = new FlxTimer().start(2.5, function(_) {
 		backOutScale = FlxTween.tween(songPreviewText, { x: 700, y: 670 }, 0.5, {
@@ -260,7 +265,10 @@ function update(elapsed:Float)
 	if(controls.DOWN_P || FlxG.mouse.wheel < 0) changeItem(1);
 	if(controls.UP_P || FlxG.mouse.wheel > 0) changeItem(-1);
 
-	if(FlxG.keys.justPressed.ENTER) selectSong();
+	if(FlxG.keys.justPressed.ENTER) if(songTexts[curSelectedFreeplay].text != '"???"') selectSong();
+	if(FlxG.keys.justPressed.ENTER) if(songTexts[curSelectedFreeplay].text == '"???"') CoolUtil.playMenuSFX(2, 0.7);
+
+
 	if(controls.BACK)
 	{
 		transitioning = true;
@@ -268,7 +276,7 @@ function update(elapsed:Float)
 		new FlxTimer().start(0.6, (_) -> FlxG.switchState(new MainMenuState()));
 	}
 
-	if(FlxG.keys.justPressed.SPACE)
+	if(FlxG.keys.justPressed.SPACE && songTexts[curSelectedFreeplay].text != '"???"')
 	{
 		if(curSongPlaying == curSelectedFreeplay)
 		{
@@ -279,9 +287,16 @@ function update(elapsed:Float)
 		else
 		{
 			curSongPlaying = curSelectedFreeplay;
-			if(songPreviewText.text != "Now playing " + songs[curSelectedFreeplay].displayName + ' Inst') popupPreview(songs[curSelectedFreeplay].displayName);
+			if(songPreviewText.text != "Now playing " + songs[curSelectedFreeplay].displayName + ' Inst') popupPreview(songs[curSelectedFreeplay].displayName, false);
 			FlxG.sound.playMusic(Paths.inst(songs[curSelectedFreeplay].name, "normal"), 1);
 			Conductor.changeBPM(songs[curSelectedFreeplay].bpm, songs[curSelectedFreeplay].beatsPerMeasure, songs[curSelectedFreeplay].stepsPerBeat);
+		}
+	}
+	else{
+		if(FlxG.keys.justPressed.SPACE)
+		if(songTexts[curSelectedFreeplay].text == '"???"'){
+			popupPreview('Error', true);
+			CoolUtil.playMenuSFX(2, 0.7);
 		}
 	}
 }
@@ -307,7 +322,7 @@ function changeItem(change:Int = 0)
 	changeAlbum(songs[curSelectedFreeplay].name);
 	repositionItems();
 
-	if(songs[curSelectedFreeplay].quote != null)
+	if(songs[curSelectedFreeplay].quote != null && songTexts[curSelectedFreeplay].text != '"???"')
 		quoteText.text = '"' + songs[curSelectedFreeplay].quote + '"';
 	else
 		//rip it just uses this when a song is locked
