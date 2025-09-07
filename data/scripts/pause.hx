@@ -6,7 +6,7 @@ import funkin.backend.system.framerate.Framerate;
 import StringTools;
 
 var grpMenuItems:FlxTypedGroup<FlxText>;
-var menuItems:Array<String> = ['resume', 'restart song', 'change controls', 'change options', 'botplay', 'exit to menu'];
+var menuItems:Array<String> = ['resume', 'restart song', 'change controls', 'change options', 'exit to menu'];
 var camPause:FlxCamera;
 var sigmaBlur:BlurFilter;
 
@@ -247,11 +247,6 @@ function confirmSelection(playSound:Bool)
 		case 'change controls':
 			allowInputs = true;
 			selectOption();
-		case 'botplay':
-			allowInputs = true;
-			curBotplay = !curBotplay;
-			updateBotplayText(curSelected);
-			changeSelection(0);
 		case 'restart song':
 			FlxTween.tween(Framerate.offset, {x: 0, y: 0}, 0.3, {ease: FlxEase.quadInOut});
 			grpMenuItems.forEach(function(txt:FlxText) {
@@ -285,7 +280,6 @@ function confirmSelection(playSound:Bool)
 			});
 		default:
 			FlxTween.tween(Framerate.offset, {x: 0, y: 0}, 0.3, {ease: FlxEase.quadInOut});
-			if(menuItems[curSelected] == 'exit to menu') curSelected -= 1;
 			grpMenuItems.forEach(function(txt:FlxText) {
 				FlxTween.cancelTweensOf(txt);
 			});

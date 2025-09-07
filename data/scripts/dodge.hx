@@ -1,5 +1,4 @@
 import flixel.input.keyboard.FlxKey;
-
 var canDodge:Bool = false;
 var dodged:Bool = false;
 var diedToDodge:Bool = false;
@@ -15,23 +14,26 @@ function create() {
     remove(warningFlash, true);
     insert(0, warningFlash);
 }
-
+var notTweened:Bool = true;
 function update() {
-    if (canDodge && FlxG.keys.justPressed.SPACE) {
+    if (canDodge && FlxG.keys.justPressed.SPACE || FlxG.onMobile()) {
         dodged = true;
     }
+    if(canDodge && warningFlash.a-lpha == 0 && notTweened){
+        FlxTween.tween(warningFlash, { alpha: 0.46 }, 0.1, { ease: FlxEase.expoInOut });
+        notTweened = false;
+    } 
+
 }
 
 function beatHit(curBeat:Int) {
-    if(beatCounter == 2) FlxTween.tween(warningFlash, { alpha: 0.46 }, 0.2, { ease: FlxEase.expoInOut });
-
     if (canDodge) {
         beatCounter++;
         warningFlash.alpha = 0;
         //FlxTween.tween(warningFlash, { alpha: 0.46 }, 0.2, { ease: FlxEase.expoInOut });
         //FlxTween.tween(warningFlash, {alpha: 0.5}, 0.25);
         if (beatCounter % beatPerSound == 0) {
-            if(beatCounter == 6) FlxTween.tween(warningFlash, {alpha: 0}, 0.25);
+            if(beatCounter == 8) FlxTween.tween(warningFlash, {alpha: 0}, 0.25);
         }
     }
     else{
@@ -46,15 +48,16 @@ function opponentAttack():Void {
 
     beatCounter = 1;
 
-    new FlxTimer().start(1.35, function(tmr:FlxTimer) {
+    new FlxTimer().start(2.35, function(tmr:FlxTimer) {
         canDodge = false;
         if (!dodged && !player.cpu) { //!player.cpu for botplay lore
             health = -3333;
             FlxG.camera.shake(0.01, 0.2);
             warningFlash.alpha = 0;
         } else {
+            notTweened = true;
             warningFlash.alpha = 0;
-            if(strumLines.members[1].characters[1] != null) strumLines.members[1].characters[1].playAnim('shoot', true, 'SING');
+            if(strumLines.members[1].characters[1] != null) strumLines.members[1].characters[1].playAnim('shoot', true, 'NONE');
             //FlxG.sound.play(Paths.sound('dodge'), 0.5);
         }
     });

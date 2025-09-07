@@ -69,8 +69,10 @@ function update(elapsed)
 {
 	if(!allowInputs) return;
 
-	if(FlxG.keys.justPressed.D) FlxG.save.data.DevMode = !FlxG.save.data.DevMode;
-
+	// if(FlxG.keys.justPressed.D){
+	// 	FlxG.save.data.DevModeFDR = !FlxG.save.data.DevModeFDR;
+	// 	FlxG.save.data.DevMode = !FlxG.save.data.DevModeFDR;
+	// }
 	if(usingMouse)
 	{
 		grpMenuItems.forEach(function(spr:FlxSprite)

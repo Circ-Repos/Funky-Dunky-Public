@@ -219,7 +219,8 @@ function update(elapsed)
 	{
 		if(controls.LEFT_P) changeSelection(-1, true);
 		if(controls.RIGHT_P) changeSelection(1, true);
-		if(controls.ACCEPT) confirmSelection();
+		//uncomment this when we get all URLs added into the xml
+		//if(controls.ACCEPT) confirmSelection(); 
 	}
 
 	if(controls.UP_P || FlxG.mouse.wheel > 0) changeRow(-1, true);
@@ -352,7 +353,7 @@ function confirmSelection()
 
 	allowInputs = false;
 	CoolUtil.playMenuSFX(1, 0.7);
-
+	
 	CoolUtil.openURL(teamData[curSelected][4]);
 	new FlxTimer().start(0.2, (_) -> allowInputs = true);
 }
