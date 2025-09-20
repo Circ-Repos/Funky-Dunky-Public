@@ -1,8 +1,9 @@
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTweenType;
-
+import funkin.menus.WarningState;
 function create()
 {
+
 	clouds = new FlxSprite().loadGraphic(Paths.image("menus/theFUCKINGtitle/sky"));
 	clouds.screenCenter();
 	clouds.scale.set(0.55, 0.55);
@@ -50,10 +51,17 @@ function create()
 	CoolUtil.playMusic(Paths.music("titlescreen-ambience"), false, 0, true);
 	FlxG.sound.music.fadeIn(1, 0, 1);
 }
+function postCreate() {
 
+}
 var accepted:Bool = false;
 function update()
 {
+	if(!FlxG.save.data.seenWarning)
+	{
+		FlxG.switchState(new WarningState());
+	}
+
 	if(controls.ACCEPT && !accepted)
 	{
 		accepted = true;

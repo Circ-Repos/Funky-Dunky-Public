@@ -13,7 +13,6 @@ var subMenu = [
     'ControlsOptions',
     'GameplayOptions',
     'AppearenceOptions',
-    'DevOptions'
 ];
 
 function create()
@@ -26,7 +25,6 @@ function create()
         else CoolUtil.playMenuSong(false);
     }
 
-    if(FlxG.save.data.DevMode) optionsMaxNum = 4;
     bg = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xFF6617B5);
     insert(0, bg);
 
@@ -37,8 +35,7 @@ function create()
     selectedOption =  new FlxSprite(40, 210).makeGraphic(1086, 75, 0xFF470C60);
     insert(1, selectedOption);
 
-    settingsOptions = new FlxText(50, 210, FlxG.width, 'CONTROLS\nGAMEPLAY\nAPPEARANCE\nDEV STUFF\nRESET DATA', 20);
-    if(!FlxG.save.data.DevMode) settingsOptions.text = 'CONTROLS\nGAMEPLAY\nAPPEARANCE\nRESET DATA';
+    settingsOptions = new FlxText(50, 210, FlxG.width, 'CONTROLS\nGAMEPLAY\nAPPEARANCE\nRESET DATA', 20);
     settingsOptions.setFormat(Paths.font('vcr.ttf'), 75, 0xFFffcaec, 'left', FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
     insert(2, settingsOptions);
 
@@ -98,12 +95,10 @@ function update(elapsed){
                     FlxG.save.data.weeksBeaten = [];
                     FlxG.save.data.allSongsBeaten = false;
                     FlxG.save.data.seenWarning = false;
-                    resetWindow.alpha = resetTxtA.alpha = resetTxtB.alpha = 0;
+                    FlxG.camera.alpha = 0;
                     FlxG.sound.music.stop();
                     FlxG.switchState(new WarningState());
-	                if(FlxG.save.data.DevModeTracing) trace('Bye Bye Russia');
                 }
-	            if(FlxG.save.data.DevModeTracing) trace('lemme get back to you');
                 allowSecondControl = false;
                 allowControl = true;
             } else if(controls.BACK){
@@ -119,7 +114,6 @@ function update(elapsed){
 }
 var the2ndToLastOption:Int = 2;
 function changeItem(bleh){
-    if(FlxG.save.data.DevMode) the2ndToLastOption = 3;
     if(optionNum > the2ndToLastOption && controls.DOWN_P) optionNum = 0;
     else if(optionNum < 1 && controls.UP_P) optionNum = optionsMaxNum; 
     else optionNum += bleh;

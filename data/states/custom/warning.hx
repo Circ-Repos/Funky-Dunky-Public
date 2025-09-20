@@ -5,9 +5,9 @@ import flixel.text.FlxTextFormatMarkerPair;
 import flixel.text.FlxTextBorderStyle;
 import flixel.addons.display.FlxBackdrop;
 import flixel.addons.display.FlxGridOverlay;
-
+var theVis:Int = 0;
 var leaving:Bool = true;
-
+var textGroup:Array<FunkinText> = [];
 function create()
 {
 	var bg:FlxBackdrop = new FlxBackdrop(FlxGridOverlay.createGrid(80, 80, 160, 160, true, 0xFFBBBBBB, 0xFF000000));
@@ -41,8 +41,10 @@ function create()
 		]);
 		FlxTween.tween(poo, {alpha: 1}, 2, {startDelay: i + 1* 0.5});
 		FlxTween.tween(poo, {y: 25 + i * 80}, 0.8, {startDelay: i + 1 * 0.5}, {ease: FlxEase.elasticInOut});
-
+		poo.ID = i;
+		textGroup.push(poo);
 		add(poo);
+	
 	}
 
 	FlxG.camera.fade(FlxColor.BLACK, 1, true, () -> leaving = false);
@@ -50,14 +52,18 @@ function create()
 
 function update()
 {
-	//idk why, but putting it in update works
+	for(i in 0...textGroup.length - 1)
+	{
+		if(textGroup[7].alpha == 1) theVis = 1;
+	}
+
 	if(FlxG.save.data.seenWarning)
 	{
 		leaving = true;
 		FlxG.switchState(new TitleState());
 	}
 	if(leaving) return;
-	if(controls.ACCEPT) iReadTheTermsOfServiceAndAgreeToAllMyDataBeingStolenForIllegalPurposes();
+	if(controls.ACCEPT && theVis == 1) iReadTheTermsOfServiceAndAgreeToAllMyDataBeingStolenForIllegalPurposes();
 }
 
 function iReadTheTermsOfServiceAndAgreeToAllMyDataBeingStolenForIllegalPurposes()
