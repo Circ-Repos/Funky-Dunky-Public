@@ -109,7 +109,7 @@ function postCreate(){
 	tvlight.blend = BlendMode.ADD;
 
 	tutorialText = new FlxText(0,350,0, 'When The Screen Flashes Yellow, \nPress SPACE to Shoot The Alternate!', 48);
-	if(Flx.onMobile) tutorialText.text = 'When The Screen Flashes Yellow, \nShoot the Alternate \n(Usually you press space, but you are on mobile)';
+	if(FlxG.onMobile) tutorialText.text = 'When The Screen Flashes Yellow, \nShoot the Alternate \n(Usually you press space, but you are on mobile)';
 	tutorialText.font = Paths.font('Times New Roman Italic.ttf');
 	tutorialText.italic = true;
 	tutorialText.underline = true;

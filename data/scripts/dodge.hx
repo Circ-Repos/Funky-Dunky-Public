@@ -14,12 +14,13 @@ function create() {
     remove(warningFlash, true);
     insert(0, warningFlash);
 }
+var balls:Bool = false;
 var notTweened:Bool = true;
 function update() {
-    if (canDodge && FlxG.keys.justPressed.SPACE || FlxG.onMobile()) {
+    if (canDodge && FlxG.keys.justPressed.SPACE || FlxG.onMobile() || balls) {
         dodged = true;
     }
-    if(canDodge && warningFlash.a-lpha == 0 && notTweened){
+    if(canDodge && warningFlash.alpha == 0 && notTweened){
         FlxTween.tween(warningFlash, { alpha: 0.46 }, 0.1, { ease: FlxEase.expoInOut });
         notTweened = false;
     } 

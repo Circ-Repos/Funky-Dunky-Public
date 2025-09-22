@@ -74,7 +74,7 @@ function createSplash() {
 function typeTitle() {
     titleText.text += fullTitle.charAt(titleIndex);
     titleIndex++;
-
+    titleText.screenCenter(FlxAxes.X);
     if (titleIndex >= fullTitle.length) {
         delayTimer.start(3, function(_) {
             FlxTween.tween(titleText, {alpha: 0}, 3.6);
@@ -99,6 +99,8 @@ function typeNextLetter():Void {
         titleText.text += fullTitle.charAt(titleIndex);
         titleIndex++;
         letterTimer.start(0.025, function(_) typeNextLetter());
+        titleText.screenCenter(FlxAxes.X);
+
     } else {
         FlxG.sound.play(Paths.sound('textNoise'));
         FlxG.sound.music.volume = 1;
